@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class RobotManager : Singleton<RobotManager>
 {
+    [Header("Unit Data")]
+    [SerializeField] private RobotAirCraft _roboatAirCraft = null;
+    [SerializeField] private RobotAntiAir  _robotAntiAir = null;
+    [SerializeField] private RobotMecha _robotMecha = null;
+    [SerializeField] private RobotTank _robotTank = null;
+
     // Start is called before the first frame update
     void Start()
     {

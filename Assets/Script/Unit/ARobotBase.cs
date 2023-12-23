@@ -12,6 +12,19 @@ public abstract class ARobotBase : MonoBehaviour
     [SerializeField] protected float _healthMin = 0;
     [SerializeField] protected float _healthCurrent = 0;
 
+    [Header("Unit")]
+    [SerializeField] protected EUnitType _unitType = EUnitType.NONE;
+    [SerializeField] protected EUnitFaction _unitFaction = EUnitFaction.NONE;
+
+    [Header("Configuration")]
+    [SerializeField] protected float _unitDamage = 0f;
+    [SerializeField] protected float _unitRange = 0f;
+    [SerializeField] protected float _unitSpeed = 0f;
+
+    [Header("Production")]
+    [SerializeField] protected int _unitCost = 0;
+    [SerializeField] protected int _unitProductionTime = 0;
+
     #endregion ATTRIBUTS
 
     #region METHODE

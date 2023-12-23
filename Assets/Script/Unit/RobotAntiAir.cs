@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotSoldier : ARobotBase
+public class RobotAntiAir : ARobotBase
 {
     public override void Attack()
     {
@@ -24,5 +24,4 @@ public class RobotSoldier : ARobotBase
         HealthUpdate(0);
         throw new System.NotImplementedException();
     }
-
 }
