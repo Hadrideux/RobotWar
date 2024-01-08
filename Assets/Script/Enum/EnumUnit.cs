@@ -12,6 +12,7 @@ public enum EUnitType
     MECHA,
     TANK,
     AIRCRAFT,
+    ANTIAIR,
 }
 
 public enum EUnitFaction

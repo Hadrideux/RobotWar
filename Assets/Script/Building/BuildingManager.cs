@@ -11,10 +11,9 @@ public class BuildingManager : Singleton<BuildingManager>
     [SerializeField] private List<ManufactureController> _manufactureCount = new List<ManufactureController>();
     [SerializeField] private List<FactoryController> _factoryCount = new List<FactoryController>();
 
-    
-
     #endregion ATTRIBUTS
 
+    /*
     #region PROPERTIES
 
     public List<ManufactureController> ManufactureCount
@@ -36,7 +35,7 @@ public class BuildingManager : Singleton<BuildingManager>
     }
 
     #endregion PROPERTIES
-
+    */
     #region EVENT
 
     private event Action _onManufactureAdd = null;
@@ -67,14 +66,12 @@ public class BuildingManager : Singleton<BuildingManager>
     }
 
     #endregion EVENT
-
     #region MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        _onManufactureAdd();
-        _onFactoryAdd();
+
     }
 
     // Update is called once per frame

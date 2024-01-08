@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class RobotTank : ARobotBase
 {
-    public override void Attack()
+    #region METHODE ABSTRACT
+
+    public override void AttackDamage()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void MovementUnit()
     {
-        throw new System.NotImplementedException();
-    }
 
-    public override void ProductionCost()
-    {
-        throw new System.NotImplementedException();
     }
 
     public override void TakeDamage()
     {
         HealthUpdate(0);
-        throw new System.NotImplementedException();
     }
+
+    #endregion METHODE ABSTRACT
 }

@@ -12,7 +12,8 @@ public class BaseManager : Singleton<BaseManager>
     [SerializeField] private float _baseHealthCurrent = 0;
 
     [Header("Ressource")]
-    [SerializeField] private int _ressourceCount = 0;
+    [SerializeField] private int _allyRessource = 0;
+    [SerializeField] private int _ennemyRessource = 0;
 
     #endregion ATTRIBUTS
 
@@ -27,12 +28,21 @@ public class BaseManager : Singleton<BaseManager>
         }
     }
 
-    public int RessourCount
+    public int AllyRessource
     {
-        get => _ressourceCount;
+        get => _allyRessource;
         set
         {
-            _ressourceCount = Mathf.Clamp(value, 0, int.MaxValue);
+            _allyRessource = Mathf.Clamp(value, 0, int.MaxValue);
+        }
+    }
+
+    public int EnnemyRessource
+    {
+        get => _ennemyRessource;
+        set
+        {
+            _ennemyRessource = Mathf.Clamp(value, 0, int.MaxValue);
         }
     }
 

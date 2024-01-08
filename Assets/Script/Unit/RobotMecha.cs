@@ -1,28 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RobotMecha : ARobotBase
 {
-    public override void Attack()
+    private void Start()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    private void Update()
+    {
+        MovementUnit();
+    }
+
+    #region METHODE ABSTRACT
+
+    public override void AttackDamage()
+    {
+
     }
 
     public override void MovementUnit()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ProductionCost()
-    {
-        throw new System.NotImplementedException();
+        float randomPoint = Random.Range(0, 100);
+        float randomPoint2 = Random.Range(0, 100);
+        Vector3 destination = new Vector3(randomPoint, transform.position.y, randomPoint2);
+        GetComponent<NavMeshAgent>().SetDestination(destination);
     }
 
     public override void TakeDamage()
     {
         HealthUpdate(0);
-        throw new System.NotImplementedException();
     }
 
+    #endregion METHODE ABSTRACT
 }

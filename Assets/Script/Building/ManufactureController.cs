@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class ManufactureController : ABuildingBase
 {
+    [SerializeField] private float _productionComplete = 0f;
     #region MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        BuildingManager.Instance.OnManufactureAdd += IncreseRate;
-        BuildingManager.Instance.ManufactureCount.Add(this);
+        /*BuildingManager.Instance.OnManufactureAdd += IncreseRate;
+        BuildingManager.Instance.ManufactureCount.Add(this);*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProductionRate();
+        ProductionTime();
     }
 
     private void OnDestroy()
@@ -33,13 +34,10 @@ public class ManufactureController : ABuildingBase
     #region METHODE ABRSTRACT
     public override void IncreseRate()
     {
-        for (int i = 0; i < BuildingManager.Instance.ManufactureCount.Count; i++)
-        {
-            _productionRate = BuildingManager.Instance.ManufactureCount.Count;
-        }
+        _productionRate += _tierLevel;
     }
    
-    public override void ProductionRate()
+    public override void ProductionTime()
     {
         _productionTime += Time.deltaTime * _productionRate;
 
@@ -52,13 +50,34 @@ public class ManufactureController : ABuildingBase
 
     public override void ProductionType()
     {
-        BaseManager.Instance.RessourCount++;
+        switch (_buildingFaction)
+        {
+            case EBuildingFaction.ALLY:
+                BaseManager.Instance.AllyRessource++;
+                break;
+            case EBuildingFaction.ENNEMY:
+                BaseManager.Instance.EnnemyRessource++;
+                break;
+            default: 
+                break;
+        }
+        
     }
-
 
     public override void BuildingCaptured()
     {
-
+        switch (_buildingType)
+        {
+            case EBuildingType.FACTORY:
+                Debug.Log(_buildingType);
+                break;
+            case EBuildingType.PRODUCTION:
+                Debug.Log(_buildingType);
+                break;
+            default:
+                Debug.Log(_buildingType);
+                break;
+        }
     }
 
 

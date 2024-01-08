@@ -431,10 +431,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a2d415b7f148d40a4d455a7bb6da9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roboatAirCraft: {fileID: 0}
-  _robotAntiAir: {fileID: 0}
-  _robotMecha: {fileID: 0}
-  _robotTank: {fileID: 0}
+  _unitType: 0
+  _roboatAirCraft: {fileID: 6274979693816126542, guid: 97cf8884b150bf045a60a8970466cc2d, type: 3}
+  _robotAntiAir: {fileID: 8082037895172778911, guid: e8f7f13dfd396d946bb65ed5c0f0a2ce, type: 3}
+  _robotMecha: {fileID: 6841300013088148860, guid: 186022a3355ca5d42afd0190cd5e265e, type: 3}
+  _robotTank: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class ARobotBase : MonoBehaviour
 {
-
     #region ATTRIBUTS
 
     [Header("Health")]
@@ -23,9 +22,17 @@ public abstract class ARobotBase : MonoBehaviour
 
     [Header("Production")]
     [SerializeField] protected int _unitCost = 0;
-    [SerializeField] protected int _unitProductionTime = 0;
+    [SerializeField] protected float _unitManufactureTime = 0;
 
     #endregion ATTRIBUTS
+
+    #region PROPERTIES
+
+    public int UnitCost => _unitCost;
+
+    public float UnitManufactureTime => _unitManufactureTime;
+
+    #endregion PROPERTIES
 
     #region METHODE
 
@@ -34,15 +41,18 @@ public abstract class ARobotBase : MonoBehaviour
         _healthCurrent = Mathf.Clamp(damage, _healthMin, _healthMax);
     }
 
+    public void ProductionCost()
+    {
+
+    }
+
     #endregion METHODE
 
     #region ABSTRACT METHODE
 
-    abstract public void ProductionCost();
-
     abstract public void MovementUnit();
 
-    abstract public void Attack();
+    abstract public void AttackDamage();
 
     abstract public void TakeDamage();
 
