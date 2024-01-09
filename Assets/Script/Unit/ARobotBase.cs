@@ -13,7 +13,7 @@ public abstract class ARobotBase : MonoBehaviour
 
     [Header("Unit")]
     [SerializeField] protected EUnitType _unitType = EUnitType.NONE;
-    [SerializeField] protected EUnitFaction _unitFaction = EUnitFaction.NONE;
+    [SerializeField] protected EFaction _unitFaction = EFaction.NONE;
 
     [Header("Configuration")]
     [SerializeField] protected float _unitDamage = 0f;
@@ -31,6 +31,12 @@ public abstract class ARobotBase : MonoBehaviour
     public int UnitCost => _unitCost;
 
     public float UnitManufactureTime => _unitManufactureTime;
+
+    public EFaction UnitFaction
+    {
+        get => _unitFaction; 
+        set => _unitFaction = value;
+    }
 
     #endregion PROPERTIES
 

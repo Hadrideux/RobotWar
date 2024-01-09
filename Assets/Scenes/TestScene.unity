@@ -3772,8 +3772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055e65c14f6cdc746854369238be219f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraController: {fileID: 1372089361}
-  _playerInteraction: {fileID: 1372089358}
 --- !u!114 &1372089361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38424,6 +38422,10 @@ PrefabInstance:
       propertyPath: _mechaContainer
       value: 
       objectReference: {fileID: 272624799}
+    - target: {fileID: 3920786971375761445, guid: c18384b799b46294d82a34daa5c84715, type: 3}
+      propertyPath: _buildingFaction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3920786971375761445, guid: c18384b799b46294d82a34daa5c84715, type: 3}
       propertyPath: _antiAirContainer
       value: 

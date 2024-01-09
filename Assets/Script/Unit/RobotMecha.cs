@@ -7,12 +7,12 @@ public class RobotMecha : ARobotBase
 {
     private void Start()
     {
-
+        MovementUnit();
     }
 
     private void Update()
     {
-        MovementUnit();
+        
     }
 
     #region METHODE ABSTRACT
