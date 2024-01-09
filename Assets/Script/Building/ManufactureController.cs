@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManufactureController : ABuildingBase
 {
     [SerializeField] private float _productionComplete = 0f;
+    
     #region MONO
 
     // Start is called before the first frame update
@@ -52,13 +53,20 @@ public class ManufactureController : ABuildingBase
     {
         switch (_buildingFaction)
         {
-            case EBuildingFaction.ALLY:
+            case EFaction.ALLY:
+
                 BaseManager.Instance.AllyRessource++;
+                
                 break;
-            case EBuildingFaction.ENNEMY:
+
+            case EFaction.ENNEMY:
+
                 BaseManager.Instance.EnnemyRessource++;
+                
                 break;
+
             default: 
+                
                 break;
         }
         
@@ -68,18 +76,22 @@ public class ManufactureController : ABuildingBase
     {
         switch (_buildingType)
         {
-            case EBuildingType.FACTORY:
+            case EBuildingType.FACTORY:                
                 Debug.Log(_buildingType);
+                
                 break;
-            case EBuildingType.PRODUCTION:
+
+            case EBuildingType.PRODUCTION:                
                 Debug.Log(_buildingType);
+                
                 break;
+
             default:
                 Debug.Log(_buildingType);
+                
                 break;
         }
     }
-
 
     #endregion METHODE ABSTRACT
 }

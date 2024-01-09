@@ -22,6 +22,7 @@ public class FactoryController : ABuildingBase
         /*BuildingManager.Instance.OnFactoryAdd += IncreseRate;
         BuildingManager.Instance.FactoryCount.Add(this);*/
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -54,28 +55,40 @@ public class FactoryController : ABuildingBase
         {
             case EUnitType.TANK:
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotTank.UnitCost);
-                Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _tankContainer);
+                
+                RobotTank robotTank = Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _tankContainer);
+                robotTank.UnitFaction = _buildingFaction;
+                
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotTank.UnitCost;
                 
                 break;
 
             case EUnitType.AIRCRAFT:
-                    Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAirCraft.UnitCost);
-                    Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _airCraftContainer);
-                    BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAirCraft.UnitCost;
+                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAirCraft.UnitCost);
+                
+                RobotAirCraft roboAirCraft = Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _airCraftContainer);
+                roboAirCraft.UnitFaction = _buildingFaction;
+                
+                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAirCraft.UnitCost;
                 
                 break;
 
             case EUnitType.MECHA :
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotMecha.UnitCost);
-                Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _mechaContainer);
+                
+                RobotMecha robotMecha = Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _mechaContainer);
+                robotMecha.UnitFaction = _buildingFaction;
+
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotMecha.UnitCost;
                 
                 break;
 
             case EUnitType.ANTIAIR:
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAntiAir.UnitCost);
-                Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _antiAirContainer);
+                
+                RobotAntiAir robotAntiAir = Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _antiAirContainer);
+                robotAntiAir.UnitFaction = _buildingFaction;
+
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAntiAir.UnitCost;
                 
                 break;
@@ -137,6 +150,7 @@ public class FactoryController : ABuildingBase
 
             default:
                 Debug.Log(EUnitType.NONE);
+                
                 break;
         }
     }

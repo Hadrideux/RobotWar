@@ -36,6 +36,7 @@ public class BuildingManager : Singleton<BuildingManager>
 
     #endregion PROPERTIES
     */
+
     #region EVENT
 
     private event Action _onManufactureAdd = null;
@@ -66,6 +67,7 @@ public class BuildingManager : Singleton<BuildingManager>
     }
 
     #endregion EVENT
+    
     #region MONO
 
     // Start is called before the first frame update

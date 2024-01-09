@@ -15,7 +15,7 @@ public enum EUnitType
     ANTIAIR,
 }
 
-public enum EUnitFaction
+public enum EFaction
 {
     NONE,
     ALLY,

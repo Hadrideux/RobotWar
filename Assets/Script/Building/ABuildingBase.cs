@@ -6,7 +6,7 @@ public abstract class ABuildingBase : MonoBehaviour
 {
     [Header("Building Type")]
     [SerializeField] protected EBuildingType _buildingType = EBuildingType.NONE;
-    [SerializeField] protected EBuildingFaction _buildingFaction = EBuildingFaction.NONE;
+    [SerializeField] protected EFaction _buildingFaction = EFaction.NONE;
 
     [Header("Building Production")]
     [SerializeField] protected int _productionRate = 1;
