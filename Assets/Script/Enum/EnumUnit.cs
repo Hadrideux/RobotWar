@@ -4,7 +4,6 @@
 ///  Enumerator of the unit type and faction membership
 /// </summary>
 /// 
-#region ENUM UNIT
 
 public enum EUnitType
 {
@@ -14,12 +13,3 @@ public enum EUnitType
     AIRCRAFT,
     ANTIAIR,
 }
-
-public enum EFaction
-{
-    NONE,
-    ALLY,
-    ENNEMY,
-}
-
-#endregion ENUM UNIT

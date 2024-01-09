@@ -17,7 +17,7 @@ public abstract class ARobotBase : MonoBehaviour
 
     [Header("Configuration")]
     [SerializeField] protected float _unitDamage = 0f;
-    [SerializeField] protected float _unitRange = 0f;
+    [SerializeField] protected float _unitAttackRange = 0f;
     [SerializeField] protected float _unitSpeed = 0f;
 
     [Header("Production")]

@@ -1,9 +1,8 @@
 /// 
 /// <summary>
-///  Enumerator of the buoilding type and faction membership
+///  Enumerator of the building type and faction membership
 /// </summary>
 /// 
-#region ENUM UNIT
 
 public enum EBuildingType
 {
@@ -11,12 +10,3 @@ public enum EBuildingType
     FACTORY,
     PRODUCTION,
 }
-
-public enum EBuildingFaction
-{
-    NONE,
-    ALLY,
-    ENNEMY,
-}
-
-#endregion ENUM UNIT
