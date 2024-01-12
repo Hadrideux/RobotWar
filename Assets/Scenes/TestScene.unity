@@ -6590,6 +6590,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 272624799}
     - target: {fileID: 3803668990419330653, guid: 1b5dd092304f6f34f9fc6a112904d1d1, type: 3}
+      propertyPath: _robotContainer
+      value: 
+      objectReference: {fileID: 1349263412}
+    - target: {fileID: 3803668990419330653, guid: 1b5dd092304f6f34f9fc6a112904d1d1, type: 3}
       propertyPath: _antiAirContainer
       value: 
       objectReference: {fileID: 1349263412}
@@ -38330,6 +38334,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 272624799}
     - target: {fileID: 4559897502450395444, guid: dfe2a3aed1525144aaf6bfbad1a3c789, type: 3}
+      propertyPath: _robotContainer
+      value: 
+      objectReference: {fileID: 1889728281}
+    - target: {fileID: 4559897502450395444, guid: dfe2a3aed1525144aaf6bfbad1a3c789, type: 3}
       propertyPath: _antiAirContainer
       value: 
       objectReference: {fileID: 1349263412}
@@ -38438,6 +38446,10 @@ PrefabInstance:
       propertyPath: _mechaContainer
       value: 
       objectReference: {fileID: 272624799}
+    - target: {fileID: 3920786971375761445, guid: c18384b799b46294d82a34daa5c84715, type: 3}
+      propertyPath: _robotContainer
+      value: 
+      objectReference: {fileID: 924184355}
     - target: {fileID: 3920786971375761445, guid: c18384b799b46294d82a34daa5c84715, type: 3}
       propertyPath: _buildingFaction
       value: 1
@@ -38606,6 +38618,10 @@ PrefabInstance:
       objectReference: {fileID: 1889728281}
     - target: {fileID: 6689001036690208235, guid: 0a8b2908ded8635489fa701def68a7a6, type: 3}
       propertyPath: _mechaContainer
+      value: 
+      objectReference: {fileID: 272624799}
+    - target: {fileID: 6689001036690208235, guid: 0a8b2908ded8635489fa701def68a7a6, type: 3}
+      propertyPath: _robotContainer
       value: 
       objectReference: {fileID: 272624799}
     - target: {fileID: 6689001036690208235, guid: 0a8b2908ded8635489fa701def68a7a6, type: 3}

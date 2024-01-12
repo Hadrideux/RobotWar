@@ -4,16 +4,7 @@ using UnityEngine;
 
 public class FactoryController : ABuildingBase
 {
-    [Header("Facotry Production")]
-    [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
-
-    [Header("")]
-    [SerializeField] private Transform _spawnUnit = null;
-    [SerializeField] private Transform _mechaContainer = null;
-    [SerializeField] private Transform _tankContainer = null;
-    [SerializeField] private Transform _antiAirContainer = null;
-    [SerializeField] private Transform _airCraftContainer = null;
-
+    
     #region MONO
 
     // Start is called before the first frame update
@@ -41,7 +32,49 @@ public class FactoryController : ABuildingBase
     #endregion MONO
 
     #region METHODE ABRSTRACT
+    protected override void BuildingCaptured()
+    {
+        //Si unité alliè > unité ennemie capture en faveur des alliès
+        //Si unité alliè < unité ennemie capture en faveur des ennemeis
 
+        switch (_buildingType)
+        {
+            case EBuildingType.FACTORY:
+                Debug.Log(_buildingType);
+
+                break;
+
+            case EBuildingType.PRODUCTION:
+                Debug.Log(_buildingType);
+
+                break;
+
+            default:
+                Debug.Log(_buildingType);
+                break;
+        }
+    }
+
+    #endregion METHODE ABSTRACT
+}
+
+/*
+    IEnumerator Production()
+    {
+        _productionTime += Time.deltaTime * _productionRate;
+
+        yield return new WaitForSeconds(_productionComplete);
+        if (BaseManager.Instance.RessourCount >= _productionCost)
+        {
+            ProductionType();
+        }
+        _productionTime = 0;
+        Debug.Log("Production Complete");
+        StartCoroutine(Production());
+    }    
+*/
+
+/* 
     public override void IncreseRate()
     {
         _productionRate += _tierLevel;
@@ -49,14 +82,13 @@ public class FactoryController : ABuildingBase
 
     public override void ProductionType()
     {
-        
         //Spawn produced Unit 
         switch (_unitProduction)
         {
             case EUnitType.TANK:
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotTank.UnitCost);
                 
-                RobotTank robotTank = Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _tankContainer);
+                RobotTank robotTank = Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _robotContainer);
                 robotTank.UnitFaction = _buildingFaction;
                 
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotTank.UnitCost;
@@ -66,7 +98,7 @@ public class FactoryController : ABuildingBase
             case EUnitType.AIRCRAFT:
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAirCraft.UnitCost);
                 
-                RobotAirCraft roboAirCraft = Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _airCraftContainer);
+                RobotAirCraft roboAirCraft = Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _robotContainer);
                 roboAirCraft.UnitFaction = _buildingFaction;
                 
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAirCraft.UnitCost;
@@ -76,7 +108,7 @@ public class FactoryController : ABuildingBase
             case EUnitType.MECHA :
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotMecha.UnitCost);
                 
-                RobotMecha robotMecha = Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _mechaContainer);
+                RobotMecha robotMecha = Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _robotContainer);
                 robotMecha.UnitFaction = _buildingFaction;
 
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotMecha.UnitCost;
@@ -86,7 +118,7 @@ public class FactoryController : ABuildingBase
             case EUnitType.ANTIAIR:
                 Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAntiAir.UnitCost);
                 
-                RobotAntiAir robotAntiAir = Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _antiAirContainer);
+                RobotAntiAir robotAntiAir = Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _robotContainer);
                 robotAntiAir.UnitFaction = _buildingFaction;
 
                 BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAntiAir.UnitCost;
@@ -153,51 +185,6 @@ public class FactoryController : ABuildingBase
                 
                 break;
         }
-    }
-
-    public override void BuildingCaptured()
-    {
-        //Si unité alliè > unité ennemie capture en faveur des alliès
-        //Si unité alliè < unité ennemie capture en faveur des ennemeis
-
-        switch (_buildingType)
-        {
-            case EBuildingType.FACTORY:
-                Debug.Log(_buildingType);
-                
-                break;
-            
-            case EBuildingType.PRODUCTION:
-                Debug.Log(_buildingType);
-                
-                break;
-            
-            default:
-                Debug.Log(_buildingType);
-                break;
-        }
-    }
-
-    #endregion METHODE ABSTRACT
-
-}
-
-/*
-    private void InstantiateUnit(RobotManager unitChoice, GameObject spawnPoint)
-    {
-        Instantiate(unitChoice.Instance.RobotAntiAir, _spawnPointUnit.transform.position, _spawnPointUnit.transform.rotation);
-    }
-    IEnumerator Production()
-    {
-        _productionTime += Time.deltaTime * _productionRate;
-
-        yield return new WaitForSeconds(_productionComplete);
-        if (BaseManager.Instance.RessourCount >= _productionCost)
-        {
-            ProductionType();
-        }
-        _productionTime = 0;
-        Debug.Log("Production Complete");
-        StartCoroutine(Production());
     }    
+
 */

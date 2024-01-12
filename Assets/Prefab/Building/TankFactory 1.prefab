@@ -10033,7 +10033,4 @@ MonoBehaviour:
   _captureTime: 0
   _unitProduction: 2
   _spawnUnit: {fileID: 7599353631159498253}
-  _mechaContainer: {fileID: 0}
-  _tankContainer: {fileID: 0}
-  _antiAirContainer: {fileID: 0}
-  _airCraftContainer: {fileID: 0}
+  _robotContainer: {fileID: 7599353631159498253}

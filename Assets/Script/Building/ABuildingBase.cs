@@ -9,8 +9,13 @@ public abstract class ABuildingBase : MonoBehaviour
     [SerializeField] protected EFaction _buildingFaction = EFaction.NONE;
 
     [Header("Building Production")]
+    [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
     [SerializeField] protected int _productionRate = 1;
     [SerializeField] protected float _productionTime = 0;
+
+    [Header("")]
+    [SerializeField] private Transform _spawnUnit = null;
+    [SerializeField] private Transform _robotContainer = null;
 
     [Header("Tier Level")]
     [SerializeField] protected int _tierLevel = 0;
@@ -18,13 +23,13 @@ public abstract class ABuildingBase : MonoBehaviour
     [Header("Capture")]
     [SerializeField] protected float _captureTime = 0;
 
-    abstract public void ProductionType();
+    abstract protected void ProductionType();
 
-    abstract public void ProductionTime();
+    abstract protected void ProductionTime();
 
-    abstract public void IncreseRate();
+    abstract protected void IncreseRate();
 
-    abstract public void BuildingCaptured();
+    abstract protected void BuildingCaptured();
 
     #region MONO
 
