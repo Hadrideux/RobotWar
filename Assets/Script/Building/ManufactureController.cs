@@ -4,36 +4,33 @@ using UnityEngine;
 
 public class ManufactureController : ABuildingBase
 {
+    #region ABSTRACT METHODE
+
+    protected override void ChangeFaction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UpdateBuildingCapture()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UpdateProductionTime()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UpdateRateProduction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion ASBTRACT METHODE
+}
+/*
     [SerializeField] private float _productionComplete = 0f;
-    
-    #region MONO
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        /*BuildingManager.Instance.OnManufactureAdd += IncreseRate;
-        BuildingManager.Instance.ManufactureCount.Add(this);*/
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        ProductionTime();
-    }
-
-    private void OnDestroy()
-    {
-        BuildingManager.Instance.OnManufactureAdd -= IncreseRate;
-    }
-    private void OnApplicationQuit()
-    {
-        BuildingManager.Instance.OnManufactureAdd -= IncreseRate;
-    }
-
-    #endregion MONO
-
-    #region METHODE ABRSTRACT
-    public override void IncreseRate()
+ *  public override void IncreseRate()
     {
         _productionRate += _tierLevel;
     }
@@ -91,7 +88,4 @@ public class ManufactureController : ABuildingBase
                 
                 break;
         }
-    }
-
-    #endregion METHODE ABSTRACT
-}
+    }*/

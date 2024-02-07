@@ -4,32 +4,24 @@ using UnityEngine;
 
 public abstract class ABuildingBase : MonoBehaviour
 {
-    [Header("Building Type")]
+    #region ATTRIBUTS
+
+    [Header("Buildding Type")]
     [SerializeField] protected EBuildingType _buildingType = EBuildingType.NONE;
     [SerializeField] protected EFaction _buildingFaction = EFaction.NONE;
 
-    [Header("Building Production")]
-    [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
+    [Header("Building Level")]
+    [SerializeField] protected int _buildingLevel = 0;
+    
+    [Header("Production")]
     [SerializeField] protected int _productionRate = 1;
     [SerializeField] protected float _productionTime = 0;
 
-    [Header("")]
-    [SerializeField] private Transform _spawnUnit = null;
-    [SerializeField] private Transform _robotContainer = null;
-
-    [Header("Tier Level")]
-    [SerializeField] protected int _tierLevel = 0;
 
     [Header("Capture")]
     [SerializeField] protected float _captureTime = 0;
 
-    abstract protected void ProductionType();
-
-    abstract protected void ProductionTime();
-
-    abstract protected void IncreseRate();
-
-    abstract protected void BuildingCaptured();
+    #endregion ATTRIBUTS
 
     #region MONO
 
@@ -46,4 +38,16 @@ public abstract class ABuildingBase : MonoBehaviour
     }
 
     #endregion MONO
+
+    #region METHODE
+
+    abstract protected void UpdateProductionTime();
+
+    abstract protected void UpdateRateProduction();
+
+    abstract protected void UpdateBuildingCapture();
+
+    abstract protected void ChangeFaction();
+
+    #endregion METHODE
 }

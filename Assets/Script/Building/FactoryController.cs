@@ -4,58 +4,90 @@ using UnityEngine;
 
 public class FactoryController : ABuildingBase
 {
-    
-    #region MONO
+    [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform _spawnUnit = null;
+    [SerializeField] private Transform _robotContainer = null;
+
+    #region METHODE
+
+    private void SetProductionType()
     {
-        /*BuildingManager.Instance.OnFactoryAdd += IncreseRate;
-        BuildingManager.Instance.FactoryCount.Add(this);*/
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        ProductionTime();
-    }
-
-    private void OnDestroy()
-    {
-        BuildingManager.Instance.OnFactoryAdd -= IncreseRate;
-    }
-    private void OnApplicationQuit()
-    {
-        BuildingManager.Instance.OnFactoryAdd -= IncreseRate;
-    }
-
-    #endregion MONO
-
-    #region METHODE ABRSTRACT
-    protected override void BuildingCaptured()
-    {
-        //Si unité alliè > unité ennemie capture en faveur des alliès
-        //Si unité alliè < unité ennemie capture en faveur des ennemeis
-
-        switch (_buildingType)
+        //Spawn produced Unit 
+        switch (_unitProduction)
         {
-            case EBuildingType.FACTORY:
-                Debug.Log(_buildingType);
+            case EUnitType.TANK:
+                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotTank.UnitCost);
+
+                RobotTank robotTank = Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _robotContainer);
+                robotTank.UnitFaction = _buildingFaction;
+
+                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotTank.UnitCost;
 
                 break;
 
-            case EBuildingType.PRODUCTION:
-                Debug.Log(_buildingType);
+            case EUnitType.AIRCRAFT:
+                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAirCraft.UnitCost);
+
+                RobotAirCraft roboAirCraft = Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _robotContainer);
+                roboAirCraft.UnitFaction = _buildingFaction;
+
+                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAirCraft.UnitCost;
+
+                break;
+
+            case EUnitType.MECHA:
+                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotMecha.UnitCost);
+
+                RobotMecha robotMecha = Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _robotContainer);
+                robotMecha.UnitFaction = _buildingFaction;
+
+                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotMecha.UnitCost;
+
+                break;
+
+            case EUnitType.ANTIAIR:
+                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAntiAir.UnitCost);
+
+                RobotAntiAir robotAntiAir = Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _robotContainer);
+                robotAntiAir.UnitFaction = _buildingFaction;
+
+                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAntiAir.UnitCost;
 
                 break;
 
             default:
-                Debug.Log(_buildingType);
+                Debug.Log(EUnitType.NONE);
+
                 break;
-        }
+        } 
     }
 
-    #endregion METHODE ABSTRACT
+    #endregion METHODE
+
+    #region ABSTARCT METHODE
+
+    protected override void UpdateProductionTime()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UpdateRateProduction()
+    {
+        _productionRate += _buildingLevel; 
+    }
+
+    protected override void ChangeFaction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UpdateBuildingCapture()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion ABSTRACT METHODE
 }
 
 /*
@@ -72,66 +104,6 @@ public class FactoryController : ABuildingBase
         Debug.Log("Production Complete");
         StartCoroutine(Production());
     }    
-*/
-
-/* 
-    public override void IncreseRate()
-    {
-        _productionRate += _tierLevel;
-    }
-
-    public override void ProductionType()
-    {
-        //Spawn produced Unit 
-        switch (_unitProduction)
-        {
-            case EUnitType.TANK:
-                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotTank.UnitCost);
-                
-                RobotTank robotTank = Instantiate(RobotManager.Instance.RobotTank, _spawnUnit.position, Quaternion.identity, _robotContainer);
-                robotTank.UnitFaction = _buildingFaction;
-                
-                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotTank.UnitCost;
-                
-                break;
-
-            case EUnitType.AIRCRAFT:
-                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAirCraft.UnitCost);
-                
-                RobotAirCraft roboAirCraft = Instantiate(RobotManager.Instance.RobotAirCraft, _spawnUnit.position, Quaternion.identity, _robotContainer);
-                roboAirCraft.UnitFaction = _buildingFaction;
-                
-                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAirCraft.UnitCost;
-                
-                break;
-
-            case EUnitType.MECHA :
-                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotMecha.UnitCost);
-                
-                RobotMecha robotMecha = Instantiate(RobotManager.Instance.RobotMecha, _spawnUnit.position, Quaternion.identity, _robotContainer);
-                robotMecha.UnitFaction = _buildingFaction;
-
-                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotMecha.UnitCost;
-                
-                break;
-
-            case EUnitType.ANTIAIR:
-                Debug.Log(_unitProduction + " Cost : " + RobotManager.Instance.RobotAntiAir.UnitCost);
-                
-                RobotAntiAir robotAntiAir = Instantiate(RobotManager.Instance.RobotAntiAir, _spawnUnit.position, Quaternion.identity, _robotContainer);
-                robotAntiAir.UnitFaction = _buildingFaction;
-
-                BaseManager.Instance.AllyRessource -= RobotManager.Instance.RobotAntiAir.UnitCost;
-                
-                break;
-
-            default:
-                Debug.Log(EUnitType.NONE);
-                
-                break;
-        }
-
-    }
 
     public override void ProductionTime()
     {
@@ -186,5 +158,28 @@ public class FactoryController : ABuildingBase
                 break;
         }
     }    
+
+    protected override void BuildingCaptured()
+    {
+        //Si unité alliè > unité ennemie capture en faveur des alliès
+        //Si unité alliè < unité ennemie capture en faveur des ennemeis
+
+        switch (_buildingType)
+        {
+            case EBuildingType.FACTORY:
+                Debug.Log(_buildingType);
+
+                break;
+
+            case EBuildingType.PRODUCTION:
+                Debug.Log(_buildingType);
+
+                break;
+
+            default:
+                Debug.Log(_buildingType);
+                break;
+        }
+    }
 
 */
