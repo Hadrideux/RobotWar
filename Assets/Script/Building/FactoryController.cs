@@ -69,7 +69,7 @@ public class FactoryController : ABuildingBase
 
     protected override void UpdateProductionTime()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     protected override void UpdateRateProduction()
@@ -79,12 +79,12 @@ public class FactoryController : ABuildingBase
 
     protected override void ChangeFaction()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     protected override void UpdateBuildingCapture()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     #endregion ABSTRACT METHODE
