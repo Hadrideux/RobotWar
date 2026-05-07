@@ -10,6 +10,7 @@ public enum EUnitType
     NONE,
     MECHA,
     TANK,
-    AIRCRAFT,
+    HUNTER,
+    BOMBER,
     ANTIAIR,
 }

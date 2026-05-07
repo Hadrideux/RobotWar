@@ -2,25 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManufactureController : ABuildingBase
+public class ManufactureController : ABuildClass
 {
+    
     #region ABSTRACT METHODE
 
     protected override void ChangeFaction()
     {
-        throw new System.NotImplementedException();
+        switch (_buildingFaction)
+        {
+            case EFaction.ALLY:
+
+                BaseManager.Instance.AllyRessource++;
+
+                break;
+
+            case EFaction.ENNEMY:
+
+                BaseManager.Instance.EnnemyRessource++;
+
+                break;
+
+            default:
+
+                break;
+        }
     }
 
     protected override void UpdateBuildingCapture()
     {
-        throw new System.NotImplementedException();
-    }
+        switch (_buildingType)
+        {
+            case EBuildingType.FACTORY:
+                Debug.Log(_buildingType);
 
-    protected override void UpdateProductionTime()
-    {
-        throw new System.NotImplementedException();
-    }
+                break;
 
+            case EBuildingType.PRODUCTION:
+                Debug.Log(_buildingType);
+
+                break;
+
+            default:
+                Debug.Log(_buildingType);
+
+                break;
+        }
+    }
     protected override void UpdateRateProduction()
     {
         throw new System.NotImplementedException();
@@ -28,64 +56,5 @@ public class ManufactureController : ABuildingBase
 
     #endregion ASBTRACT METHODE
 }
-/*
-    [SerializeField] private float _productionComplete = 0f;
- *  public override void IncreseRate()
-    {
-        _productionRate += _tierLevel;
-    }
-   
-    public override void ProductionTime()
-    {
-        _productionTime += Time.deltaTime * _productionRate;
 
-        if (_productionTime > _productionComplete)
-        {
-            ProductionType();
-            _productionTime = 0;
-        }
-    }
-
-    public override void ProductionType()
-    {
-        switch (_buildingFaction)
-        {
-            case EFaction.ALLY:
-
-                BaseManager.Instance.AllyRessource++;
-                
-                break;
-
-            case EFaction.ENNEMY:
-
-                BaseManager.Instance.EnnemyRessource++;
-                
-                break;
-
-            default: 
-                
-                break;
-        }
-        
-    }
-
-    public override void BuildingCaptured()
-    {
-        switch (_buildingType)
-        {
-            case EBuildingType.FACTORY:                
-                Debug.Log(_buildingType);
-                
-                break;
-
-            case EBuildingType.PRODUCTION:                
-                Debug.Log(_buildingType);
-                
-                break;
-
-            default:
-                Debug.Log(_buildingType);
-                
-                break;
-        }
-    }*/
+    

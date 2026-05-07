@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RobotAntiAir : ARobotBase
+public class RobotAntiAir : AUnitClass
 {
     private void Start()
     {

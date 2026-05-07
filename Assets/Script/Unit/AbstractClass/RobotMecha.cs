@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RobotTank : ARobotBase
+public class RobotMecha : AUnitClass
 {
     private void Start()
     {
@@ -12,7 +12,7 @@ public class RobotTank : ARobotBase
 
     private void Update()
     {
-
+        
     }
 
     #region METHODE ABSTRACT
