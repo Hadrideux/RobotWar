@@ -31,7 +31,6 @@ public class SpawnerComponent : MonoBehaviour
 
     public void SpawnUnit(AUnitClass spawnUnit)
     {
-        networkManager.NetworkLoad = spawnUnit.UnitData.NetworkCost;
         Instantiate(spawnUnit, spawner.position, Quaternion.identity, unitContainer);
     }
 }

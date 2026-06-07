@@ -7,23 +7,21 @@ public class RobotTank : AUnitClass
 {
     private void Start()
     {
-         base.InitUnit();
+        base.InitUnit();
     }
+
 
     private void Update()
     {
+        //base.Update();
         if(!freezeUnit)
         {
+            targetComponent.ScanForTarget();
             MovementUnit();
         }
     }
 
-    #region METHODE ABSTRACT
-
-    public override void AttackDamage()
-    {
-        
-    }
+    #region ABSTRACT
 
     public override void MovementUnit()
     {
@@ -36,11 +34,23 @@ public class RobotTank : AUnitClass
         }
         
     }
-
-    public override void TakeDamage()
+    public override void TakeDamage(AmmoData hitData)
     {
-        HealthUpdate(0);
+        switch(hitData.AmmoType)
+        {
+            case (EAmmoType.PHYSIQUE):
+                HealthUpdate(hitData.Damage);
+
+                if(currentHealth <= 0)
+                {
+                    UnitDestroyed();
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
-    #endregion METHODE ABSTRACT
+    #endregion  ABSTRACT
 }

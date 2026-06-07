@@ -163,10 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48cf0c3694f07f4ba57d3c69e0ec858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
-  maxNetworkLoad: 100
-  currentNetworkLoad: 0
-  maxNetworkHeat: 100
-  currenNetworktHeat: 0
+  defaultNetworkLoad: 100
+  currentMaxLoad: 0
+  currentLoad: 0
+  networkEffect:
+  - {fileID: 11400000, guid: 0f2677b7a6cb45e47bdcb9fbc1b9f660, type: 2}
 --- !u!1 &354844953
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ GameObject:
   - component: {fileID: 354844954}
   - component: {fileID: 354844955}
   m_Layer: 0
-  m_Name: BaseManager
+  m_Name: RequisitionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,14 +209,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 354844953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7b184f8c00bb947a888f7b7a7db36c, type: 3}
+  m_Script: {fileID: 11500000, guid: 532e6e52068f64642b6e5e196eccae5e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  _baseHealthMax: 100
-  _baseHealthMin: 0
-  _baseHealthCurrent: 0
-  _allyRessource: 0
-  _ennemyRessource: 0
+  m_EditorClassIdentifier: Assembly-CSharp::RequisitionManger
+  requisitionStock: 0
 --- !u!1 &573965097
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +224,7 @@ GameObject:
   - component: {fileID: 573965098}
   - component: {fileID: 573965099}
   m_Layer: 0
-  m_Name: BuildingManager
+  m_Name: BuilderManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,8 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e895b31714aab24c951e40cffe3073f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manufactureCount: []
-  _factoryCount: []
+  spawnerComponent: {fileID: 0}
+  selectedBuild: {fileID: 0}
 --- !u!1 &1152561882
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927b403f7898b604586921b49f2c9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chracterController: {fileID: 0}
 --- !u!1 &1188970291
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,13 +472,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1681661431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a2d415b7f148d40a4d455a7bb6da9e, type: 3}
+  m_Script: {fileID: 11500000, guid: bcd0c8c18bd9a9f4d9db53cb0077d663, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  _roboatAirCraft: {fileID: 6274979693816126542, guid: 97cf8884b150bf045a60a8970466cc2d, type: 3}
-  _robotAntiAir: {fileID: 8082037895172778911, guid: e8f7f13dfd396d946bb65ed5c0f0a2ce, type: 3}
-  _robotMecha: {fileID: 6841300013088148860, guid: 186022a3355ca5d42afd0190cd5e265e, type: 3}
-  _robotTank: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::UnitManager
+  activeUnits: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,23 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class AUnitClass : MonoBehaviour
 {
     #region ATTRIBUTS
+    [Header("Body")]
+    [SerializeField] protected NavMeshAgent navMeshAgent = null;
 
-    [SerializeField] protected NavMeshAgent navMeshAgent = null; 
+    [SerializeField] protected GameObject turretBody = null;
+    [SerializeField] protected Transform spawnShellPoint = null;
 
+    [Header("Statistique")]
     [SerializeField] protected UnitData unitData = null;
-    [SerializeField] protected AmmoData ammoData = null;
 
-    [Header("Health")]
     [SerializeField] protected float currentHealth = 0;
     [SerializeField] protected int currentArmor = 0;
+    [SerializeField] protected float currentSpeed = 0;
 
-    [Header("Unit Type")]
-    [SerializeField] protected EFaction _unitFaction = EFaction.NONE;
+    [Header("Component")]
+    [SerializeField] protected TargetComponent targetComponent = null;
+    [SerializeField] protected EffectComponent effectComponent = null;
+
+    [Header("Ammo")]
+    [SerializeField] protected ShellController shellController = null;
+    [SerializeField] protected float reloading = 0f;     
 
     [Header("Unit Debug")]
     [SerializeField] protected bool freezeUnit = false;
@@ -26,21 +36,43 @@ public abstract class AUnitClass : MonoBehaviour
 
     #region PROPERTIES
 
-    public EFaction UnitFaction
+    public UnitData UnitData => unitData;
+    public float CurrentHealth
     {
-        get => _unitFaction; 
-        set => _unitFaction = value;
+        get => currentHealth;
+        set => currentHealth = Mathf.Clamp(value, 0, unitData.MaxHealth);
     }
 
-    public UnitData UnitData => unitData;
+    public float Reloading
+    {
+        get => reloading;
+        set => reloading = value;
+    }
+    
+
+    public ShellController ShellController => shellController;
+    public NavMeshAgent NavMeshAgent => NavMeshAgent;
+    public EffectComponent EffectComponent => EffectComponent;
 
     #endregion PROPERTIES
 
-    #region METHODE
+    #region MONO
+    void OnDestroy()
+    {         
+        UnitManager.Instance.OnUnitDestroyed -= targetComponent.RefreshTargetList;
+    }
 
+    private void OnApplicationQuit()
+    {
+        UnitManager.Instance.OnUnitDestroyed -= targetComponent.RefreshTargetList;
+    }
+
+    #endregion MONO
+
+    #region METHODE
     public void HealthUpdate(float damage)
     {
-        currentHealth = Mathf.Clamp(damage, 0, unitData.MaxHealth);
+        currentHealth -= Mathf.Clamp(damage, 0, unitData.MaxHealth);
     }
 
     public void InitUnit()
@@ -48,14 +80,60 @@ public abstract class AUnitClass : MonoBehaviour
         navMeshAgent.speed = unitData.MaxSpeed;
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
-        NetworkManager.Instance.NetworkLoad += unitData.NetworkCost;
-    }
 
+        NetworkManager.Instance.UpdateNetworkLoad(UnitData.NetworkCost);
+        UnitManager.Instance.ActiveUnits.Add(this);
+
+        UnitManager.Instance.OnUnitDestroyed += targetComponent.RefreshTargetList;
+    }
     public void UnitDestroyed()
     {
-        NetworkManager.Instance.NetworkLoad -= unitData.NetworkCost;
+        UnitManager.Instance.UnitDestroyed(this);
+        NetworkManager.Instance.UpdateNetworkLoad(- UnitData.NetworkCost);
+
+        Debug.Log($"Unit destroy : {this}");
+
         Destroy(gameObject);
     }
+
+    public void TurnTurret(AUnitClass target)
+    {
+        Vector3 dirTarget = target.transform.position;
+
+        Vector3 facingTarget = turretBody.transform.forward;
+        Vector3 toTarget = (dirTarget - turretBody.transform.position).normalized;
+
+        float dot = Vector3.Dot(facingTarget, toTarget);
+        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+        turretBody.transform.rotation = Quaternion.RotateTowards(turretBody.transform.rotation, Quaternion.LookRotation(toTarget), 90 * Time.deltaTime);
+
+        if (angle <= 0.25)
+        {
+            Fire(target);
+        }
+        else
+        {
+            Debug.Log("Ciblage en cours: " + dot);
+        }
+    }
+    public void Fire(AUnitClass unit)
+    {
+        //Modifier pour que se soit un décompte 
+        if (Reloading < 0)
+        {
+            ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
+            shell.SetDirection(unit.transform.position);
+
+            Reloading = ShellController.AmmoData.ReloadTime;             
+        }
+        else
+        {                             
+            Reloading -= Time.deltaTime;
+        }
+    }
+
+    
 
     #endregion METHODE
 
@@ -64,11 +142,8 @@ public abstract class AUnitClass : MonoBehaviour
     //Gestion déplacement unité
     abstract public void MovementUnit();
 
-    //Gestion dégat infligé par l'unité
-    abstract public void AttackDamage();
-
     //Gestion dégat reçu par l'unité
-    abstract public void TakeDamage();
+    abstract public void TakeDamage(AmmoData hitData);
 
     #endregion ABSTRACT METHODE
 }

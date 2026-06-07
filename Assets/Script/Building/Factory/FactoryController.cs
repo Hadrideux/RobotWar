@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class FactoryController : ABuildClass
 {
+    [Header("Component")]
+    [SerializeField] private SpawnerComponent spawnerComponent= null;
+
     [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
+
 
     [SerializeField] private AUnitClass unitToSpawn = null;
 
@@ -12,12 +16,14 @@ public class FactoryController : ABuildClass
 
     [SerializeField] private bool isProducing = false;
 
+
+    #region METHODE
+
     #region MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeFaction();
         ProductionRemaining();
     }
 
@@ -28,15 +34,21 @@ public class FactoryController : ABuildClass
     }
 
     #endregion MONO
+    #region ABSTARCT
 
-    #region METHODE
+    protected override void BuildDestroyed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion ABSTRACT 
     private void ProductFinish()
     {
         spawnerComponent.SpawnUnit(unitToSpawn);
     }
 
 
-    protected void ProductionRemaining()
+    private void ProductionRemaining()
     {
         if (!isProducing) return;
         else
@@ -54,47 +66,8 @@ public class FactoryController : ABuildClass
         }
     }
 
-    #endregion METHODE
-
-    #region ABSTARCT METHODE
-
-
+    
 
     #endregion METHODE
 
-    #region ABSTARCT METHODE
-
-    protected override void UpdateRateProduction()
-    {
-    }
-
-    protected override void ChangeFaction()
-    {
-
-    }
-
-    protected override void UpdateBuildingCapture()
-    {
-        //Si unité alliè > unité ennemie capture en faveur des alliès
-        //Si unité alliè < unité ennemie capture en faveur des ennemeis
-
-        switch (_buildingType)
-        {
-            case EBuildingType.FACTORY:
-                Debug.Log(_buildingType);
-
-                break;
-
-            case EBuildingType.PRODUCTION:
-                Debug.Log(_buildingType);
-
-                break;
-
-            default:
-                Debug.Log(_buildingType);
-                break;
-        }
-    }
-
-    #endregion ABSTRACT METHODE
 }

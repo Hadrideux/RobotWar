@@ -4,57 +4,18 @@ using UnityEngine;
 
 public class ManufactureController : ABuildClass
 {
-    
-    #region ABSTRACT METHODE
+    #region METHODE
+    #region MONO
 
-    protected override void ChangeFaction()
-    {
-        switch (_buildingFaction)
-        {
-            case EFaction.ALLY:
-
-                BaseManager.Instance.AllyRessource++;
-
-                break;
-
-            case EFaction.ENNEMY:
-
-                BaseManager.Instance.EnnemyRessource++;
-
-                break;
-
-            default:
-
-                break;
-        }
-    }
-
-    protected override void UpdateBuildingCapture()
-    {
-        switch (_buildingType)
-        {
-            case EBuildingType.FACTORY:
-                Debug.Log(_buildingType);
-
-                break;
-
-            case EBuildingType.PRODUCTION:
-                Debug.Log(_buildingType);
-
-                break;
-
-            default:
-                Debug.Log(_buildingType);
-
-                break;
-        }
-    }
-    protected override void UpdateRateProduction()
+    #endregion  MONO
+    #region ABSTRACT
+    protected override void BuildDestroyed()
     {
         throw new System.NotImplementedException();
     }
+    #endregion ABSTRACT
 
-    #endregion ASBTRACT METHODE
+    #endregion
+
 }
 
-    

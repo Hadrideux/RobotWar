@@ -6,34 +6,37 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [Header("Controller")]
-    [SerializeField] private CameraController _cameraController =null;
-    [SerializeField] private PlayerInteraction _playerInteraction = null;
+    [SerializeField] private CharacterManager characterManager = null;
 
 
-    private event Action _onCharacterMovement = null;
-    public event Action OnCharacterMovement
-    {
-        add 
-        {
-            _onCharacterMovement -= value;
-            _onCharacterMovement += value;        
-        }
-        remove 
-        { 
-            _onCharacterMovement -= value;
-        }
-    }
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        _cameraController = GetComponent<CameraController>();
-        _playerInteraction = GetComponent<PlayerInteraction>();
+        characterManager = CharacterManager.Instance;
+
+        characterManager.OnCharacterMovement += CharacterMove;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         
+    }
+
+    private void OnDestroy()
+    {
+        characterManager.OnCharacterMovement -= CharacterMove;
+    }
+    private void OnApplicationQuit()
+    {
+        characterManager.OnCharacterMovement -= CharacterMove;
+    }
+
+    public void CharacterMove()
+    {
+        characterManager.CharacterController = this.gameObject;
     }
 }

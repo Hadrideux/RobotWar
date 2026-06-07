@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private CharacterManager characterManager = null; 
+
     [SerializeField] private float _speedMovement = 0f;
     [SerializeField] private float _speedRotation = 0f;
     [SerializeField] private float _zoomSpeed = 0f;
@@ -16,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        
+        characterManager = CharacterManager.Instance;  
     }
     // Update is called once per frame
     void Update()
@@ -28,7 +30,6 @@ public class CameraController : MonoBehaviour
             CameraRotation();
         }
     }
-
     private void CameraMovement()
     {
         Vector3 movementCamera = transform.position;
@@ -43,13 +44,16 @@ public class CameraController : MonoBehaviour
         Vector3 yAxisCamera = movementCamera;
         yAxisCamera.y = Mathf.Clamp(yAxisCamera.y, _minHeight, _maxHeight);
         transform.position = yAxisCamera;
+
+        characterManager.OnCharacterMove();
     }
 
     private void CameraRotation()
     {
+        Debug.Log(Input.GetAxis("RotateCamera"));
         _rotationTarget = new Vector3(0, Input.GetAxis("RotateCamera") * _speedRotation * Time.deltaTime, 0);
     
-        Vector3 eulerAngles = new Vector3(0, transform.eulerAngles.y + _rotationTarget.y, 0);
+        Vector3 eulerAngles = new Vector3(45, transform.eulerAngles.y + _rotationTarget.y, 0);
         Vector3 lerp = Vector3.Lerp(transform.eulerAngles, eulerAngles, _speedAlpha);
 
         transform.rotation = Quaternion.Euler(lerp);
