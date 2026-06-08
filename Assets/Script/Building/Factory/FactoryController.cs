@@ -18,19 +18,21 @@ public class FactoryController : ABuildClass
 
 
     #region METHODE
-
     #region MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        ProductionRemaining();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProductionRemaining();
+        if (!placeableComponent.IsPlaced)
+        {
+            ProductionTimer();
+
+        }
     }
 
     #endregion MONO
@@ -48,7 +50,7 @@ public class FactoryController : ABuildClass
     }
 
 
-    private void ProductionRemaining()
+    private void ProductionTimer()
     {
         if (!isProducing) return;
         else
@@ -56,7 +58,6 @@ public class FactoryController : ABuildClass
             if (timeElapse >= unitToSpawn.UnitData.ProductionTime)
             {
                 ProductFinish();
-
                 timeElapse = 0;
             }
             else

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 98ad98b63189c1a40a1a7a4e082b3854, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41b9317a308e93c43bf199bc838297e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -660,8 +660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23aaba6914567ff44a710460ba070922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetComponent: {fileID: 1003550187004552700}
-  effectComponent: {fileID: 1372065401535349876}
   navMeshAgent: {fileID: -5891987566183585568}
   turretBody: {fileID: 8744252835087297178}
   spawnShellPoint: {fileID: 9105393294539120570}
@@ -671,8 +669,8 @@ MonoBehaviour:
   currentSpeed: 0
   shellController: {fileID: 3070026089794296242, guid: 92dfb5d34f293604b911acdbfd865257, type: 3}
   reloading: 0
-  targetAcquired: []
-  freezeUnit: 0
+  effectComponent: {fileID: 1372065401535349876}
+  isFreezeUnit: 0
 --- !u!114 &1003550187004552700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,8 +685,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TargetSystemComponent
   unit: {fileID: 3321667494560252547}
   layerMask:
-  - serializedVersion: 2
-    m_Bits: 64
+    serializedVersion: 2
+    m_Bits: 192
+  targetAcquired: []
 --- !u!114 &1372065401535349876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518cbdff69866b74ba922d6b6df01721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectComponent
-  characterManager: {fileID: 0}
   unit: {fileID: 3321667494560252547}
   imageEffect: {fileID: 2815556384868982935}
   panelEffect: {fileID: 8662135860621234900}
@@ -1074,6 +1072,7 @@ GameObject:
   - component: {fileID: 6383596154631485909}
   - component: {fileID: 1362761303286556508}
   - component: {fileID: 345393035837948223}
+  - component: {fileID: 7299175343940714190}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1098,7 +1097,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 2.5, y: 2.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6383596154631485909
@@ -1165,6 +1164,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7299175343940714190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8662135860621234900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f05314523cf8d4aa5ed5f7b2927867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cameraTransform: {fileID: 0}
 --- !u!1 &8744252835087297178
 GameObject:
   m_ObjectHideFlags: 0

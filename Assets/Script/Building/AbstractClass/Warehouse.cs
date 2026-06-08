@@ -36,6 +36,14 @@ public class Warehouse : ABuildClass
         if (registeredTower != null)
             registeredTower.RemoveWarehouseBonus(requisitionBonus);
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        // Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
+        if (Application.isPlaying)
+            // Draw a sphere where the OverlapBox is (positioned where your GameObject is as well as a size)
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
 
     #endregion MONO
     #region ABSTRACT
