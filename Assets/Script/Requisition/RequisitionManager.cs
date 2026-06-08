@@ -1,11 +1,16 @@
 using System;
 using UnityEngine;
 
-public class RequisitionManger : Singleton<RequisitionManger>
+public class RequisitionManager : Singleton<RequisitionManager>
 {
     #region ATTRIBUTS
     [SerializeField] private int requisitionStock = 0;
     #endregion  ATTRIBUTS
+
+    #region PROPERTIES
+
+    public int RequisitionStock => requisitionStock;
+    #endregion
 
     #region EVENT
 

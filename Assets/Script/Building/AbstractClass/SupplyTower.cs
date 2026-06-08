@@ -3,7 +3,7 @@ using UnityEngine;
 public class SupplyTower : ABuildClass
 {
     [Header("Manager")]
-    [SerializeField] private RequisitionManger requisitionManger = null;
+    [SerializeField] private RequisitionManager requisitionManger = null;
 
     [SerializeField] private float productionTime = 0;
     [SerializeField] private float currentProductionTime = 0;
@@ -39,8 +39,9 @@ public class SupplyTower : ABuildClass
 
     public  override void InitBuild()
     {
+        requisitionManger = RequisitionManager.Instance;
+
         currentRequisitionRate = requisitionRate;
-        requisitionManger = RequisitionManger.Instance;
     }
 
     private void ProductionTimer()

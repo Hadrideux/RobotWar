@@ -4,7 +4,7 @@ using UnityEngine;
 public class Warehouse : ABuildClass  
 {
     [Header("Manager")]
-    [SerializeField] private RequisitionManger requisitionManger = null;
+    [SerializeField] private RequisitionManager requisitionManger = null;
     [SerializeField] private PlayerInteraction playerInteraction = null;
 
     [Header("Linked Tower")]
