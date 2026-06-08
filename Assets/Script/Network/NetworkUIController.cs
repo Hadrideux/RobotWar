@@ -11,14 +11,6 @@ public class NetworkUIController : MonoBehaviour
     [Header("Network Load UI")]
     [SerializeField] private Image loadImage = null;
 
-    /*
-    [Header("Network Heat UI")]
-    [SerializeField] private Image networkHeatImage = null;
-    [SerializeField] private Color networkHeatColor = Color.green;
-    [SerializeField] private float networkHeatGauge = 0f;
-    [SerializeField] private float networkHeatStart = 100;
-    */
-
     #region MONO
     // Start is called before the first frame update
     void Start()
@@ -27,11 +19,6 @@ public class NetworkUIController : MonoBehaviour
         networkManager.OnLoadChange += UpdateNetworkLoad;
 
         loadImage.fillAmount = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     private void OnDestroy()

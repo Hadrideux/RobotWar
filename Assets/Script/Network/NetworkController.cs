@@ -7,6 +7,7 @@ public class NetworkController : MonoBehaviour
     [SerializeField] private UnitManager unitManager = null;
 
     [SerializeField] private Dictionary<NetworkEffectData, float> cooldownEffect = new Dictionary<NetworkEffectData, float>();
+    [SerializeField] private float currentCooldownEffect = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,14 +52,16 @@ public class NetworkController : MonoBehaviour
         if(!cooldownEffect.ContainsKey(effect))
             cooldownEffect.Add(effect, effect.Cooldown);
 
-        if (cooldownEffect.ContainsKey(effect) && Time.time < cooldownEffect[effect])
+        if (cooldownEffect.ContainsKey(effect) && currentCooldownEffect > 0)
         {
             Debug.Log($"Effet : {effect.EffectName} n'est pas prêt");
+            currentCooldownEffect -= Time.deltaTime;
             return;
         }
         if(Random.Range(0f, 1f) > effect.ProcProbability)
         {
             Debug.Log($"Effet : {effect.EffectName} n'as pas proc");
+            currentCooldownEffect -= Time.deltaTime;
             return;
         }
 
@@ -74,7 +77,7 @@ public class NetworkController : MonoBehaviour
         for (int i = 0; i < count; i++)
             unitEligible[i].EffectComponent.ApplyIAEffect(effect);
 
-        cooldownEffect[effect] = Time.time + effect.Cooldown;
+        currentCooldownEffect = effect.Cooldown;
     }
     public float NetworkPercentLoad()
     {
