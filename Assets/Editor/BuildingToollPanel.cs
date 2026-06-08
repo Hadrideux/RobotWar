@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class BuildingToollPanel : EditorWindow
 {
-    [MenuItem("Tools/BuildingToolPanel")]
-    public static void ShowWindow()
-    {
-        GetWindow<BuildingToollPanel>("BCT : Building Creator Tool");
-    }
+    
 
     //Dossier de sortie des assets
     private string OUTPUT_FOLDER = "Assets/Script/Building/Data/BuildingSO";
+
+    private Vector2 scrollPos = Vector2.zero;
 
     private string buildName = "Building Name";
     private EBuildType buildType = EBuildType.NONE;
@@ -22,8 +20,16 @@ public class BuildingToollPanel : EditorWindow
     private float buildingTime = 0;
     private int buildingCost = 0;
 
+    [MenuItem("Tools/BuildingToolPanel")]
+    public static void OpenWindow()
+    {
+        GetWindow<BuildingToollPanel>("BCT : Building Creator Tool");
+    }
+
     void OnGUI()
     {
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
+
         DrawTitle();
         OUTPUT_FOLDER = EditorGUILayout.TextField("Dossier de création", OUTPUT_FOLDER);
 
@@ -35,6 +41,8 @@ public class BuildingToollPanel : EditorWindow
             Debug.Log("Création du batiment: " + buildName);
             CreateUnit();
         }
+
+        GUILayout.EndScrollView();
     }
 
     #region DRAW INSPECTOR

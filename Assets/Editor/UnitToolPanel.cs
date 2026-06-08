@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class UnitToolPanel : EditorWindow
 {
-    [MenuItem("Tools/UnitToolPanel")] 
-    public static void ShowWindow()
-    {
-        GetWindow<UnitToolPanel>("UCT : Unit Creator Tool");
-    }
+    
 
     //Dossier de sortie des assets
     private string OUTPUT_FOLDER = "Assets/Script/Unit/Data/UnitSO";
+
+    private Vector2 scrollPos = Vector2.zero;
 
     private string unitName = "Unit Name";
     private EUnitType unitType = EUnitType.NONE;
@@ -32,8 +30,16 @@ public class UnitToolPanel : EditorWindow
     private Mesh turretBody = null;
     private Mesh weaponBody = null;
 
+    [MenuItem("Tools/UnitToolPanel")]
+    public static void OpenWindow()
+    {
+        GetWindow<UnitToolPanel>("UCT : Unit Creator Tool");
+    }
+
     void OnGUI()
     {
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
+
         DrawTitle();
         OUTPUT_FOLDER = EditorGUILayout.TextField("Dossier de création", OUTPUT_FOLDER);
 
@@ -45,6 +51,8 @@ public class UnitToolPanel : EditorWindow
             Debug.Log("Création de l'unité : " + unitName);
             CreateUnit();
         }
+
+        GUILayout.EndScrollView();
     }
 
     #region DRAW INSPECTOR

@@ -6,14 +6,12 @@ using UnityEngine.UIElements;
 
 public class NetworkEffectCreatorTool : EditorWindow
 {
-    [MenuItem("Tools/NetworkEffectCreatorTool")]
-    public static void ShowWindow()
-    {
-        GetWindow<NetworkEffectCreatorTool>("NECT : NetworkEffectCreatorTool");
-    }
+    
 
     // --- Dossier de sortie des assets ---
     private string OUTPUT_FOLDER = "Assets/Script/Network/Data/EffectSO";
+
+    private Vector2 scrollPos = Vector2.zero;
 
     private string effectName = "effect Name";
     
@@ -29,8 +27,16 @@ public class NetworkEffectCreatorTool : EditorWindow
     
     private float procProbability = 0;
 
+    [MenuItem("Tools/NetworkEffectCreatorTool")]
+    public static void OpenWindow()
+    {
+        GetWindow<NetworkEffectCreatorTool>("NECT : NetworkEffectCreatorTool");
+    }
+
     void OnGUI()
     {
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
+
         DrawTitle();
         OUTPUT_FOLDER = EditorGUILayout.TextField("Dossier de création", OUTPUT_FOLDER);
 
@@ -44,6 +50,8 @@ public class NetworkEffectCreatorTool : EditorWindow
             Debug.Log("Création de l'effet : " + effectName);
             CreateEffect();
         }
+
+        GUILayout.EndScrollView();
     }    
 
     #region DRAW INSPECTOR
