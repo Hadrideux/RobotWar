@@ -18,7 +18,8 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        characterManager = CharacterManager.Instance;  
+        characterManager = CharacterManager.Instance;
+        characterManager.CharacterController = this.gameObject;
     }
     // Update is called once per frame
     void Update()

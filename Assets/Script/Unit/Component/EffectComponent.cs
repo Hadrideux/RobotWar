@@ -4,21 +4,25 @@ using UnityEngine.UI;
 
 public class EffectComponent : MonoBehaviour
 {
-    [Header("Manager")]
-    [SerializeField] protected CharacterManager characterManager = null;
-
+    #region ATTRIBUTS
     [SerializeField] private AUnitClass unit = null;
 
-    [SerializeField] protected Image imageEffect = null;
-    [SerializeField] protected GameObject panelEffect = null;
+    [SerializeField] private Image imageEffect = null;
+    [SerializeField] private GameObject panelEffect = null;
 
+    [SerializeField] private Coroutine currentEffect = null;
+    #endregion
 
-    void Start()
-    {
-        characterManager = CharacterManager.Instance;
-    }
+    #region PROPERTIES
+    #endregion
+
+    #region METHODE
+    #region MONO
+    #endregion MONO
+
     public void ApplyIAEffect(NetworkEffectData effect)
     {
+
         //L'unité applique l'effet sur ses stats locales
         StartCoroutine(ApplyTemporaryEffect(effect));
     }
@@ -31,7 +35,6 @@ public class EffectComponent : MonoBehaviour
         //Affichage de l'UI de l'effet en cours sur l'unité
         imageEffect.sprite = effect.ImageEffect;
         panelEffect.SetActive(true);
-        DisplayEffectUI(characterManager.CharacterController.transform.position);
 
         if (effect.EffectDuration > 0)
         {
@@ -40,7 +43,6 @@ public class EffectComponent : MonoBehaviour
 
             imageEffect.sprite = effect.ImageEffect;
             panelEffect.SetActive(false);
-            DisplayEffectUI(characterManager.CharacterController.transform.position); ;
         }
     }
 
@@ -67,10 +69,8 @@ public class EffectComponent : MonoBehaviour
                 break;
         }
     }
-    public void DisplayEffectUI(Vector3 characterPosition)
-    {
-        //Quaternion targetRotation = Quaternion.LookRotation(direction);
+    
+    #endregion METHODE
 
-        panelEffect.transform.LookAt(characterPosition);
-    }
+
 }

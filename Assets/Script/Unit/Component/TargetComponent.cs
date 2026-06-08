@@ -4,9 +4,9 @@ using UnityEngine;
 public class TargetComponent : MonoBehaviour
 {
     [SerializeField] private AUnitClass unit = null;
-    [SerializeField] protected LayerMask[] layerMask = null;
+    [SerializeField] private LayerMask layerMask = 0;
 
-    [SerializeField] protected List<AUnitClass> targetAcquired = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> targetAcquired = new List<AUnitClass>();
 
     public List<AUnitClass> TargetAcquired
     {
@@ -14,6 +14,9 @@ public class TargetComponent : MonoBehaviour
         set => targetAcquired = value;
     }
 
+    #region METHODE
+
+    #region MONO
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -22,9 +25,30 @@ public class TargetComponent : MonoBehaviour
             // Draw a sphere where the OverlapBox is (positioned where your GameObject is as well as a size)
             Gizmos.DrawWireSphere(transform.position, unit.UnitData.AttackRange);
     }
+    void Start()
+    {
+        UnitManager.Instance.OnUnitDestroyed += RefreshTargetList;
+    }
+
+    private void Update()
+    {
+        if(!unit.IsFreezeUnit) ScanForTarget();
+    }
+    /*
+    void OnDestroy()
+    {
+        UnitManager.Instance.OnUnitDestroyed -= RefreshTargetList;
+    }
+     */
+    private void OnApplicationQuit()
+    {
+        UnitManager.Instance.OnUnitDestroyed -= RefreshTargetList;
+    }
+    #endregion
+
     public void ScanForTarget()
     {
-        Collider[] targetCol = Physics.OverlapSphere(transform.position, unit.UnitData.AttackRange, layerMask[0]);
+        Collider[] targetCol = Physics.OverlapSphere(transform.position, unit.UnitData.AttackRange, layerMask);
 
         for (int i = 0; i < targetCol.Length; i++)
         {
@@ -34,25 +58,33 @@ public class TargetComponent : MonoBehaviour
                 targetAcquired.Add(unitScanned);
             }
         }
-        
+
         TargetUnit();
     }
     public void TargetUnit()
     {
         foreach (AUnitClass unitTargeted in targetAcquired)
         {
-            float closestTarget = Vector3.Distance(unit.transform.position, transform.position);
+            float closestTarget = Vector3.Distance(transform.position, transform.position);
             if (closestTarget <= unitTargeted.UnitData.AttackRange)
             {
-                unit.TurnTurret(unitTargeted);                 
+                unit.TurnTurret(unitTargeted);
             }
         }
     }
     public void RefreshTargetList(AUnitClass unit)
     {
-            targetAcquired.Remove(unit);
+        targetAcquired.Remove(unit);
         if (targetAcquired.Contains(unit))
         {
         }
     }
+
+    #endregion
+
+
+
+
+
+
 }

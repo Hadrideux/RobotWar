@@ -21,16 +21,15 @@ public abstract class AUnitClass : MonoBehaviour
     [SerializeField] protected int currentArmor = 0;
     [SerializeField] protected float currentSpeed = 0;
 
-    [Header("Component")]
-    [SerializeField] protected TargetComponent targetComponent = null;
-    [SerializeField] protected EffectComponent effectComponent = null;
-
     [Header("Ammo")]
     [SerializeField] protected ShellController shellController = null;
-    [SerializeField] protected float reloading = 0f;     
+    [SerializeField] protected float reloading = 0f;
+
+    [Header("Component")]
+    [SerializeField] private EffectComponent effectComponent = null;
 
     [Header("Unit Debug")]
-    [SerializeField] protected bool freezeUnit = false;
+    [SerializeField] protected bool isFreezeUnit = false;
 
     #endregion ATTRIBUTS
 
@@ -48,25 +47,20 @@ public abstract class AUnitClass : MonoBehaviour
         get => reloading;
         set => reloading = value;
     }
-    
+    public bool IsFreezeUnit => isFreezeUnit;
 
     public ShellController ShellController => shellController;
-    public NavMeshAgent NavMeshAgent => NavMeshAgent;
-    public EffectComponent EffectComponent => EffectComponent;
+    public NavMeshAgent NavMeshAgent => navMeshAgent;
+    public EffectComponent EffectComponent => effectComponent;
+    
 
     #endregion PROPERTIES
 
     #region MONO
-    void OnDestroy()
-    {         
-        UnitManager.Instance.OnUnitDestroyed -= targetComponent.RefreshTargetList;
-    }
-
-    private void OnApplicationQuit()
+    void Start()
     {
-        UnitManager.Instance.OnUnitDestroyed -= targetComponent.RefreshTargetList;
+        InitUnit();
     }
-
     #endregion MONO
 
     #region METHODE
@@ -84,7 +78,7 @@ public abstract class AUnitClass : MonoBehaviour
         NetworkManager.Instance.UpdateNetworkLoad(UnitData.NetworkCost);
         UnitManager.Instance.ActiveUnits.Add(this);
 
-        UnitManager.Instance.OnUnitDestroyed += targetComponent.RefreshTargetList;
+        
     }
     public void UnitDestroyed()
     {

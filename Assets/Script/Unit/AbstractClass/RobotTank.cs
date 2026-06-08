@@ -5,22 +5,22 @@ using UnityEngine.AI;
 
 public class RobotTank : AUnitClass
 {
-    private void Start()
-    {
-        base.InitUnit();
-    }
+    #region ATTRIBUTS
 
+    #endregion
 
-    private void Update()
+    #region METHODE
+    #region MONO
+
+    void Update()
     {
-        //base.Update();
-        if(!freezeUnit)
+        if (!isFreezeUnit)
         {
-            targetComponent.ScanForTarget();
             MovementUnit();
         }
     }
 
+    #endregion
     #region ABSTRACT
 
     public override void MovementUnit()
@@ -32,7 +32,6 @@ public class RobotTank : AUnitClass
             Vector3 destination = new Vector3(randomPoint, transform.position.y, randomPoint2);
             navMeshAgent.SetDestination(destination);
         }
-        
     }
     public override void TakeDamage(AmmoData hitData)
     {
@@ -53,4 +52,8 @@ public class RobotTank : AUnitClass
     }
 
     #endregion  ABSTRACT
+
+    #endregion
+
+
 }

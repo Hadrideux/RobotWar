@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class UIController : MonoBehaviour
 
     public void BuildSelected(ABuildClass prefab)
     {
-       BuilderManager.Instance.SelectedBuild(prefab);
+
+        BuilderManager.Instance.SelectedBuild(prefab);
     }
 }
