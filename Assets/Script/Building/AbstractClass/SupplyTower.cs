@@ -60,7 +60,7 @@ public class SupplyTower : ABuildClass
 
     private void ProduceRequisition()
     {
-        requisitionManger.AddRequisition(currentRequisitionRate);
+        requisitionManger.RequisitionStock += currentRequisitionRate;
     }
 
     public void AddWarehouseBonus(int bonus)

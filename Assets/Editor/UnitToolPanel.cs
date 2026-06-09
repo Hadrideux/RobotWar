@@ -23,7 +23,7 @@ public class UnitToolPanel : EditorWindow
 
 
     private float productionTime = 0;
-    private int productionCost = 0;
+    private int requisitionCost = 0;
     private int networkCost = 0;       
 
     private Mesh unitBody = null;
@@ -101,7 +101,7 @@ public class UnitToolPanel : EditorWindow
         GUILabel("Unit Identifaction");
         productionTime = EditorGUILayout.FloatField("Production Time", productionTime);
         GUILayout.Space(2);
-        productionCost = EditorGUILayout.IntField("Production Cost", productionCost);
+        requisitionCost = EditorGUILayout.IntField("Requisition Cost", requisitionCost);
         GUILayout.Space(2);
         networkCost = EditorGUILayout.IntField("Network Cost", networkCost);
     }
@@ -150,7 +150,7 @@ public class UnitToolPanel : EditorWindow
         unitData.ViewDistance = viewDistance;
 
         unitData.ProductionTime = productionTime;
-        unitData.ProductionCost = productionCost;
+        unitData.RequisitionCost = requisitionCost;
         unitData.NetworkCost = networkCost;
 
         AssetPathCreation(unitData);

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class FactoryController : ABuildClass
 {
+    [Header("Manager")]
+    [SerializeField] private RequisitionManager requisitionManager = null;
     [Header("Component")]
     [SerializeField] private SpawnerComponent spawnerComponent= null;
 
-    [SerializeField] protected EUnitType _unitProduction = EUnitType.NONE;
-
+    [SerializeField] private EUnitType _unitProduction = EUnitType.NONE;
 
     [SerializeField] private AUnitClass unitToSpawn = null;
 
-    [SerializeField] private float timeElapse = 0f;
+    [SerializeField] private float productionTime = 0f;
 
-    [SerializeField] private bool isProducing = false;
+    [SerializeField] private bool isProductionEnabled = false;
+    [SerializeField] private bool isProductionStart = false;
 
 
     #region METHODE
@@ -23,15 +25,15 @@ public class FactoryController : ABuildClass
     // Start is called before the first frame update
     void Start()
     {
+        requisitionManager = RequisitionManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!placeableComponent.IsPlaced)
+        if (placeableComponent.IsPlaced)
         {
             ProductionTimer();
-
         }
     }
 
@@ -40,7 +42,6 @@ public class FactoryController : ABuildClass
 
     protected override void BuildDestroyed()
     {
-        throw new System.NotImplementedException();
     }
 
     #endregion ABSTRACT 
@@ -52,18 +53,25 @@ public class FactoryController : ABuildClass
 
     private void ProductionTimer()
     {
-        if (!isProducing) return;
+        if (isProductionEnabled == false)
+        {
+            return;
+        }
+        else if (unitToSpawn.UnitData.RequisitionCost <= requisitionManager.RequisitionStock && isProductionStart == false)
+        {
+            requisitionManager.RequisitionStock -= unitToSpawn.UnitData.RequisitionCost;
+            isProductionStart = true;
+        }
+
+        if (productionTime >= unitToSpawn.UnitData.ProductionTime && isProductionStart == true)
+        {
+            ProductFinish();
+            isProductionStart = false;
+            productionTime = 0;
+        }
         else
         {
-            if (timeElapse >= unitToSpawn.UnitData.ProductionTime)
-            {
-                ProductFinish();
-                timeElapse = 0;
-            }
-            else
-            {
-                timeElapse += Time.deltaTime;
-            }
+            productionTime += Time.deltaTime;
         }
     }
 

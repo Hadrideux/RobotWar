@@ -71,7 +71,6 @@ public class NetworkController : MonoBehaviour
             return;
 
         int count = Mathf.Max(1, Mathf.RoundToInt(unitEligible.Count * effect.ProcProbability));
-        Debug.Log(count);
 
         Shuffle(unitEligible);
         for (int i = 0; i < count; i++)

@@ -1808,7 +1808,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3760
+  m_VersionIndex: 3898
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3729,7 +3729,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3760
+  m_VersionIndex: 3898
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5650,7 +5650,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3760
+  m_VersionIndex: 3898
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7571,7 +7571,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3760
+  m_VersionIndex: 3898
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9523,7 +9523,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3760
+  m_VersionIndex: 3898
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9889,7 +9889,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2278
+  m_VersionIndex: 2416
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -10006,9 +10006,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3032744611799858815}
+  - component: {fileID: 4136898050837649291}
+  - component: {fileID: 1462661055309464250}
   - component: {fileID: 6414652098182322639}
   - component: {fileID: 1058883396964741424}
-  - component: {fileID: 4136898050837649291}
+  - component: {fileID: 207475432930593336}
   m_Layer: 0
   m_Name: VehicleFactory
   m_TagString: Untagged
@@ -10033,42 +10035,6 @@ Transform:
   - {fileID: 7599353631159498253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6414652098182322639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8545901610595469786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9296ffa99c84a2f42a55b363947301eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FactoryController
-  _buildingType: 0
-  _buildingFaction: 0
-  _buildingLevel: 0
-  spawnerComponent: {fileID: 1058883396964741424}
-  _captureTime: 0
-  _unitProduction: 0
-  unitToSpawn: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
-  productionTimeRemaining: 0
-  isProducing: 0
---- !u!114 &1058883396964741424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8545901610595469786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0929c4e021e824a418563c03557e4009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerComponent
-  unitToSpawn: {fileID: 0}
-  spawner: {fileID: 7599353631159498253}
-  unitContainer: {fileID: 0}
 --- !u!208 &4136898050837649291
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -10085,3 +10051,80 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &1462661055309464250
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545901610595469786}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6414652098182322639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545901610595469786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9296ffa99c84a2f42a55b363947301eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FactoryController
+  placeableComponent: {fileID: 207475432930593336}
+  buildData: {fileID: 0}
+  currentDurability: 0
+  currentArmor: 0
+  buildType: 0
+  requisitionManager: {fileID: 0}
+  spawnerComponent: {fileID: 1058883396964741424}
+  _unitProduction: 0
+  unitToSpawn: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
+  productionTime: 0
+  isProductionEnabled: 1
+  isProductionStart: 0
+--- !u!114 &1058883396964741424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545901610595469786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0929c4e021e824a418563c03557e4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnerComponent
+  spawner: {fileID: 7599353631159498253}
+  unitContainer: {fileID: 0}
+  networkManager: {fileID: 0}
+--- !u!114 &207475432930593336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545901610595469786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504cfa8a0626c0e478cb34dc2aa083a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceableObject
+  isPlaced: 0
+  size: {x: 0, y: 0, z: 0}
+  objectVertices: []
+  boxCollider: {fileID: 1462661055309464250}
+  builderSystem: {fileID: 0}

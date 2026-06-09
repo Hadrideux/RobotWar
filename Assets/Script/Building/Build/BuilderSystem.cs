@@ -3,8 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class BuilderSystem : MonoBehaviour
 {
-    [SerializeField] public static BuilderSystem current = null;
-
     [Header("Manager")]
     [SerializeField] private PlayerInteraction playerInteraction = null;
     [SerializeField] private BuilderManager builderManager = null;
@@ -24,8 +22,6 @@ public class BuilderSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        current = this;
-
         playerInteraction = PlayerInteraction.Instance;
         builderManager = BuilderManager.Instance;
 
@@ -40,15 +36,17 @@ public class BuilderSystem : MonoBehaviour
 
         return pos;
     }
-
-
     public void InitializeWithObject(ABuildClass prefab)
     {
         Vector3 pos = SnapCoordinateToGrid(playerInteraction.GetMouseWorlPosition());
 
         ABuildClass obj = Instantiate(prefab, pos, Quaternion.identity);
+
         objectToPlace = obj.GetComponent<PlaceableObject>();
+        objectToPlace.BuilderSystem = this;
+        
         obj.gameObject.AddComponent<ObjectDrag>();
+        obj.GetComponent<ObjectDrag>().BuilderSystem = this;
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)

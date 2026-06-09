@@ -20,5 +20,5 @@ MonoBehaviour:
   attackRange: 40
   viewDistance: 20
   productionTime: 5
-  requisitonCost: 0
+  requisitionCost: 10
   networkCost: 5

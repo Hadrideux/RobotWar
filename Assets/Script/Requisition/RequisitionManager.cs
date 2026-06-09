@@ -9,7 +9,16 @@ public class RequisitionManager : Singleton<RequisitionManager>
 
     #region PROPERTIES
 
-    public int RequisitionStock => requisitionStock;
+    public int RequisitionStock
+    {
+        get => requisitionStock;
+        set
+        {
+            Debug.Log($"Requisition of {value}");
+            requisitionStock = value;
+            OnUpdateRequisitionEvent(value);
+        }
+    }
     #endregion
 
     #region EVENT
@@ -30,20 +39,8 @@ public class RequisitionManager : Singleton<RequisitionManager>
 
     #endregion EVENT
 
-    public void AddRequisition(int amount)
+    public void OnUpdateRequisitionEvent(int amount) 
     {
-        requisitionStock += amount;
-
-        if(onUpdateRequisition != null)
-        {
-            onUpdateRequisition(amount);
-        }
-    }
-
-    public void RemoveRequisition(int amount) 
-    {
-        requisitionStock -= amount;
-
         if (onUpdateRequisition != null)
         {
             onUpdateRequisition(amount);

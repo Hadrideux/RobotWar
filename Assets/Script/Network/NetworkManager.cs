@@ -82,6 +82,10 @@ public class NetworkManager : Singleton<NetworkManager>
     }
     #endregion EVENT
 
+    void Start()
+    {
+        currentMaxLoad = defaultNetworkLoad;
+    }
     public void UpdateNetworkLoad(int load)
     {
         currentLoad += load;

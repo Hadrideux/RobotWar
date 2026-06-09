@@ -106,10 +106,6 @@ public abstract class AUnitClass : MonoBehaviour
         {
             Fire(target);
         }
-        else
-        {
-            Debug.Log("Ciblage en cours: " + dot);
-        }
     }
     public void Fire(AUnitClass unit)
     {

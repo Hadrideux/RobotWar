@@ -686,7 +686,7 @@ MonoBehaviour:
   unit: {fileID: 3321667494560252547}
   layerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   targetAcquired: []
 --- !u!114 &1372065401535349876
 MonoBehaviour:

@@ -19,7 +19,7 @@ public class UnitData : ScriptableObject
 
     [Header("Unit production info")]
     [SerializeField] private float productionTime = 0;
-    [SerializeField] private int productionCost = 0;
+    [SerializeField] private int requisitionCost = 0;
     [SerializeField] private int networkCost = 0;
 
     #endregion ATTRIBUTS
@@ -68,10 +68,10 @@ public class UnitData : ScriptableObject
         get => productionTime;
         set => productionTime = value;
     }
-    public int ProductionCost
+    public int RequisitionCost
     {
-        get => productionCost;
-        set => productionCost = value;
+        get => requisitionCost;
+        set => requisitionCost = value;
     }
     public int NetworkCost
     {

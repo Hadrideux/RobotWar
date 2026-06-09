@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SpawnerComponent : MonoBehaviour
 {
-
-    [SerializeField] private AUnitClass unitToSpawn = null;
-
     [SerializeField] private Transform spawner = null;
     [SerializeField] private Transform unitContainer = null;
 
