@@ -10,6 +10,8 @@ public class PlaceableObject : MonoBehaviour
     [SerializeField] private Vector3[] objectVertices = null;
 
     [SerializeField] private BoxCollider boxCollider = null;
+
+    [SerializeField] private BuilderSystem builderSystem = null;
     #endregion
 
     #region PROPERTIES
@@ -20,6 +22,13 @@ public class PlaceableObject : MonoBehaviour
         get => size;
         set => size = value;
     }
+
+    public BuilderSystem BuilderSystem
+    {
+        get => builderSystem;
+        set => builderSystem = value;
+    }
+
     #endregion
 
     void Start()
@@ -45,7 +54,7 @@ public class PlaceableObject : MonoBehaviour
         for (int i = 0; i < vertices.Length; i++)
         {
             Vector3 worldPos = transform.TransformPoint(objectVertices[i]);
-            vertices[i] = BuilderSystem.current.GridLayout.WorldToCell(worldPos);
+            vertices[i] = BuilderSystem.GridLayout.WorldToCell(worldPos);
         }
 
         Size = new Vector3Int(Mathf.Abs((vertices[0] - vertices[1]).x), Mathf.Abs((vertices[0] - vertices[3]).y), 1);

@@ -4,16 +4,16 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private CharacterManager characterManager = null; 
 
-    [SerializeField] private float _speedMovement = 0f;
-    [SerializeField] private float _speedRotation = 0f;
-    [SerializeField] private float _zoomSpeed = 0f;
+    [SerializeField] private float speedMovement = 0f;
+    [SerializeField] private float speedRotation = 0f;
+    [SerializeField] private float zoomSpeed = 0f;
 
-    [SerializeField] private float _maxHeight = 15f;
-    [SerializeField] private float _minHeight = 5f;
+    [SerializeField] private float maxHeight = 15f;
+    [SerializeField] private float minHeight = 5f;
 
-    [SerializeField] private Vector3 _rotationTarget = Vector3.zero;
+    [SerializeField] private Vector3 rotationTarget = Vector3.zero;
     [Range(0f, 1f)]
-    [SerializeField] private float _speedAlpha = 0f;
+    [SerializeField] private float speedAlpha = 0f;
 
 
     private void Start()
@@ -35,15 +35,15 @@ public class CameraController : MonoBehaviour
     {
         Vector3 movementCamera = transform.position;
             
-        Vector3 forwardMove = Input.GetAxis("Forward") * transform.forward * _speedMovement * Time.deltaTime;
-        Vector3 rightMove = Input.GetAxis("Right") * transform.right * _speedMovement * Time.deltaTime;
+        Vector3 forwardMove = Input.GetAxis("Forward") * transform.forward * speedMovement * Time.deltaTime;
+        Vector3 rightMove = Input.GetAxis("Right") * transform.right * speedMovement * Time.deltaTime;
 
         movementCamera.z += forwardMove.z + rightMove.z;
         movementCamera.x += forwardMove.x + rightMove.x;
-        movementCamera.y -= Input.GetAxis("ScrollWheel") * _zoomSpeed * Time.deltaTime;     
+        movementCamera.y -= Input.GetAxis("ScrollWheel") * zoomSpeed * Time.deltaTime;     
 
         Vector3 yAxisCamera = movementCamera;
-        yAxisCamera.y = Mathf.Clamp(yAxisCamera.y, _minHeight, _maxHeight);
+        yAxisCamera.y = Mathf.Clamp(yAxisCamera.y, minHeight, maxHeight);
         transform.position = yAxisCamera;
 
         characterManager.OnCharacterMove();
@@ -52,10 +52,10 @@ public class CameraController : MonoBehaviour
     private void CameraRotation()
     {
         Debug.Log(Input.GetAxis("RotateCamera"));
-        _rotationTarget = new Vector3(0, Input.GetAxis("RotateCamera") * _speedRotation * Time.deltaTime, 0);
+        rotationTarget = new Vector3(0, Input.GetAxis("RotateCamera") * speedRotation * Time.deltaTime, 0);
     
-        Vector3 eulerAngles = new Vector3(45, transform.eulerAngles.y + _rotationTarget.y, 0);
-        Vector3 lerp = Vector3.Lerp(transform.eulerAngles, eulerAngles, _speedAlpha);
+        Vector3 eulerAngles = new Vector3(45, transform.eulerAngles.y + rotationTarget.y, 0);
+        Vector3 lerp = Vector3.Lerp(transform.eulerAngles, eulerAngles, speedAlpha);
 
         transform.rotation = Quaternion.Euler(lerp);
     }

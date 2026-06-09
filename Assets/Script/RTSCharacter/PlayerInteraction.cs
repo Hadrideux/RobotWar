@@ -10,6 +10,8 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
     [SerializeField] private EPlayerState currentState = EPlayerState.NONE;
 
+    [SerializeField] private Camera cameraCharacter = null;
+
     #endregion ATTRIBUTS
 
     #region PROPERTIES

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48cf0c3694f07f4ba57d3c69e0ec858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
-  defaultNetworkLoad: 0
+  defaultNetworkLoad: 100
   currentMaxLoad: 0
   currentLoad: 0
   networkEffect:

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5324972327424248507
+--- !u!1 &760997198480212679
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8669568821596903331}
-  - component: {fileID: 1646653581380238151}
-  - component: {fileID: 4726428681088453254}
-  - component: {fileID: 5104578950578147612}
-  - component: {fileID: 6440245348097884757}
-  - component: {fileID: 5893407799822340479}
+  - component: {fileID: 3643911291743525098}
+  - component: {fileID: 1136822381767658475}
+  - component: {fileID: 7017997494712816711}
   m_Layer: 0
-  m_Name: RTSCharacter
-  m_TagString: Untagged
+  m_Name: Camera
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8669568821596903331
+--- !u!4 &3643911291743525098
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
+  m_GameObject: {fileID: 760997198480212679}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10, z: -13}
+  m_LocalPosition: {x: 0, y: 5, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6232916682931088885}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
---- !u!20 &1646653581380238151
+--- !u!20 &1136822381767658475
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
+  m_GameObject: {fileID: 760997198480212679}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -69,7 +66,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 75
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -87,57 +84,79 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &4726428681088453254
+--- !u!81 &7017997494712816711
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
+  m_GameObject: {fileID: 760997198480212679}
   m_Enabled: 1
---- !u!114 &5104578950578147612
+--- !u!1 &5088122458605404496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6232916682931088885}
+  - component: {fileID: 228252518883032320}
+  - component: {fileID: 5471424452030018049}
+  m_Layer: 0
+  m_Name: RTSCharacter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6232916682931088885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5088122458605404496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3643911291743525098}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &228252518883032320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 055e65c14f6cdc746854369238be219f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterController
-  characterManager: {fileID: 0}
---- !u!114 &6440245348097884757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
+  m_GameObject: {fileID: 5088122458605404496}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2605bb5578e3d354ca3b740663d07366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   characterManager: {fileID: 0}
-  _speedMovement: 150
-  _speedRotation: 100
-  _zoomSpeed: 2000
-  _maxHeight: 15
-  _minHeight: 5
-  _rotationTarget: {x: 0, y: 0, z: 0}
-  _speedAlpha: 1
---- !u!114 &5893407799822340479
+  speedMovement: 200
+  speedRotation: 100
+  zoomSpeed: 20
+  maxHeight: 15
+  minHeight: 5
+  rotationTarget: {x: 0, y: 0, z: 0}
+  speedAlpha: 0.5
+--- !u!114 &5471424452030018049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324972327424248507}
+  m_GameObject: {fileID: 5088122458605404496}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e03b3cc6ca0fee45937097940d08fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   currentState: 0
+  cameraCharacter: {fileID: 0}

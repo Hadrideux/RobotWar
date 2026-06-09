@@ -17,8 +17,6 @@ public class FaceCamera : MonoBehaviour
 
     public void FocusEffectUIToCamera()
     {
-       Debug.Log(this.isActiveAndEnabled);
-
         transform.LookAt(transform.position + cameraTransform.forward);
     }
 }
