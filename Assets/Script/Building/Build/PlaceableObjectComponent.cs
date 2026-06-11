@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlaceableObject : MonoBehaviour
+public class PlaceableObjectComponent : MonoBehaviour
 {
 
     #region ATTRIBUT
@@ -11,7 +11,7 @@ public class PlaceableObject : MonoBehaviour
 
     [SerializeField] private BoxCollider boxCollider = null;
 
-    [SerializeField] private BuilderSystem builderSystem = null;
+    [SerializeField] private BuilderSystemController builderSystemController = null;
     #endregion
 
     #region PROPERTIES
@@ -23,10 +23,10 @@ public class PlaceableObject : MonoBehaviour
         set => size = value;
     }
 
-    public BuilderSystem BuilderSystem
+    public BuilderSystemController BuilderSystemController
     {
-        get => builderSystem;
-        set => builderSystem = value;
+        get => builderSystemController;
+        set => builderSystemController = value;
     }
 
     #endregion
@@ -54,7 +54,7 @@ public class PlaceableObject : MonoBehaviour
         for (int i = 0; i < vertices.Length; i++)
         {
             Vector3 worldPos = transform.TransformPoint(objectVertices[i]);
-            vertices[i] = BuilderSystem.GridLayout.WorldToCell(worldPos);
+            vertices[i] = BuilderSystemController.GridLayout.WorldToCell(worldPos);
         }
 
         Size = new Vector3Int(Mathf.Abs((vertices[0] - vertices[1]).x), Mathf.Abs((vertices[0] - vertices[3]).y), 1);
@@ -71,7 +71,7 @@ public class PlaceableObject : MonoBehaviour
 
     public void Place()
     {
-        ObjectDrag drag = GetComponent<ObjectDrag>();
+        ObjectDragComponent drag = GetComponent<ObjectDragComponent>();
         Destroy(drag);
 
         isPlaced = true;

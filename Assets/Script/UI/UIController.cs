@@ -9,6 +9,6 @@ public class UIController : MonoBehaviour
     public void BuildSelected(ABuildClass prefab)
     {
 
-        BuilderManager.Instance.SelectedBuild(prefab);
+        BuilderSystemManager.Instance.SelectedBuild(prefab);
     }
 }

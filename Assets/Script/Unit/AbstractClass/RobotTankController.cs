@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RobotTank : AUnitClass
+public class RobotTankController : AUnitClass
 {
     #region ATTRIBUTS
 

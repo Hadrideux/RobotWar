@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BuilderSystem : MonoBehaviour
+public class BuilderSystemController : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] private PlayerInteraction playerInteraction = null;
-    [SerializeField] private BuilderManager builderManager = null;
+    [SerializeField] private BuilderSystemManager builderManager = null;
 
     [Header("Grid")]
     [SerializeField] private Grid buildGrid = null;
@@ -14,7 +14,7 @@ public class BuilderSystem : MonoBehaviour
     [SerializeField] private Tilemap buildTileMap = null;
     [SerializeField] private TileBase buildTileBase = null;
 
-    [SerializeField] private PlaceableObject objectToPlace = null;
+    [SerializeField] private PlaceableObjectComponent objectToPlace = null;
 
 
     public GridLayout GridLayout => gridLayout;
@@ -23,7 +23,7 @@ public class BuilderSystem : MonoBehaviour
     void Start()
     {
         playerInteraction = PlayerInteraction.Instance;
-        builderManager = BuilderManager.Instance;
+        builderManager = BuilderSystemManager.Instance;
 
         builderManager.OnBuildSelected += InitializeWithObject;
         playerInteraction.OnConfirmPlacement += PlaceBuilding;
@@ -42,11 +42,11 @@ public class BuilderSystem : MonoBehaviour
 
         ABuildClass obj = Instantiate(prefab, pos, Quaternion.identity);
 
-        objectToPlace = obj.GetComponent<PlaceableObject>();
-        objectToPlace.BuilderSystem = this;
+        objectToPlace = obj.GetComponent<PlaceableObjectComponent>();
+        objectToPlace.BuilderSystemController = this;
         
-        obj.gameObject.AddComponent<ObjectDrag>();
-        obj.GetComponent<ObjectDrag>().BuilderSystem = this;
+        obj.gameObject.AddComponent<ObjectDragComponent>();
+        obj.GetComponent<ObjectDragComponent>().BuilderSystemController = this;
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -63,7 +63,7 @@ public class BuilderSystem : MonoBehaviour
 
         return array;
     }
-    private bool CanBePlaced(PlaceableObject placeableObject)
+    private bool CanBePlaced(PlaceableObjectComponent placeableObject)
     {
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());

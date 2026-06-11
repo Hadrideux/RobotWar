@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuilderManager : Singleton<BuilderManager>
+public class BuilderSystemManager : Singleton<BuilderSystemManager>
 {
     #region ATTRIBUTS
 
