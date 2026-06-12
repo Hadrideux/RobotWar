@@ -99,6 +99,7 @@ public class BuilderSystemController : MonoBehaviour
         else
         {
             Debug.Log("Construction échoué");
+
             Destroy(objectToPlace.gameObject);
         }
     }

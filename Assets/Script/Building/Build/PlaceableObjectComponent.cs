@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlaceableObjectComponent : MonoBehaviour
 {
-
     #region ATTRIBUT
     [SerializeField] private bool isPlaced = false;
 
