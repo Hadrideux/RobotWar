@@ -66,8 +66,6 @@ public abstract class AUnitClass : MonoBehaviour
         UnitManager.Instance.UnitDestroyed(this);
         NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
 
-        Debug.Log($"Unit destroy : {this}");
-
         UnitManager.Instance.ActiveUnits.Remove(this);
     }
     #endregion MONO
