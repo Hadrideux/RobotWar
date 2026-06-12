@@ -7,7 +7,7 @@ public abstract class ABuildClass : MonoBehaviour
     #region ATTRIBUTS
 
     [Header("Component")]
-    [SerializeField] protected PlaceableObject placeableComponent = null;
+    [SerializeField] protected PlaceableObjectComponent placeableComponent = null;
 
     [Header("Statistique")]
     [SerializeField] protected BuildData buildData = null;

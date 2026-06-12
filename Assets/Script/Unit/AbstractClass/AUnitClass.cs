@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class AUnitClass : MonoBehaviour
 {
@@ -26,10 +22,11 @@ public abstract class AUnitClass : MonoBehaviour
     [SerializeField] protected float reloading = 0f;
 
     [Header("Component")]
-    [SerializeField] private EffectComponent effectComponent = null;
+    [SerializeField] protected EffectComponent effectComponent = null;
 
     [Header("Unit Debug")]
     [SerializeField] protected bool isFreezeUnit = false;
+    [SerializeField] protected bool isPeacfully = false;
 
     #endregion ATTRIBUTS
 
@@ -47,12 +44,14 @@ public abstract class AUnitClass : MonoBehaviour
         get => reloading;
         set => reloading = value;
     }
-    public bool IsFreezeUnit => isFreezeUnit;
 
     public ShellController ShellController => shellController;
     public NavMeshAgent NavMeshAgent => navMeshAgent;
     public EffectComponent EffectComponent => effectComponent;
-    
+
+    public bool IsFreezeUnit => isFreezeUnit;
+    public bool IsPeacfully => isPeacfully;
+
 
     #endregion PROPERTIES
 
@@ -60,6 +59,16 @@ public abstract class AUnitClass : MonoBehaviour
     void Start()
     {
         InitUnit();
+    }
+
+    void OnDestroy()
+    {
+        UnitManager.Instance.UnitDestroyed(this);
+        NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
+
+        Debug.Log($"Unit destroy : {this}");
+
+        UnitManager.Instance.ActiveUnits.Remove(this);
     }
     #endregion MONO
 
@@ -75,18 +84,11 @@ public abstract class AUnitClass : MonoBehaviour
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
 
-        NetworkManager.Instance.UpdateNetworkLoad(UnitData.NetworkCost);
-        UnitManager.Instance.ActiveUnits.Add(this);
-
-        
+        NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
+        UnitManager.Instance.ActiveUnits.Add(this);        
     }
     public void UnitDestroyed()
     {
-        UnitManager.Instance.UnitDestroyed(this);
-        NetworkManager.Instance.UpdateNetworkLoad(- UnitData.NetworkCost);
-
-        Debug.Log($"Unit destroy : {this}");
-
         Destroy(gameObject);
     }
 

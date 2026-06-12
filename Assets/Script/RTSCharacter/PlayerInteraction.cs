@@ -61,10 +61,12 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
                     break;
                 case EPlayerState.CONSTURCTION:
                     Debug.Log("Confirm placement");
+
                     if (onConfirmPlacement != null)
                     {
                         onConfirmPlacement();
                     }
+
                     currentState = EPlayerState.COMMAND;
                     break;
                 default:

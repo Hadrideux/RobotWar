@@ -32,14 +32,13 @@ public class TargetComponent : MonoBehaviour
 
     private void Update()
     {
-        if(!unit.IsFreezeUnit) ScanForTarget();
+        if(!unit.IsPeacfully) ScanForTarget();
     }
-    /*
     void OnDestroy()
     {
         UnitManager.Instance.OnUnitDestroyed -= RefreshTargetList;
     }
-     */
+
     private void OnApplicationQuit()
     {
         UnitManager.Instance.OnUnitDestroyed -= RefreshTargetList;
