@@ -9,7 +9,7 @@ public class BuilderSystemController : MonoBehaviour
 
     [Header("Grid")]
     [SerializeField] private Grid buildGrid = null;
-    [SerializeField] private GridLayout gridLayout = null;    
+    [SerializeField] private GridLayout gridLayout = null;
 
     [SerializeField] private Tilemap buildTileMap = null;
     [SerializeField] private TileBase buildTileBase = null;
@@ -44,7 +44,7 @@ public class BuilderSystemController : MonoBehaviour
 
         objectToPlace = obj.GetComponent<PlaceableObjectComponent>();
         objectToPlace.BuilderSystemController = this;
-        
+
         obj.gameObject.AddComponent<ObjectDragComponent>();
         obj.GetComponent<ObjectDragComponent>().BuilderSystemController = this;
     }

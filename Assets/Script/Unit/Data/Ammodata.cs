@@ -33,7 +33,7 @@ public class AmmoData : ScriptableObject
     public int Damage
     {
         get => damage;
-        set => damage = value; 
+        set => damage = value;
     }
 
     public float Speed
@@ -41,5 +41,5 @@ public class AmmoData : ScriptableObject
         get => speed;
         set => speed = value;
     }
-    
+
 }

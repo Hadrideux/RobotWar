@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "ErrorNetworkData", menuName = "Scriptable Objects/ErrorNetworkData")]
 public class NetworkEffectData : ScriptableObject

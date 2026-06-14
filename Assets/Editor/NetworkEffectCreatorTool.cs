@@ -1,12 +1,9 @@
-using System;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class NetworkEffectCreatorTool : EditorWindow
 {
-    
+
 
     // --- Dossier de sortie des assets ---
     private string OUTPUT_FOLDER = "Assets/Script/Network/Data/EffectSO";
@@ -14,17 +11,17 @@ public class NetworkEffectCreatorTool : EditorWindow
     private Vector2 scrollPos = Vector2.zero;
 
     private string effectName = "effect Name";
-    
+
     private EStatEffectedType statAffected = EStatEffectedType.NONE;
     private ECategoryEffectType categoryEffect = ECategoryEffectType.NONE;
 
     private float thresholdEffect = 0f;
 
-   
+
     private float statModifier = 0f;
     private int effectDuration = 0;
     private int effectCooldown = 0;
-    
+
     private float procProbability = 0;
 
     [MenuItem("Tools/NetworkEffectCreatorTool")]
@@ -52,7 +49,7 @@ public class NetworkEffectCreatorTool : EditorWindow
         }
 
         GUILayout.EndScrollView();
-    }    
+    }
 
     #region DRAW INSPECTOR
     public void DrawTitle()
@@ -93,7 +90,7 @@ public class NetworkEffectCreatorTool : EditorWindow
         GUILayout.Space(2);
 
         effectCooldown = EditorGUILayout.IntField("Cooldown", effectCooldown);
-        GUILayout.Space(2);           
+        GUILayout.Space(2);
     }
 
     private void DrawSeparator()

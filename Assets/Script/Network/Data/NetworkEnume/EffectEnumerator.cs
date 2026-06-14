@@ -13,7 +13,7 @@ public enum EStatEffectedType
     RELOADING,
 }
 
-public enum ECategoryEffectType               
+public enum ECategoryEffectType
 {
     NONE,
     BONUS,

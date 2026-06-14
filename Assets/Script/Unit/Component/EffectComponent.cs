@@ -69,7 +69,7 @@ public class EffectComponent : MonoBehaviour
                 break;
         }
     }
-    
+
     #endregion METHODE
 
 

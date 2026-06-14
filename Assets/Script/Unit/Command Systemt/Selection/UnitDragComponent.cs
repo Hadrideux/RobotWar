@@ -3,7 +3,7 @@ using UnityEngine;
 public class UnitDragComponent : MonoBehaviour
 {
     [SerializeField] private PlayerInteraction playerInteraction = null;
-    [SerializeField] private SelectableController selectionController = null;
+    [SerializeField] private SelectableManager selectionManager = null;
 
     [SerializeField] private RectTransform boxVisual = null;
 
@@ -17,6 +17,7 @@ public class UnitDragComponent : MonoBehaviour
     void Start()
     {
         playerInteraction = PlayerInteraction.Instance;
+        selectionManager = SelectableManager.Instance;
 
         playerInteraction.OnDragStarted += StartSelection;
         playerInteraction.OnDragUpdate += DragSelection;
@@ -96,11 +97,11 @@ public class UnitDragComponent : MonoBehaviour
     }
     public void SelectUnits()
     {
-        foreach(AUnitClass unit in UnitManager.Instance.ActiveUnits)
+        foreach (AUnitClass unit in UnitManager.Instance.ActiveUnits)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(unit.transform.position)))
             {
-                selectionController.DargSelect(unit);
+                selectionManager.DargSelect(unit);
             }
 
         }

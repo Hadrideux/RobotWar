@@ -25,10 +25,10 @@ public class NetworkController : MonoBehaviour
     public void HandleNetworkEffect()
     {
         NetworkEffectData[] effect = networkManager.NetworkEffect;
-        for(int i=0; i <= effect.Length-1; i++)
+        for (int i = 0; i <= effect.Length - 1; i++)
         {
             float threshold = effect[i].ThresholdEffect;
-            if(threshold <= NetworkPercentLoad())
+            if (threshold <= NetworkPercentLoad())
             {
                 Debug.Log($"Effect cast : {effect[i]}");
                 ApplyEffect(effect[i]);
@@ -41,15 +41,15 @@ public class NetworkController : MonoBehaviour
     }
     public void Shuffle(List<AUnitClass> list)
     {
-        for (int i = 0; i < list.Count; i++) 
+        for (int i = 0; i < list.Count; i++)
         {
-            int j = Random.Range(0, i+1);
+            int j = Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
-        }                                             
+        }
     }
     public void ApplyEffect(NetworkEffectData effect)
     {
-        if(!cooldownEffect.ContainsKey(effect))
+        if (!cooldownEffect.ContainsKey(effect))
             cooldownEffect.Add(effect, effect.Cooldown);
 
         if (cooldownEffect.ContainsKey(effect) && currentCooldownEffect > 0)
@@ -58,7 +58,7 @@ public class NetworkController : MonoBehaviour
             currentCooldownEffect -= Time.deltaTime;
             return;
         }
-        if(Random.Range(0f, 1f) > effect.ProcProbability)
+        if (Random.Range(0f, 1f) > effect.ProcProbability)
         {
             Debug.Log($"Effet : {effect.EffectName} n'as pas proc");
             currentCooldownEffect -= Time.deltaTime;
@@ -67,7 +67,7 @@ public class NetworkController : MonoBehaviour
 
         List<AUnitClass> unitEligible = unitManager.GetElligibleUnits(effect.StatAffected);
 
-        if (unitEligible.Count == 0) 
+        if (unitEligible.Count == 0)
             return;
 
         int count = Mathf.Max(1, Mathf.RoundToInt(unitEligible.Count * effect.ProcProbability));
@@ -83,6 +83,6 @@ public class NetworkController : MonoBehaviour
         float currentLoad = networkManager.CurrentLoad;
         int maxLoad = networkManager.CurrentMaxLoad;
 
-        return currentLoad / maxLoad;        
+        return currentLoad / maxLoad;
     }
 }

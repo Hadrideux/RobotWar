@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
 [System.Serializable]
 public class NetworkUIController : MonoBehaviour
@@ -33,7 +31,7 @@ public class NetworkUIController : MonoBehaviour
     #endregion MONO
     public void UpdateNetworkLoad(int loadValue)
     {
-        float fill = (float)loadValue / networkManager.CurrentMaxLoad; 
+        float fill = (float)loadValue / networkManager.CurrentMaxLoad;
         loadImage.fillAmount = Mathf.Clamp(fill, 0, 1);
     }
 }

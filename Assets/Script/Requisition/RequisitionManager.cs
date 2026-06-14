@@ -39,7 +39,7 @@ public class RequisitionManager : Singleton<RequisitionManager>
 
     #endregion EVENT
 
-    public void OnUpdateRequisitionEvent(int amount) 
+    public void OnUpdateRequisitionEvent(int amount)
     {
         if (onUpdateRequisition != null)
         {

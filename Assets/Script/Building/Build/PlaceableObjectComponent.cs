@@ -41,7 +41,7 @@ public class PlaceableObjectComponent : MonoBehaviour
     {
         objectVertices = new Vector3[4];
         objectVertices[0] = boxCollider.center + new Vector3(-boxCollider.size.x, -boxCollider.size.y, -boxCollider.size.z);
-        objectVertices[1] = boxCollider.center + new Vector3(boxCollider.size.x, -boxCollider.size.y , -boxCollider.size.z);
+        objectVertices[1] = boxCollider.center + new Vector3(boxCollider.size.x, -boxCollider.size.y, -boxCollider.size.z);
         objectVertices[2] = boxCollider.center + new Vector3(boxCollider.size.x, -boxCollider.size.y, boxCollider.size.z);
         objectVertices[3] = boxCollider.center + new Vector3(-boxCollider.size.x, -boxCollider.size.y, boxCollider.size.z);
     }
@@ -76,4 +76,4 @@ public class PlaceableObjectComponent : MonoBehaviour
         isPlaced = true;
     }
 
-}      
+}

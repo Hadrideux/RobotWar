@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerComponent : MonoBehaviour
@@ -23,7 +21,7 @@ public class SpawnerComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnUnit(AUnitClass spawnUnit)

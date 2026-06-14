@@ -7,6 +7,7 @@
 public enum EBuildType
 {
     NONE,
-    FACTORY,
-    PRODUCTION,
+    ASSEMBLY,
+    SUPPLY,
+    SPACEELEVATOR,
 }

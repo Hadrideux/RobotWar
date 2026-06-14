@@ -11,7 +11,7 @@ public class RobotTankController : AUnitClass
 
     void Update()
     {
-        
+
     }
 
     #endregion
@@ -27,12 +27,12 @@ public class RobotTankController : AUnitClass
 
     public override void TakeDamage(AmmoData hitData)
     {
-        switch(hitData.AmmoType)
+        switch (hitData.AmmoType)
         {
             case (EAmmoType.PHYSIQUE):
                 HealthUpdate(hitData.Damage);
 
-                if(currentHealth <= 0)
+                if (currentHealth <= 0)
                 {
                     UnitDestroyed();
                 }

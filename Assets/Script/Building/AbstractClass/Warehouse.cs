@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-    
-public class Warehouse : ABuildClass  
+﻿using UnityEngine;
+
+public class Warehouse : ABuildClass
 {
     [Header("Manager")]
     [SerializeField] private RequisitionManager requisitionManger = null;
@@ -52,7 +51,7 @@ public class Warehouse : ABuildClass
         Destroy(gameObject);
     }
     #endregion ABSTRACT
-    
+
     private void OnPlacemenConfirmed()
     {
         FindAndRegisterTower();

@@ -1,11 +1,10 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
 
 public class UnitToolPanel : EditorWindow
 {
-    
+
 
     //Dossier de sortie des assets
     private string OUTPUT_FOLDER = "Assets/Script/Unit/Data/UnitSO";
@@ -24,7 +23,7 @@ public class UnitToolPanel : EditorWindow
 
     private float productionTime = 0;
     private int requisitionCost = 0;
-    private int networkCost = 0;       
+    private int networkCost = 0;
 
     private Mesh unitBody = null;
     private Mesh turretBody = null;
@@ -47,7 +46,7 @@ public class UnitToolPanel : EditorWindow
         DrawSeparator();
 
         if (GUILayout.Button("Create Unit"))
-        {            
+        {
             Debug.Log("Création de l'unité : " + unitName);
             CreateUnit();
         }
@@ -68,7 +67,7 @@ public class UnitToolPanel : EditorWindow
         GUILayout.Label("Unit identification", EditorStyles.boldLabel);
 
         unitName = EditorGUILayout.TextField("Unit name", unitName);
-        unitType = (EUnitType) EditorGUILayout.EnumPopup("Unit type", unitType);
+        unitType = (EUnitType)EditorGUILayout.EnumPopup("Unit type", unitType);
     }
 
     public void DrawUnitData()
@@ -89,11 +88,11 @@ public class UnitToolPanel : EditorWindow
     private void DrawUnitBody()
     {
         GUILabel("Unit Body");
-        unitBody = (Mesh) EditorGUILayout.ObjectField("Unit Body", unitBody, typeof(Mesh), false);
+        unitBody = (Mesh)EditorGUILayout.ObjectField("Unit Body", unitBody, typeof(Mesh), false);
         GUILayout.Space(2);
-        turretBody = (Mesh) EditorGUILayout.ObjectField("Turret Body", turretBody, typeof(Mesh), false);
+        turretBody = (Mesh)EditorGUILayout.ObjectField("Turret Body", turretBody, typeof(Mesh), false);
         GUILayout.Space(2);
-        weaponBody = (Mesh) EditorGUILayout.ObjectField("Weapon Body", weaponBody, typeof(Mesh), false);
+        weaponBody = (Mesh)EditorGUILayout.ObjectField("Weapon Body", weaponBody, typeof(Mesh), false);
     }
 
     private void DrawUnitFabrication()

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -9,7 +6,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private CharacterManager characterManager = null;
 
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +20,7 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
 
-        
+
     }
 
     private void OnDestroy()

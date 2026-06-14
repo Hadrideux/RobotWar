@@ -32,7 +32,7 @@ public class TargetComponent : MonoBehaviour
 
     private void Update()
     {
-        if(!unit.IsPeacfully) ScanForTarget();
+        if (!unit.IsPeacfully) ScanForTarget();
     }
     void OnDestroy()
     {

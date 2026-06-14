@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FactoryController : ABuildClass
@@ -7,7 +5,7 @@ public class FactoryController : ABuildClass
     [Header("Manager")]
     [SerializeField] private RequisitionManager requisitionManager = null;
     [Header("Component")]
-    [SerializeField] private SpawnerComponent spawnerComponent= null;
+    [SerializeField] private SpawnerComponent spawnerComponent = null;
 
     [SerializeField] private EUnitType _unitProduction = EUnitType.NONE;
 
@@ -75,7 +73,7 @@ public class FactoryController : ABuildClass
         }
     }
 
-    
+
 
     #endregion METHODE
 

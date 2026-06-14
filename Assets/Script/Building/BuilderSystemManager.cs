@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuilderSystemManager : Singleton<BuilderSystemManager>
@@ -12,7 +10,7 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
 
     [SerializeField] private ABuildClass selectedBuild = null;
 
-    
+
 
     #endregion ATTRIBUTS
 
@@ -62,6 +60,6 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
         selectedBuild = null;
     }
 
-    
+
 
 }

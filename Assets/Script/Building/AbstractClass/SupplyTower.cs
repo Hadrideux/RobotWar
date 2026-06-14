@@ -12,7 +12,7 @@ public class SupplyTower : ABuildClass
 
     #region METHODE
     #region MONO
-                                                                        
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class SupplyTower : ABuildClass
     // Update is called once per frame
     void Update()
     {
-        if(placeableComponent.IsPlaced)
+        if (placeableComponent.IsPlaced)
         {
             ProductionTimer();
         }
@@ -37,7 +37,7 @@ public class SupplyTower : ABuildClass
 
     #endregion ABSTRACT
 
-    public  override void InitBuild()
+    public override void InitBuild()
     {
         requisitionManger = RequisitionManager.Instance;
 
@@ -46,7 +46,7 @@ public class SupplyTower : ABuildClass
 
     private void ProductionTimer()
     {
-        if(currentProductionTime >= productionTime)
+        if (currentProductionTime >= productionTime)
         {
             Debug.Log($"Livraison de: {requisitionRate} réquisition");
             ProduceRequisition();
@@ -72,7 +72,7 @@ public class SupplyTower : ABuildClass
     {
         currentRequisitionRate -= bonus;
     }
-    
+
 
     #endregion METHODE
 }

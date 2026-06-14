@@ -1,10 +1,9 @@
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class BuildingToollPanel : EditorWindow
 {
-    
+
 
     //Dossier de sortie des assets
     private string OUTPUT_FOLDER = "Assets/Script/Building/Data/BuildingSO";
