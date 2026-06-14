@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class AUnitClass : MonoBehaviour
+public abstract class AUnitClass : MonoBehaviour, ISelectable
 {
     #region ATTRIBUTS
     [Header("Body")]
@@ -9,6 +9,8 @@ public abstract class AUnitClass : MonoBehaviour
 
     [SerializeField] protected GameObject turretBody = null;
     [SerializeField] protected Transform spawnShellPoint = null;
+
+    [SerializeField] protected GameObject selectionObject = null;
 
     [Header("Statistique")]
     [SerializeField] protected UnitData unitData = null;
@@ -65,8 +67,6 @@ public abstract class AUnitClass : MonoBehaviour
     {
         UnitManager.Instance.UnitDestroyed(this);
         NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
-
-        UnitManager.Instance.ActiveUnits.Remove(this);
     }
     #endregion MONO
 
@@ -130,10 +130,24 @@ public abstract class AUnitClass : MonoBehaviour
     #region ABSTRACT METHODE
 
     //Gestion déplacement unité
-    abstract public void MovementUnit();
+    abstract public void MovementUnit(Vector3 destination);
 
     //Gestion dégat reçu par l'unité
     abstract public void TakeDamage(AmmoData hitData);
-
     #endregion ABSTRACT METHODE
+
+    #region INTERFACE
+    public void Select()
+    {
+        selectionObject.SetActive(true);
+    }
+
+    public void Deselect()
+    {
+        selectionObject.SetActive(false);
+    }
+    #endregion
+
+
+
 }

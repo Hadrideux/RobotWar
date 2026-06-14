@@ -44,6 +44,8 @@ public class UnitManager : Singleton<UnitManager>
 
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
+        UnitManager.Instance.ActiveUnits.Remove(unitDestroyed);
+
         if (_onUnitDestroyed != null)
             _onUnitDestroyed(unitDestroyed);
     }

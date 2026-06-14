@@ -19,7 +19,7 @@ public class ObjectDragComponent : MonoBehaviour
 
     void Update()
     {
-        Vector3 pos = playerInteraction.GetMouseWorlPosition();
+        Vector3 pos = playerInteraction.GetMouseWorlPosition(playerInteraction.GroundMask).point;
         transform.position = BuilderSystemController.SnapCoordinateToGrid(pos);
     }
 }

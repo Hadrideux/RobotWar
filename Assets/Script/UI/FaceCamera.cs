@@ -6,7 +6,7 @@ public class FaceCamera : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      cameraTransform = CharacterManager.Instance.CharacterController.transform;   
+      //cameraTransform = CharacterManager.Instance.CharacterController.transform;   
     }
 
     // Update is called once per frame

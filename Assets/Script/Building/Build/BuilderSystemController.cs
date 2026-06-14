@@ -27,7 +27,7 @@ public class BuilderSystemController : MonoBehaviour
 
         builderManager.OnBuildSelected += InitializeWithObject;
         playerInteraction.OnConfirmPlacement += PlaceBuilding;
-        playerInteraction.OnCancelPlacement += CancelBuilding;
+        playerInteraction.OnCancelAction += CancelBuilding;
     }
     public Vector3 SnapCoordinateToGrid(Vector3 pos)
     {
@@ -38,7 +38,7 @@ public class BuilderSystemController : MonoBehaviour
     }
     public void InitializeWithObject(ABuildClass prefab)
     {
-        Vector3 pos = SnapCoordinateToGrid(playerInteraction.GetMouseWorlPosition());
+        Vector3 pos = SnapCoordinateToGrid(playerInteraction.GetMouseWorlPosition(playerInteraction.GroundMask).point);
 
         ABuildClass obj = Instantiate(prefab, pos, Quaternion.identity);
 

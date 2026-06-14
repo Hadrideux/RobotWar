@@ -574,8 +574,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4217793042964112657}
   - {fileID: 2316391009413863940}
+  - {fileID: 4217793042964112657}
   - {fileID: 9006526330285377823}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -664,6 +664,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: -5891987566183585568}
   turretBody: {fileID: 8744252835087297178}
   spawnShellPoint: {fileID: 9105393294539120570}
+  selectionObject: {fileID: 5048181015689725671}
   unitData: {fileID: 11400000, guid: 345f455a280356946b0e9cad563d2500, type: 2}
   currentHealth: 0
   currentArmor: 0
@@ -673,6 +674,9 @@ MonoBehaviour:
   effectComponent: {fileID: 1372065401535349876}
   isFreezeUnit: 0
   isPeacfully: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &1003550187004552700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,7 +1147,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eec8556b86a53e54b8acfb963d4d9de4, type: 3}
   m_Color: {r: 0.29741663, g: 0.8867924, b: 0.071110725, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 public class RobotTankController : AUnitClass
 {
     #region ATTRIBUTS
-
     #endregion
 
     #region METHODE
@@ -12,25 +11,20 @@ public class RobotTankController : AUnitClass
 
     void Update()
     {
-        if (!isFreezeUnit)
-        {
-            MovementUnit();
-        }
+        
     }
 
     #endregion
     #region ABSTRACT
 
-    public override void MovementUnit()
+    public override void MovementUnit(Vector3 destination)
     {
-        if (!navMeshAgent.isStopped && navMeshAgent.remainingDistance == 0)
+        if (!isFreezeUnit)
         {
-            float randomPoint = Random.Range(0, 50);
-            float randomPoint2 = Random.Range(0, 50);
-            Vector3 destination = new Vector3(randomPoint, transform.position.y, randomPoint2);
             navMeshAgent.SetDestination(destination);
         }
     }
+
     public override void TakeDamage(AmmoData hitData)
     {
         switch(hitData.AmmoType)
