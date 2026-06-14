@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitData", menuName = "Scriptable Objects/UnitData")]

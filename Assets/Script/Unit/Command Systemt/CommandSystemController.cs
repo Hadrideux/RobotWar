@@ -3,7 +3,7 @@ using UnityEngine;
 public class CommandSystemController : MonoBehaviour
 {
     [SerializeField] private PlayerInteraction playerInteraction = null;
-    [SerializeField] private SelectableController selectionController = null;
+    [SerializeField] private SelectableManager selectionManager = null;
 
     [SerializeField] private GameObject groundMarker = null;
 
@@ -13,43 +13,56 @@ public class CommandSystemController : MonoBehaviour
     void Start()
     {
         playerInteraction = PlayerInteraction.Instance;
+        selectionManager = SelectableManager.Instance;
 
-        playerInteraction.OnMoveOrder += ExecuteMoveOrder;
-
+        playerInteraction.OnExecuteOrder += ExecuteOrder;
     }
 
     private void OnDestroy()
     {
-        playerInteraction.OnMoveOrder -= ExecuteMoveOrder;
+        playerInteraction.OnExecuteOrder -= ExecuteOrder;
     }
     private void OnApplicationQuit()
     {
-        playerInteraction.OnMoveOrder -= ExecuteMoveOrder;
+        playerInteraction.OnExecuteOrder -= ExecuteOrder;
     }
     #endregion
 
 
-    private void ExecuteMoveOrder(Vector3 destination)
+    private void ExecuteOrder(RaycastHit hit)
     {
-        if (selectionController.SelectableObj.Count > 0)
+        if (selectionManager.SelectableObj.Count > 0)
         {
             bool orderSent = false;
-
-            foreach (ISelectable selectable in selectionController.SelectableObj)
+            if (hit.collider.GetComponent<ISelectable>() != null)
             {
-                AUnitClass unit = selectable as AUnitClass;
-                if (unit != null)
-                {
-                    unit.MovementUnit(destination);
-                    orderSent = true;
-                }
+                OrderData orderData = new OrderData(EOrderType.ATTACK, hit.collider.GetComponent<ISelectable>());
+                orderSent = PushOrder(orderData);
             }
-
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                OrderData orderData = new OrderData(EOrderType.MOVETO, hit.point);
+                orderSent = PushOrder(orderData);
+            }
             if (orderSent)
             {
-                groundMarker.transform.position = new Vector3(destination.x, destination.y + 0.1f, destination.z);
+                groundMarker.transform.position = new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z);
             }
         }
+    }
+
+    private bool PushOrder(OrderData orderData)
+    {
+        foreach (ISelectable selectable in selectionManager.SelectableObj)
+        {
+            IOrderReceiver unit = selectable as IOrderReceiver;
+            if (unit != null)
+            {
+                unit.ReceiveOrder(orderData);
+            }
+        }
+
+        return true;
     }
     #endregion
 

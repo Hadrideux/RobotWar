@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class AUnitClass : MonoBehaviour, ISelectable
+public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
 {
     #region ATTRIBUTS
     [Header("Body")]
@@ -35,6 +35,10 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable
     #region PROPERTIES
 
     public UnitData UnitData => unitData;
+    public ShellController ShellController => shellController;
+    public NavMeshAgent NavMeshAgent => navMeshAgent;
+    public EffectComponent EffectComponent => effectComponent;
+
     public float CurrentHealth
     {
         get => currentHealth;
@@ -47,16 +51,14 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable
         set => reloading = value;
     }
 
-    public ShellController ShellController => shellController;
-    public NavMeshAgent NavMeshAgent => navMeshAgent;
-    public EffectComponent EffectComponent => effectComponent;
+    public ESelectableType SelectableType => ESelectableType.UNIT;
 
     public bool IsFreezeUnit => isFreezeUnit;
     public bool IsPeacfully => isPeacfully;
 
-
     #endregion PROPERTIES
 
+    #region METHODE
     #region MONO
     void Start()
     {
@@ -69,8 +71,54 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable
         NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
     }
     #endregion MONO
+    #region INTERFACE
+    public void Select()
+    {
+        selectionObject.SetActive(true);
+    }
 
-    #region METHODE
+    public void Deselect()
+    {
+        selectionObject.SetActive(false);
+    }
+
+    public void ReceiveOrder(OrderData order)
+    {
+        switch (order.OrderType)
+        {
+            case EOrderType.MOVETO:
+                MovementUnit(order.OrderDestination);
+                break;
+
+            case EOrderType.ATTACK:
+                if (order.OrderTarget as AUnitClass)
+                {
+                    AUnitClass target = order.OrderTarget as AUnitClass;
+                    MovementUnit(target.transform.position);
+                }
+                else if (order.OrderTarget as ABuildClass)
+                {
+                    ABuildClass target = order.OrderTarget as ABuildClass;
+                    MovementUnit(target.transform.position);
+                }
+                break;
+
+            case EOrderType.STOP:
+                navMeshAgent.isStopped = true;
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
+    #region ABSTRACT METHODE
+
+    //Gestion déplacement unité
+    abstract public void MovementUnit(Vector3 destination);
+
+    //Gestion dégat reçu par l'unité
+    abstract public void TakeDamage(AmmoData hitData);
+    #endregion ABSTRACT METHODE
     public void HealthUpdate(float damage)
     {
         currentHealth -= Mathf.Clamp(damage, 0, unitData.MaxHealth);
@@ -83,7 +131,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable
         currentArmor = unitData.Armor;
 
         NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        UnitManager.Instance.ActiveUnits.Add(this);        
+        UnitManager.Instance.ActiveUnits.Add(this);
     }
     public void UnitDestroyed()
     {
@@ -115,39 +163,14 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable
             ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
             shell.SetDirection(unit.transform.position);
 
-            Reloading = ShellController.AmmoData.ReloadTime;             
+            Reloading = ShellController.AmmoData.ReloadTime;
         }
         else
-        {                             
+        {
             Reloading -= Time.deltaTime;
         }
     }
-
-    
-
     #endregion METHODE
-
-    #region ABSTRACT METHODE
-
-    //Gestion déplacement unité
-    abstract public void MovementUnit(Vector3 destination);
-
-    //Gestion dégat reçu par l'unité
-    abstract public void TakeDamage(AmmoData hitData);
-    #endregion ABSTRACT METHODE
-
-    #region INTERFACE
-    public void Select()
-    {
-        selectionObject.SetActive(true);
-    }
-
-    public void Deselect()
-    {
-        selectionObject.SetActive(false);
-    }
-    #endregion
-
 
 
 }

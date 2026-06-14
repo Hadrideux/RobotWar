@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class PlayerInteraction : Singleton<PlayerInteraction>
 {
@@ -13,12 +10,12 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     [SerializeField] private Camera cameraCharacter = null;
 
     [SerializeField] private LayerMask interactionMask = new LayerMask();
-    [SerializeField] private LayerMask groundMask = new LayerMask();
+    [SerializeField] private LayerMask orderMask = new LayerMask();
 
     #endregion ATTRIBUTS
 
     #region PROPERTIES
-    public LayerMask GroundMask => groundMask;
+    public LayerMask GroundMask => orderMask;
     #endregion PROPERTIES
 
     #region EVENT
@@ -96,17 +93,17 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
         }
     }
 
-    private event Action<Vector3> onMoveOrder = null;
-    public event Action<Vector3> OnMoveOrder
+    private event Action<RaycastHit> onExecuteOrder = null;
+    public event Action<RaycastHit> OnExecuteOrder
     {
         add
         {
-            onMoveOrder -= value;
-            onMoveOrder += value;
+            onExecuteOrder -= value;
+            onExecuteOrder += value;
         }
         remove
         {
-            onMoveOrder -= value;
+            onExecuteOrder -= value;
         }
     }
 
@@ -129,7 +126,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     #region MONO
     void Update()
     {
-        PlayerInput();            
+        PlayerInput();
     }
     #endregion MONO
 
@@ -188,7 +185,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             {
                 onDragUpdate(Input.mousePosition);
             }
-        } 
+        }
         else if (Input.GetMouseButtonUp(0) && currentState == EPlayerState.COMMAND)
         {
             if (onDragReleased != null)
@@ -197,18 +194,18 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             }
         }
 
-        if(Input.GetMouseButtonDown(1) && currentState == EPlayerState.COMMAND)
+        if (Input.GetMouseButtonDown(1) && currentState == EPlayerState.COMMAND)
         {
-            RaycastHit hit = GetMouseWorlPosition(groundMask);
+            RaycastHit hit = GetMouseWorlPosition(orderMask);
 
-            if (onMoveOrder != null && hit.collider != null)
+            if (onExecuteOrder != null && hit.collider != null)
             {
-                onMoveOrder(hit.point);
+                onExecuteOrder(hit);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
-        { 
+        {
             CancelPlayerAction();
         }
     }
@@ -217,7 +214,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         RaycastHit hit = GetMouseWorlPosition(interactionMask);
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             GameObject obj = hit.collider.gameObject;
             if (Input.GetKey(KeyCode.LeftShift))
