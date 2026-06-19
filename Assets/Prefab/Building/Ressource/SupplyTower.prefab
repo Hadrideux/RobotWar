@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 6093921679202085699}
   - component: {fileID: 3644048621385558172}
   - component: {fileID: 6778259924389323151}
-  - component: {fileID: 3195435843332873767}
   - component: {fileID: 449388268503909106}
   - component: {fileID: 2299179884344715210}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,28 +335,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2624008547857507643}
   m_Mesh: {fileID: 0}
---- !u!64 &3195435843332873767
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2624008547857507643}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!65 &449388268503909106
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -406,7 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 637751001583824952}
   - component: {fileID: 7150110077380140215}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: SelectionIndication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d741c59ce505f2439bd47dfabd5067f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARequisition
+  requisitionManager: {fileID: 0}
   placeableComponent: {fileID: 2299179884344715210}
   selectionObject: {fileID: 3597321721566692933}
   buildData: {fileID: 0}
@@ -562,8 +540,6 @@ MonoBehaviour:
   currentArmor: 0
   buildType: 3
   buildFaction: 0
-  requisitionManger: {fileID: 0}
   productionTime: 2
   currentProductionTime: 0
   requisitionRate: 5
-  currentRequisitionRate: 0
