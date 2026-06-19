@@ -6,16 +6,15 @@ public class TargetComponent : MonoBehaviour
     [SerializeField] private AUnitClass unit = null;
     [SerializeField] private LayerMask layerMask = 0;
 
-    [SerializeField] private List<AUnitClass> targetAcquired = new List<AUnitClass>();
+    [SerializeField] private List<ITargetablObject> targetAcquired = new List<ITargetablObject>();
 
-    public List<AUnitClass> TargetAcquired
+    public List<ITargetablObject> TargetAcquired
     {
         get => targetAcquired;
         set => targetAcquired = value;
     }
 
     #region METHODE
-
     #region MONO
     void OnDrawGizmos()
     {
@@ -51,10 +50,11 @@ public class TargetComponent : MonoBehaviour
 
         for (int i = 0; i < targetCol.Length; i++)
         {
-            AUnitClass unitScanned = targetCol[i].gameObject.GetComponent<AUnitClass>();
-            if (!targetAcquired.Contains(unitScanned) && unitScanned != unit)
+            ITargetablObject targetScanned = targetCol[i].gameObject.GetComponent<ITargetablObject>();
+
+            if (!targetAcquired.Contains(targetScanned) && targetScanned != unit as ITargetablObject && targetScanned.ObjectFaction != unit.ObjectFaction)
             {
-                targetAcquired.Add(unitScanned);
+                targetAcquired.Add(targetScanned);
             }
         }
 
@@ -80,10 +80,4 @@ public class TargetComponent : MonoBehaviour
     }
 
     #endregion
-
-
-
-
-
-
 }

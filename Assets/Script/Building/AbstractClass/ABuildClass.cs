@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public abstract class ABuildClass : MonoBehaviour, ISelectable
+public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetablObject
 {
     #region ATTRIBUTS
+    [Header("Manager")]
+    [SerializeField] protected RequisitionManager requisitionManager = null;
 
     [Header("Component")]
     [SerializeField] protected PlaceableObjectComponent placeableComponent = null;
@@ -17,6 +19,18 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable
 
     [Header("Buildding Type")]
     [SerializeField] protected EBuildType buildType = EBuildType.NONE;
+    [SerializeField] protected EFactionType buildFaction = EFactionType.NONE;
+
+    #endregion ATTRIBUTS
+
+    #region PROPERTY
+    #region INTERFACE 
+    public EFactionType ObjectFaction
+    {
+        get => buildFaction;
+        set => buildFaction = value;
+    }
+    #endregion INTERFACE
 
     public ESelectableType SelectableType => ESelectableType.BUILDING;
     public EBuildType BuildType => buildType;
@@ -24,7 +38,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable
     public BuildData BuildData => buildData;
     public float CurrentDurability => currentDurability;
 
-    #endregion ATTRIBUTS
+    #endregion PROPERTY
 
     #region METHODE
     #region MONO
@@ -67,6 +81,8 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable
         {
             case (EAmmoType.PHYSIQUE):
                 DurabilityUpdate(hitData.Damage);
+
+                BuildManager.Instance.BuildignAttacked(this);
 
                 if (currentDurability <= 0)
                 {

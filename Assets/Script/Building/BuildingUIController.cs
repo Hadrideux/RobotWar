@@ -1,15 +1,21 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class BuildingUIController : MonoBehaviour
 {
     [SerializeField] private SelectableManager selectableManager = null;
 
     [Header("Factory UI")]
-    [SerializeField] private Canvas warFactoryUI = null;
-    [SerializeField] private TMP_Text buildNameText = null;
-    [SerializeField] private TMP_Text buildDurabilityText = null;
-    [SerializeField] private TMP_Text buildArmorText = null;
+    [SerializeField] private GameObject assemblyUI = null;
+    [SerializeField] private TMP_Text nameText = null;
+    [SerializeField] private TMP_Text durabilityText = null;
+    [SerializeField] private TMP_Text armorText = null;
+    [SerializeField] private TMP_Text productionTimeText = null;
+    [SerializeField] private TMP_Text productionCostText = null;
+    [SerializeField] private Image assemblyProgress = null;
+    [SerializeField] private Image unitAssembled = null;
 
 
     [Header("Ressource UI")]
@@ -23,6 +29,11 @@ public class BuildingUIController : MonoBehaviour
         selectableManager.OnBuildingSelected += OpenBuildingUI;
         selectableManager.OnSelectionCleared += CloseBuildingUI;
         selectableManager.OnUnitSelected += CloseBuildingUI;
+
+        assemblyUI.SetActive(false);
+    }
+    private void Update()
+    {
     }
 
     private void OpenBuildingUI(ABuildClass build)
@@ -30,10 +41,18 @@ public class BuildingUIController : MonoBehaviour
         switch (build.BuildType)
         {
             case EBuildType.ASSEMBLY:
-                warFactoryUI.gameObject.SetActive(true);
-                buildNameText.text = build.BuildData.BuildName;
-                buildDurabilityText.text = "Durability: " + build.CurrentDurability.ToString();
-                buildArmorText.text = "Armor: " + build.BuildData.Armor.ToString();
+                Assembly assembly = build as Assembly;
+                assemblyUI.gameObject.SetActive(true);
+
+                nameText.text = assembly.BuildData.BuildName;
+                durabilityText.text = "Durability: " + assembly.CurrentDurability.ToString();
+                armorText.text = "Armor: " + assembly.BuildData.Armor.ToString();
+
+                if(assembly.UnitAssembled != null)
+                {
+                    unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
+                }
+
                 break;
             case EBuildType.SUPPLY:
                 break;
@@ -43,7 +62,18 @@ public class BuildingUIController : MonoBehaviour
     }
     private void CloseBuildingUI()
     {
-        warFactoryUI.gameObject.SetActive(false);
+        assemblyUI.gameObject.SetActive(false);
 
+    }
+
+    public void AssemblyProductionSelect(AUnitClass unit)
+    {
+        foreach (ISelectable selectable in selectableManager.SelectableObj)
+        {
+            Assembly assembly = selectable as Assembly;
+
+            assembly.UnitAssembled = unit;
+            unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
+        }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
+public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, ITargetablObject
 {
     #region ATTRIBUTS
     [Header("Body")]
@@ -19,6 +19,8 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
     [SerializeField] protected int currentArmor = 0;
     [SerializeField] protected float currentSpeed = 0;
 
+    [SerializeField] protected EFactionType unitFaction = EFactionType.NONE;
+
     [Header("Ammo")]
     [SerializeField] protected ShellController shellController = null;
     [SerializeField] protected float reloading = 0f;
@@ -33,7 +35,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
     #endregion ATTRIBUTS
 
     #region PROPERTIES
-
     public UnitData UnitData => unitData;
     public ShellController ShellController => shellController;
     public NavMeshAgent NavMeshAgent => navMeshAgent;
@@ -52,9 +53,14 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
     }
 
     public ESelectableType SelectableType => ESelectableType.UNIT;
-
-    public bool IsFreezeUnit => isFreezeUnit;
+    public EFactionType ObjectFaction
+    {
+        get => unitFaction;
+        set => unitFaction = value;
+    }
+    
     public bool IsPeacfully => isPeacfully;
+
 
     #endregion PROPERTIES
 
@@ -131,7 +137,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver
         currentArmor = unitData.Armor;
 
         NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        UnitManager.Instance.ActiveUnits.Add(this);
+        //UnitManager.Instance.ActiveUnits.Add(this);
     }
     public void UnitDestroyed()
     {

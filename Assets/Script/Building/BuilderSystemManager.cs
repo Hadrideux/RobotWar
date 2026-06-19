@@ -6,8 +6,6 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
     #region ATTRIBUTS
 
     [Header("Production")]
-    [SerializeField] private SpawnerComponent spawnerComponent = null;
-
     [SerializeField] private ABuildClass selectedBuild = null;
 
 

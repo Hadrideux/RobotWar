@@ -107,8 +107,8 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
         }
     }
 
-    private event Action<ISelectable, bool> onGameObjectSelected = null;
-    public event Action<ISelectable, bool> OnGameObjectSelected
+    private event Action<RaycastHit, bool> onGameObjectSelected = null;
+    public event Action<RaycastHit, bool> OnGameObjectSelected
     {
         add
         {
@@ -216,21 +216,21 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
         if (hit.collider != null)
         {
-            GameObject obj = hit.collider.gameObject;
+            Debug.Log(hit.collider);
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 //Shift clicked
-                if (onGameObjectSelected != null && obj.GetComponent<ISelectable>() != null)
+                if (onGameObjectSelected != null )
                 {
-                    onGameObjectSelected(obj.GetComponent<ISelectable>(), true);
+                    onGameObjectSelected(hit, true);
                 }
             }
             else
             {
                 //Normal clicked
-                if (onGameObjectSelected != null && obj.GetComponent<ISelectable>() != null)
+                if (onGameObjectSelected != null )
                 {
-                    onGameObjectSelected(obj.GetComponent<ISelectable>(), false);
+                    onGameObjectSelected(hit, false);
                 }
             }
         }
