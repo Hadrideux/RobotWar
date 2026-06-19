@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
 
     [SerializeField] private List<AUnitClass> activeUnits = new List<AUnitClass>();
+    
 
     public List<AUnitClass> ActiveUnits
     {
@@ -13,19 +15,37 @@ public class UnitManager : Singleton<UnitManager>
         set => activeUnits = value;
     }
 
-    private event Action<AUnitClass> _onUnitDestroyed;
+    #region EVENTS
+    private event Action<AUnitClass> onUnitDestroyed;
     public event Action<AUnitClass> OnUnitDestroyed
     {
         add
         {
-            _onUnitDestroyed -= value;
-            _onUnitDestroyed += value;
+            onUnitDestroyed -= value;
+            onUnitDestroyed += value;
         }
         remove
         {
-            _onUnitDestroyed -= value;
+            onUnitDestroyed -= value;
         }
     }
+
+    private event Action<AUnitClass> onUnitProduced = null;
+    public event Action<AUnitClass> OnUnitProduced
+    {
+        add
+        {
+            onUnitProduced -= value;
+            onUnitProduced += value;
+        }
+        remove
+        {
+            onUnitProduced -= value;
+        }
+    }
+    #endregion EVENTS
+
+
 
     public List<AUnitClass> GetElligibleUnits(EStatEffectedType effectType)
     {
@@ -44,9 +64,38 @@ public class UnitManager : Singleton<UnitManager>
 
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
-        UnitManager.Instance.ActiveUnits.Remove(unitDestroyed);
+        switch(unitDestroyed.ObjectFaction)
+        {
+            case EFactionType.ALLY:
+                activeUnits.Remove(unitDestroyed);
+                break;
+            case EFactionType.IA:
+                break;
+            default:
+                break;
+        }
+        if (onUnitDestroyed != null)
+            onUnitDestroyed(unitDestroyed);
 
-        if (_onUnitDestroyed != null)
-            _onUnitDestroyed(unitDestroyed);
+
+    }
+
+    public void UnitProduced(AUnitClass unitProduced)
+    {
+        switch(unitProduced.ObjectFaction)
+        {
+            case EFactionType.ALLY:
+                activeUnits.Add(unitProduced);
+                break;
+            case EFactionType.IA:
+                if (onUnitProduced != null)
+                {
+                    onUnitProduced(unitProduced);
+                }
+                break; 
+            default:
+                break;
+        }
+        
     }
 }

@@ -5,9 +5,3 @@
 /// </summary>
 /// 
 
-public enum EFaction
-{
-    NONE,
-    ALLY,
-    ENNEMY,
-}
