@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TargetComponent : MonoBehaviour
@@ -6,9 +8,9 @@ public class TargetComponent : MonoBehaviour
     [SerializeField] private AUnitClass unit = null;
     [SerializeField] private LayerMask layerMask = 0;
 
-    [SerializeField] private List<ITargetablObject> targetAcquired = new List<ITargetablObject>();
+    [SerializeField] private List<ITargetableObject> targetAcquired = new List<ITargetableObject>();
 
-    public List<ITargetablObject> TargetAcquired
+    public List<ITargetableObject> TargetAcquired
     {
         get => targetAcquired;
         set => targetAcquired = value;
@@ -50,9 +52,9 @@ public class TargetComponent : MonoBehaviour
 
         for (int i = 0; i < targetCol.Length; i++)
         {
-            ITargetablObject targetScanned = targetCol[i].gameObject.GetComponent<ITargetablObject>();
+            ITargetableObject targetScanned = targetCol[i].gameObject.GetComponent<ITargetableObject>();
 
-            if (!targetAcquired.Contains(targetScanned) && targetScanned != unit as ITargetablObject && targetScanned.ObjectFaction != unit.ObjectFaction)
+            if (targetScanned != unit as ITargetableObject && targetScanned.ObjectFaction != unit.ObjectFaction && !targetAcquired.Contains(targetScanned))
             {
                 targetAcquired.Add(targetScanned);
             }
@@ -62,13 +64,31 @@ public class TargetComponent : MonoBehaviour
     }
     public void TargetUnit()
     {
-        foreach (AUnitClass unitTargeted in targetAcquired)
+        AUnitClass unitTemp = null;
+        ABuildClass buildTemp = null;
+
+        foreach (ITargetableObject unitTargeted in targetAcquired)
         {
-            float closestTarget = Vector3.Distance(transform.position, transform.position);
-            if (closestTarget <= unitTargeted.UnitData.AttackRange)
+            if(unitTargeted as AUnitClass)
             {
-                unit.TurnTurret(unitTargeted);
+                unitTemp = unitTargeted as AUnitClass;
+                float closestTarget = Vector3.Distance(transform.position, transform.position);
+
+                if (closestTarget <= unit.UnitData.AttackRange)
+                {
+                    unit.TurnTurret(unitTemp.gameObject);
+                }
             }
+            else if(unitTargeted as ABuildClass)
+            {
+                buildTemp = unitTargeted as ABuildClass;
+                float closestTarget = Vector3.Distance(transform.position, transform.position);
+
+                if (closestTarget <= unit.UnitData.AttackRange)
+                {
+                    unit.TurnTurret(buildTemp.gameObject);
+                }
+            }   
         }
     }
     public void RefreshTargetList(AUnitClass unit)

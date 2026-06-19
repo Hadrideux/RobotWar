@@ -1,4 +1,7 @@
+using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ShellController : MonoBehaviour
 {
@@ -29,13 +32,26 @@ public class ShellController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        AUnitClass unit = other.GetComponentInParent<AUnitClass>();
+        ITargetableObject target = other.GetComponentInParent<ITargetableObject>();
 
-        if (unit != null)
+        if (target != null)
         {
-            unit.TakeDamage(ammoData);
-            Destroy(gameObject);
+            if (target as AUnitClass)
+            {
+                AUnitClass unit = target as AUnitClass;
+
+                unit.TakeDamage(ammoData);                
+            }
+            else if (target as ABuildClass)
+            {
+                ABuildClass build = target as ABuildClass;
+
+                build.TakeDamage(ammoData);
+            }
+            
         }
+
+        Destroy(gameObject);
     }
 
     #endregion MONO
@@ -49,6 +65,7 @@ public class ShellController : MonoBehaviour
     public void SetDirection(Vector3 direction)
     {
         shellDir = (direction - transform.position).normalized;
+        transform.LookAt(direction);
     }
 
     #endregion METHODE

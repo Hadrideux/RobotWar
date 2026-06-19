@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetablObject
+public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObject
 {
     #region ATTRIBUTS
     [Header("Manager")]

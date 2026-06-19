@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, ITargetablObject
+public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, ITargetableObject
 {
     #region ATTRIBUTS
     [Header("Body")]
@@ -144,7 +144,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         Destroy(gameObject);
     }
 
-    public void TurnTurret(AUnitClass target)
+    public void TurnTurret(GameObject target)
     {
         Vector3 dirTarget = target.transform.position;
 
@@ -161,13 +161,14 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
             Fire(target);
         }
     }
-    public void Fire(AUnitClass unit)
+    public void Fire(GameObject target)
     {
         //Modifier pour que se soit un décompte 
         if (Reloading < 0)
         {
             ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
-            shell.SetDirection(unit.transform.position);
+            shell.SetDirection(target.transform.position);
+            
 
             Reloading = ShellController.AmmoData.ReloadTime;
         }

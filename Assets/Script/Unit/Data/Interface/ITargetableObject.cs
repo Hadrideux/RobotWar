@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface ITargetablObject
+public interface ITargetableObject
 {
      public EFactionType ObjectFaction { get; set; }
 }
