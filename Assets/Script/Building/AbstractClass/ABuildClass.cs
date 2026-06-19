@@ -48,6 +48,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     {
         InitBuild();
     }
+        
 
     #endregion MONO
     #region ABSTRACT
@@ -74,7 +75,6 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
 
         buildType = buildData.BuildType;
     }
-
     public void TakeDamage(AmmoData hitData)
     {
         switch (hitData.AmmoType)

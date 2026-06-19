@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b7acd7eeaeafa4d85f7129d8aabb32, type: 3}
   m_Name: UnitAmmo
   m_EditorClassIdentifier: Assembly-CSharp::AmmoData
+  shellPrefab: {fileID: 0}
   ammoType: 1
-  damage: 100
+  damage: 10
   speed: 20
   reloadTime: 5

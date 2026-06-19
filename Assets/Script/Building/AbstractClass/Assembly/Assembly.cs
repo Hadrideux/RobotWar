@@ -25,9 +25,6 @@ public class Assembly : ABuildClass
 
     #region METHODE
     #region MONO
-    void Start()
-    {
-    }
 
     void Update()
     {

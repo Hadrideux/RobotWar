@@ -10,7 +10,6 @@ public class EnnemyRequsitionManager : Singleton<EnnemyRequsitionManager>
         get => requisitionStock;
         set
         {
-            Debug.Log(value);
             requisitionStock = value;
         }
     }

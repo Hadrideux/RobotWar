@@ -37,7 +37,6 @@ public class SupplyTower : ABuildClass
     {
         if (currentProductionTime >= productionTime)
         {
-            Debug.Log($"Livraison de: {requisitionRate} réquisition");
             ProduceRequisition();
             currentProductionTime = 0;
         }

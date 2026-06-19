@@ -40,18 +40,19 @@ public class ShellController : MonoBehaviour
             {
                 AUnitClass unit = target as AUnitClass;
 
-                unit.TakeDamage(ammoData);                
+                unit.TakeDamage(ammoData);
+                Destroy(gameObject);
             }
             else if (target as ABuildClass)
             {
                 ABuildClass build = target as ABuildClass;
 
                 build.TakeDamage(ammoData);
+                Destroy(gameObject);
             }
-            
         }
 
-        Destroy(gameObject);
+        
     }
 
     #endregion MONO

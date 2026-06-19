@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573965098}
   - component: {fileID: 573965099}
+  - component: {fileID: 573965100}
   m_Layer: 0
   m_Name: BuilderManager
   m_TagString: Untagged
@@ -257,8 +258,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e895b31714aab24c951e40cffe3073f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerComponent: {fileID: 0}
   selectedBuild: {fileID: 0}
+--- !u!114 &573965100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573965097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0978f382ca56624a8950a8ce53a95f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildManager
 --- !u!1 &1152561882
 GameObject:
   m_ObjectHideFlags: 0

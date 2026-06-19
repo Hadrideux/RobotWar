@@ -533,8 +533,8 @@ Transform:
   m_GameObject: {fileID: 3142379099160062707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.392}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3911799127615129032}
@@ -691,10 +691,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 192
-  targetAcquired: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &1372065401535349876
 MonoBehaviour:
   m_ObjectHideFlags: 0
