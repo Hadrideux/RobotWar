@@ -10023,7 +10023,7 @@ Transform:
   m_GameObject: {fileID: 7944569213471026314}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10099,10 +10099,9 @@ GameObject:
   - component: {fileID: 3032744611799858815}
   - component: {fileID: 4136898050837649291}
   - component: {fileID: 1462661055309464250}
-  - component: {fileID: 6414652098182322639}
-  - component: {fileID: 1058883396964741424}
+  - component: {fileID: 5065092751962126212}
   - component: {fileID: 207475432930593336}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VehicleFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10164,7 +10163,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6414652098182322639
+--- !u!114 &5065092751962126212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10173,37 +10172,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8545901610595469786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9296ffa99c84a2f42a55b363947301eb, type: 3}
+  m_Script: {fileID: 11500000, guid: ecac7f04f8213f547b52982120ab0159, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FactoryController
+  m_EditorClassIdentifier: Assembly-CSharp::Assembly
   placeableComponent: {fileID: 207475432930593336}
   selectionObject: {fileID: 7944569213471026314}
   buildData: {fileID: 11400000, guid: 3e7d257d159fddf4bbb06c58befa7b31, type: 2}
   currentDurability: 0
   currentArmor: 0
   buildType: 1
+  buildFaction: 0
   requisitionManager: {fileID: 0}
-  spawnerComponent: {fileID: 1058883396964741424}
-  _unitProduction: 0
-  unitToSpawn: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
+  unitAssembled: {fileID: 0}
   productionTime: 0
   isProductionEnabled: 0
   isProductionStart: 0
---- !u!114 &1058883396964741424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8545901610595469786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0929c4e021e824a418563c03557e4009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerComponent
   spawner: {fileID: 7599353631159498253}
   unitContainer: {fileID: 0}
-  networkManager: {fileID: 0}
 --- !u!114 &207475432930593336
 MonoBehaviour:
   m_ObjectHideFlags: 0
