@@ -8,6 +8,7 @@ public class UnitData : ScriptableObject
     [Header("Unit glodal info")]
     [SerializeField] private string unitName = "";
     [SerializeField] private EUnitType unitType = EUnitType.NONE;
+    [SerializeField] private Sprite unitIcon = null;
 
     [Header("Unit spec info")]
     [SerializeField] private float maxHealth = 100f;
@@ -33,6 +34,11 @@ public class UnitData : ScriptableObject
     {
         get => unitType;
         set => unitType = value;
+    }
+    public Sprite UnitIcon
+    {
+        get => unitIcon;
+        set => unitIcon = value;
     }
 
 
