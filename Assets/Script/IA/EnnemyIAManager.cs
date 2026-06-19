@@ -10,14 +10,25 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
 
     [SerializeField] private List<AUnitClass> defenseUnitList = new List<AUnitClass>();
     [SerializeField] private List<AUnitClass> attackUnitList = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> currentAttackList = new List<AUnitClass>();
 
     [SerializeField] private int defenseUnitThreshold = 0;
     [SerializeField] private int attackUnitThreshold = 0;
 
     [SerializeField] private float baseUnderAttackWarning = 0f;
-    [SerializeField] private float baseUnderAttackwazrningRemaining = 0f;
+    [SerializeField] private float baseUnderAttackwarningRemaining = 0f;
+    [SerializeField] private bool baseUnderAttack = false;
+
+    [SerializeField] private float responseTime = 0f;
 
     #endregion ATTRIBUTS
+
+    #region PROPERTY
+    public List<AUnitClass> AttackUnit => attackUnitList;
+    public List<AUnitClass> DefenseUnit => defenseUnitList;
+
+
+    #endregion PROPERTY
 
     #region EVENT
     private event Action onBaseUnderAttack = null;
@@ -47,6 +58,19 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
             onAttack -= value;
         }
     }
+    private event Action onDefend = null;
+    public event Action OnDefend
+    {
+        add
+        {
+            onDefend -= value;
+            onDefend += value;
+        }
+        remove
+        {
+            onDefend -= value;
+        }
+    }
 
 
     #endregion  EVENT
@@ -65,29 +89,35 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private IEnumerator ChangeIAState()
     {
-        switch (currentState)
+        while (true)
         {
-            case EIAState.IDLE:
-                currentState = EIAState.IDLE;
-                yield return new WaitForSeconds(1);
-                break;
-            case EIAState.ATTACKING:
-                AttackAvailable();
-                currentState = EIAState.ATTACKING;                
-                yield return new WaitForSeconds(1);
-                break;
-            case EIAState.DEFENDING:
-                currentState = EIAState.DEFENDING;
-                BaseAttacked();
-                yield return new WaitForSeconds(1);
-                break;
-            default:
-                yield return new WaitForSeconds(1);
-                break;
+            switch (currentState)
+            {
+                case EIAState.IDLE:
+                    currentState = EIAState.IDLE;
+                    AttackAvailable();
+                    BaseAttacked(responseTime);
+
+                    yield return new WaitForSeconds(responseTime);
+                    break;
+                case EIAState.ATTACKING:
+                    AttackInProgress();
+                    currentState = EIAState.ATTACKING;
+                    yield return new WaitForSeconds(responseTime);
+                    break;
+                case EIAState.DEFENDING:
+                    BaseAttacked(responseTime);
+                    yield return new WaitForSeconds(responseTime);
+                    break;
+                default:
+                    yield return new WaitForSeconds(responseTime);
+                    break;
+            }
         }
     }
 
@@ -121,45 +151,61 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
         {
             defenseUnitList.Remove(unit);
         }
-        else if (attackUnitList.Contains(unit))
+        else if (attackUnitList.Contains(unit) && currentAttackList.Contains(unit))
         {
             attackUnitList.Remove(unit);
+            currentAttackList.Remove(unit);
         }
     }
 
+    private void AttackInProgress()
+    {
+        if(currentAttackList.Count == 0 )
+        {
+            currentState = EIAState.IDLE;
+        }
+        else if(currentState == EIAState.ATTACKING)
+        {
+            if(onAttack != null)
+            {
+                onAttack();
+            }
+        }
+    }
     private void AttackAvailable()
     {
-        if(attackUnitList.Count > attackUnitThreshold && onAttack != null)
+        if(attackUnitList.Count > attackUnitThreshold)
         {
             currentState = EIAState.ATTACKING;
-            onAttack();
+            currentAttackList = attackUnitList;
         }
-        else
+        else if(currentAttackList.Count == 0)
         {
             currentState = EIAState.IDLE;
+            //attackUnitThreshold += attackUnitThreshold;
         }
     }
 
-    private bool BaseAttacked()
+    private void BaseAttacked(float time)
     {
-        if (baseUnderAttackwazrningRemaining >= baseUnderAttackWarning)
+        if(!baseUnderAttack)
+        {
+            return;
+        }
+        else if (baseUnderAttackwarningRemaining >= baseUnderAttackWarning)
         {
             currentState = EIAState.IDLE;
-            baseUnderAttackwazrningRemaining = 0;
-
-            return false;
+            baseUnderAttackwarningRemaining = 0;
         }
-        else
+        else if (currentState != EIAState.DEFENDING)
         {
             currentState = EIAState.DEFENDING;
-            baseUnderAttackwazrningRemaining += Time.deltaTime;
+            baseUnderAttackwarningRemaining += time;
 
-            if(onBaseUnderAttack != null)
+            if (onDefend != null)
             {
-                onBaseUnderAttack();
+                onDefend();
             }
-
-            return true;
         }
     }
         
