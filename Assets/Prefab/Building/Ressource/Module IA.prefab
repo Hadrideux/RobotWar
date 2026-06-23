@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 8826864793128688908}
   - component: {fileID: 3527088060281560300}
   - component: {fileID: 5508807202695363657}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1169,12 +1169,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9f0f6cebfc1c241b59d95871693a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AModuleIA
+  requisitionManager: {fileID: 0}
   placeableComponent: {fileID: 4402014342734866932}
   selectionObject: {fileID: 4730283557811703793}
   buildData: {fileID: 11400000, guid: 1c9eb5de361e1e5408fb7826e77d2d01, type: 2}
   currentDurability: 0
   currentArmor: 0
   buildType: 2
+  buildFaction: 0
   networkManager: {fileID: 0}
   augmentLoad: 0
 --- !u!114 &4402014342734866932

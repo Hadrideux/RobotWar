@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,10 @@ public class TargetComponent : MonoBehaviour
     [SerializeField] private AUnitClass unit = null;
     [SerializeField] private LayerMask layerMask = 0;
 
-    [SerializeField] private List<ITargetableObject> targetAcquired = new List<ITargetableObject>();
+    [SerializeReference] private List<ITargetableObject> targetAcquired = new List<ITargetableObject>();
+
+    [Header("Unit Debug")]
+    [SerializeField] protected bool isPeacfully = false;
 
     public List<ITargetableObject> TargetAcquired
     {
@@ -33,7 +37,8 @@ public class TargetComponent : MonoBehaviour
 
     private void Update()
     {
-        if (!unit.IsPeacfully) ScanForTarget();
+        if (!isPeacfully) 
+            ScanForTarget();
     }
     void OnDestroy()
     {
@@ -50,16 +55,45 @@ public class TargetComponent : MonoBehaviour
     {
         Collider[] targetCol = Physics.OverlapSphere(transform.position, unit.UnitData.AttackRange, layerMask);
 
+        List<ITargetableObject> removeTargetColl = new List<ITargetableObject>();
+        bool isFound = false;
+
+        foreach (ITargetableObject target in targetAcquired)
+        {
+            isFound = false;
+
+            for (int i = 0; i < targetCol.Length; i++)
+            {
+                if (target == targetCol[i].gameObject.GetComponent<ITargetableObject>())
+                {
+                    isFound = true;
+                }
+            }
+
+            if (isFound == false)
+            {
+                removeTargetColl.Add(target);
+            }
+        }
+
+        for (int i = 0; i < removeTargetColl.Count; i++)
+        {
+            targetAcquired.Remove(removeTargetColl[i]);
+        }
+
         for (int i = 0; i < targetCol.Length; i++)
         {
             ITargetableObject targetScanned = targetCol[i].gameObject.GetComponent<ITargetableObject>();
 
-            if (targetScanned != unit as ITargetableObject && targetScanned.ObjectFaction != unit.ObjectFaction && !targetAcquired.Contains(targetScanned))
+            if (targetScanned != unit as ITargetableObject)
             {
-                targetAcquired.Add(targetScanned);
+                if (targetScanned.ObjectFaction != unit.ObjectFaction && !targetAcquired.Contains(targetScanned))
+                {
+                    Debug.Log(targetScanned.ToString());
+                    targetAcquired.Add(targetScanned);
+                }
             }
         }
-
         TargetUnit();
     }
     public void TargetUnit()
@@ -84,7 +118,7 @@ public class TargetComponent : MonoBehaviour
                 buildTemp = unitTargeted as ABuildClass;
                 float closestTarget = Vector3.Distance(transform.position, transform.position);
 
-                if (closestTarget <= unit.UnitData.AttackRange)
+                if (closestTarget <= unit.UnitData.AttackRange && buildTemp.BuildType != EBuildType.SPACEELEVATOR)
                 {
                     unit.TurnTurret(buildTemp.gameObject);
                 }
