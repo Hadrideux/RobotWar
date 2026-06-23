@@ -543,3 +543,9 @@ MonoBehaviour:
   productionTime: 2
   currentProductionTime: 0
   requisitionRate: 5
+  captureDistance: 30
+  currentCaptureProgression: 0
+  captureMultiplier: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
