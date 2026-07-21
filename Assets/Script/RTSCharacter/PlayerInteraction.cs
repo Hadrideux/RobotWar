@@ -127,6 +127,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     void Update()
     {
         PlayerInput();
+        OrderInput();
     }
     #endregion MONO
 
@@ -194,6 +195,14 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CancelPlayerAction();
+        }
+    }
+
+    private void OrderInput()
+    {
         if (Input.GetMouseButtonDown(1) && currentState == EPlayerState.COMMAND)
         {
             RaycastHit hit = GetMouseWorlPosition(orderMask);
@@ -204,9 +213,12 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.W))
         {
-            CancelPlayerAction();
+            if (onExecuteOrder != null)
+            {
+                onExecuteOrder(new RaycastHit());
+            }
         }
     }
 
@@ -216,7 +228,6 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider);
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 //Shift clicked

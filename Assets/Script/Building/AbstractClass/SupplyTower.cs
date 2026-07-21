@@ -104,11 +104,11 @@ public class SupplyTower : ABuildClass
         {
             AUnitClass unitScanned = targetCol[i].gameObject.GetComponent<AUnitClass>();
 
-            if (unitScanned.ObjectFaction != ObjectFaction)
+            if (unitScanned.FactionObject != ObjectFaction)
             {
                 hotileUnit++;
             }
-            else if (unitScanned.ObjectFaction == ObjectFaction)
+            else if (unitScanned.FactionObject == ObjectFaction)
             {
                 friendlyUnit++;
             }

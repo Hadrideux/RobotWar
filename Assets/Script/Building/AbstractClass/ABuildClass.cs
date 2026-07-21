@@ -38,6 +38,14 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     public BuildData BuildData => buildData;
     public float CurrentDurability => currentDurability;
 
+    public EFactionType FactionObject 
+    { 
+        get => buildFaction; 
+        set => buildFaction = value; 
+    }
+
+    public GameObject TargetObject => gameObject;
+
     #endregion PROPERTY
 
     #region METHODE

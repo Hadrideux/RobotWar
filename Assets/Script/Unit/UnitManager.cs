@@ -64,7 +64,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
-        switch(unitDestroyed.ObjectFaction)
+        switch(unitDestroyed.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Remove(unitDestroyed);
@@ -80,9 +80,9 @@ public class UnitManager : Singleton<UnitManager>
 
     }
 
-    public void UnitProduced(AUnitClass unitProduced)
+    public void UnitAvailable(AUnitClass unitProduced)
     {
-        switch(unitProduced.ObjectFaction)
+        switch(unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Add(unitProduced);

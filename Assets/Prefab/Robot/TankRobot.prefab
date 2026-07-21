@@ -670,11 +670,18 @@ MonoBehaviour:
   currentArmor: 0
   currentSpeed: 0
   unitFaction: 0
+  currentState:
+    rid: -2
   shellController: {fileID: 3070026089794296242, guid: 92dfb5d34f293604b911acdbfd865257, type: 3}
   reloading: 0
   effectComponent: {fileID: 1372065401535349876}
+  scanningComponent: {fileID: 1003550187004552700}
   isFreezeUnit: 0
-  isPeacfully: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &1003550187004552700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +698,11 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 192
+  targetAcquired: []
+  isPeacfully: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &1372065401535349876
 MonoBehaviour:
   m_ObjectHideFlags: 0
