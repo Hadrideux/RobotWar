@@ -33,10 +33,14 @@ public class CommandSystemController : MonoBehaviour
     {
         if (selectionManager.SelectableObj.Count > 0)
         {
-            
-            if (hit.collider.GetComponent<ISelectable>() != null)
+            if(hit.collider == null)
             {
-                OrderData orderData = new OrderData(EOrderType.ATTACK, hit.collider.GetComponent<ISelectable>());
+                OrderData orderData = new OrderData(EOrderType.STOP);
+                PushOrder(orderData);
+            }
+            else if (hit.collider != null)
+            {
+                OrderData orderData = new OrderData(EOrderType.ATTACK, hit.collider.GetComponent<ITargetableObject>());
                 PushOrder(orderData);
             }
             else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -44,7 +48,7 @@ public class CommandSystemController : MonoBehaviour
                 bool orderSent = false;
 
                 OrderData orderData = new OrderData(EOrderType.MOVETO, hit.point);
-                PushOrder(orderData);
+                orderSent = PushOrder(orderData);
 
                 if (orderSent)
                 {
@@ -54,7 +58,7 @@ public class CommandSystemController : MonoBehaviour
         }
     }
 
-    private void PushOrder(OrderData orderData)
+    private bool PushOrder(OrderData orderData)
     {
         foreach (ISelectable selectable in selectionManager.SelectableObj)
         {
@@ -64,6 +68,8 @@ public class CommandSystemController : MonoBehaviour
                 unit.ReceiveOrder(orderData);
             }
         }
+
+        return true;
     }
     #endregion
 

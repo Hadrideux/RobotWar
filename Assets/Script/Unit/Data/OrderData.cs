@@ -4,7 +4,7 @@ public class OrderData
 {
     private EOrderType orderType = EOrderType.NONE;
     private Vector3 orderDestination;
-    private ISelectable orderTarget;
+    private ITargetableObject orderTarget;
 
     //Consturcteur de déplacement
     public OrderData(EOrderType type, Vector3 destination)
@@ -13,27 +13,29 @@ public class OrderData
         orderDestination = destination;
     }
     //Constructeur de l'ordre d'attaque
-    public OrderData(EOrderType type, ISelectable target)
+    public OrderData(EOrderType type, ITargetableObject target)
     {
         orderType = type;
         orderTarget = target;
     }
 
     //Constructeur d'ordre stop
-    public OrderData()
+    public OrderData(EOrderType type)
     {
-        orderType = EOrderType.STOP;
+        orderType = type;
     }
 
     public EOrderType OrderType => orderType;
     public Vector3 OrderDestination => orderDestination;
-    public ISelectable OrderTarget => orderTarget;
+    public ITargetableObject OrderTarget => orderTarget;
 }
 
 public enum EOrderType
 {
     NONE,
+    IDLE,
     MOVETO,
     ATTACK,
+    AUTONOMOUS,
     STOP,
 }

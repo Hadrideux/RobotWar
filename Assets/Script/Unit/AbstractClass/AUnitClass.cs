@@ -1,3 +1,4 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,16 +22,21 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
     [SerializeField] protected EFactionType unitFaction = EFactionType.NONE;
 
+    [Header("Order Data")]
+    [SerializeReference] protected OrderData currentOrder = null;
+    [SerializeReference] protected AUnitState currentState = null;
+
     [Header("Ammo")]
     [SerializeField] protected ShellController shellController = null;
     [SerializeField] protected float reloading = 0f;
 
     [Header("Component")]
     [SerializeField] protected EffectComponent effectComponent = null;
+    [SerializeField] protected ScanningComponent scanningComponent = null;
 
     [Header("Unit Debug")]
     [SerializeField] protected bool isFreezeUnit = false;
-    [SerializeField] protected bool isPeacfully = false;
+
 
     #endregion ATTRIBUTS
 
@@ -39,6 +45,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     public ShellController ShellController => shellController;
     public NavMeshAgent NavMeshAgent => navMeshAgent;
     public EffectComponent EffectComponent => effectComponent;
+    public ScanningComponent ScanningComponent => scanningComponent;
 
     public float CurrentHealth
     {
@@ -46,21 +53,22 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         set => currentHealth = Mathf.Clamp(value, 0, unitData.MaxHealth);
     }
 
-    public float Reloading
-    {
-        get => reloading;
-        set => reloading = value;
-    }
-
     public ESelectableType SelectableType => ESelectableType.UNIT;
-    public EFactionType ObjectFaction
+    public EFactionType FactionObject
     {
         get => unitFaction;
         set => unitFaction = value;
     }
-    
-    public bool IsPeacfully => isPeacfully;
+    public GameObject TargetObject 
+    { 
+        get => gameObject;
+    }
 
+    public OrderData Order
+    {
+        get => currentOrder;
+        set => currentOrder = value;
+    }
 
     #endregion PROPERTIES
 
@@ -69,6 +77,20 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     void Start()
     {
         InitUnit();
+        ChangeState(new IdleState());
+    }
+
+    void Update()
+    {
+        if (reloading > 0)
+        {
+            reloading -= Time.deltaTime;
+        }
+
+        if (currentState != null)
+        {
+            currentState.Update(this);
+        }
     }
 
     void OnDestroy()
@@ -93,38 +115,41 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         switch (order.OrderType)
         {
             case EOrderType.MOVETO:
-                MovementUnit(order.OrderDestination);
+                ChangeState(new MovingState());
                 break;
 
             case EOrderType.ATTACK:
-                if (order.OrderTarget as AUnitClass)
-                {
-                    AUnitClass target = order.OrderTarget as AUnitClass;
-                    MovementUnit(target.transform.position);
-                }
-                else if (order.OrderTarget as ABuildClass)
-                {
-                    ABuildClass target = order.OrderTarget as ABuildClass;
-                    MovementUnit(target.transform.position);
-                }
+                ChangeState(new AttackState());
+                break;
+
+            case EOrderType.AUTONOMOUS:
                 break;
 
             case EOrderType.STOP:
-                navMeshAgent.isStopped = true;
+                ChangeState(new IdleState());
                 break;
+
             default:
                 break;
         }
     }
     #endregion
     #region ABSTRACT METHODE
-
-    //Gestion déplacement unité
-    abstract public void MovementUnit(Vector3 destination);
-
     //Gestion dégat reçu par l'unité
     abstract public void TakeDamage(AmmoData hitData);
     #endregion ABSTRACT METHODE
+
+    public void ChangeState(AUnitState newState)
+    {
+        if(currentState != null)
+        {
+            currentState.Exit(this);
+        }
+
+        currentState = newState;
+        currentState.Enter(this);
+    }
+
     public void HealthUpdate(float damage)
     {
         currentHealth -= Mathf.Clamp(damage, 0, unitData.MaxHealth);
@@ -137,8 +162,9 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         currentArmor = unitData.Armor;
 
         NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        //UnitManager.Instance.ActiveUnits.Add(this);
+        UnitManager.Instance.UnitAvailable(this);
     }
+
     public void UnitDestroyed()
     {
         Destroy(gameObject);
@@ -159,25 +185,40 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         if (angle <= 0.25)
         {
             Fire(target);
+            Debug.Log("Targeted");
         }
     }
-    public void Fire(GameObject target)
-    {
-        //Modifier pour que se soit un décompte 
-        if (Reloading < 0)
-        {
-            ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
-            shell.SetDirection(target.transform.position);
-            
 
-            Reloading = ShellController.AmmoData.ReloadTime;
+    public void TargetUnit()
+    {                                 
+        if(currentOrder.OrderTarget != null)
+        {
+            TurnTurret(currentOrder.OrderTarget.TargetObject);
         }
         else
         {
-            Reloading -= Time.deltaTime;
+            foreach (ITargetableObject unitTargeted in scanningComponent.TargetedObject)
+            {
+                float closestTarget = Vector3.Distance(unitTargeted.TargetObject.transform.position, transform.position);
+
+                if (closestTarget <= UnitData.AttackRange)
+                {
+                    TurnTurret(unitTargeted.TargetObject);
+                }
+            }
+        }
+    }
+    public void Fire(GameObject target)
+    { 
+        if (reloading <= 0)
+        {
+            ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
+            shell.SetDirection(target.transform.position);
+
+            reloading = ShellController.AmmoData.ReloadTime;
+
+            Debug.Log("Attacking");
         }
     }
     #endregion METHODE
-
-
 }

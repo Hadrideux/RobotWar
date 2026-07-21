@@ -2,7 +2,8 @@
 
 public interface ITargetableObject
 {
-     public EFactionType ObjectFaction { get; set; }
+    public EFactionType FactionObject { get; set; }
+    public GameObject TargetObject {  get;}
 }
 
 public enum EFactionType

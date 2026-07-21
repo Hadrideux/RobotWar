@@ -8,22 +8,8 @@ public class RobotTankController : AUnitClass
 
     #region METHODE
     #region MONO
-
-    void Update()
-    {
-
-    }
-
     #endregion
     #region ABSTRACT
-
-    public override void MovementUnit(Vector3 destination)
-    {
-        if (!isFreezeUnit)
-        {
-            navMeshAgent.SetDestination(destination);
-        }
-    }
 
     public override void TakeDamage(AmmoData hitData)
     {
