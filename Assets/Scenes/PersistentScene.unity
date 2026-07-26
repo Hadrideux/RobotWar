@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 1154735932}
   - component: {fileID: 1154735933}
   - component: {fileID: 1154735934}
+  - component: {fileID: 1154735935}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -395,6 +396,23 @@ MonoBehaviour:
   orderMask:
     serializedVersion: 2
     m_Bits: 704
+--- !u!114 &1154735935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154735931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e44708939fe1f46ac289c487bdfb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectableManager
+  playerInteraction: {fileID: 1154735934}
+  selectableObj: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1188970291
 GameObject:
   m_ObjectHideFlags: 0

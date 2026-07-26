@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CommandSystemController : MonoBehaviour
 {
@@ -33,26 +34,30 @@ public class CommandSystemController : MonoBehaviour
     {
         if (selectionManager.SelectableObj.Count > 0)
         {
+            bool orderSent = false;
+
             if(hit.collider == null)
             {
                 OrderData orderData = new OrderData(EOrderType.STOP);
-                PushOrder(orderData);
             }
-            else if (hit.collider != null)
+            else if (hit.collider.TryGetComponent(out ITargetableObject target))
             {
-                OrderData orderData = new OrderData(EOrderType.ATTACK, hit.collider.GetComponent<ITargetableObject>());
-                PushOrder(orderData);
-            }
-            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                bool orderSent = false;
+                OrderData orderData = new OrderData(EOrderType.ATTACK,target);
+                orderSent = PushOrder(orderData);
 
+                if (orderSent)
+                {
+                    groundMarker.transform.position = target.TargetObject.transform.position;
+                }
+            }
+            else
+            {
                 OrderData orderData = new OrderData(EOrderType.MOVETO, hit.point);
                 orderSent = PushOrder(orderData);
 
                 if (orderSent)
                 {
-                    groundMarker.transform.position = new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z);
+                    groundMarker.transform.position = hit.point;
                 }
             }
         }

@@ -112,14 +112,16 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
     public void ReceiveOrder(OrderData order)
     {
+        currentOrder = order;
+
         switch (order.OrderType)
         {
             case EOrderType.MOVETO:
-                ChangeState(new MovingState());
+                ChangeState(new MovingState(order.OrderDestination));
                 break;
 
             case EOrderType.ATTACK:
-                ChangeState(new AttackState());
+                ChangeState(new AttackState(order.OrderTarget.TargetObject));
                 break;
 
             case EOrderType.AUTONOMOUS:
@@ -138,18 +140,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     //Gestion dégat reçu par l'unité
     abstract public void TakeDamage(AmmoData hitData);
     #endregion ABSTRACT METHODE
-
-    public void ChangeState(AUnitState newState)
-    {
-        if(currentState != null)
-        {
-            currentState.Exit(this);
-        }
-
-        currentState = newState;
-        currentState.Enter(this);
-    }
-
     public void HealthUpdate(float damage)
     {
         currentHealth -= Mathf.Clamp(damage, 0, unitData.MaxHealth);
@@ -168,25 +158,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     public void UnitDestroyed()
     {
         Destroy(gameObject);
-    }
-
-    public void TurnTurret(GameObject target)
-    {
-        Vector3 dirTarget = target.transform.position;
-
-        Vector3 facingTarget = turretBody.transform.forward;
-        Vector3 toTarget = (dirTarget - turretBody.transform.position).normalized;
-
-        float dot = Vector3.Dot(facingTarget, toTarget);
-        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-        turretBody.transform.rotation = Quaternion.RotateTowards(turretBody.transform.rotation, Quaternion.LookRotation(toTarget), 90 * Time.deltaTime);
-
-        if (angle <= 0.25)
-        {
-            Fire(target);
-            Debug.Log("Targeted");
-        }
     }
 
     public void TargetUnit()
@@ -208,6 +179,24 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
             }
         }
     }
+    public void TurnTurret(GameObject target)
+    {
+        Vector3 dirTarget = target.transform.position;
+
+        Vector3 facingTarget = turretBody.transform.forward;
+        Vector3 toTarget = (dirTarget - turretBody.transform.position).normalized;
+
+        float dot = Vector3.Dot(facingTarget, toTarget);
+        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+        turretBody.transform.rotation = Quaternion.RotateTowards(turretBody.transform.rotation, Quaternion.LookRotation(toTarget), 90 * Time.deltaTime);
+
+        if (angle <= 0.25)
+        {
+            Fire(target);
+            Debug.Log("Targeted");
+        }
+    }
     public void Fire(GameObject target)
     { 
         if (reloading <= 0)
@@ -219,6 +208,17 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
             Debug.Log("Attacking");
         }
+    }
+
+    public void ChangeState(AUnitState newState)
+    {
+        if (currentState != null)
+        {
+            currentState.Exit(this);
+        }
+
+        currentState = newState;
+        currentState.Enter(this);
     }
     #endregion METHODE
 }
