@@ -9,6 +9,7 @@ public interface ITargetableObject
 public enum EFactionType
 {
     NONE,
+    NEUTRAL,
     ALLY,
     IA,
 }

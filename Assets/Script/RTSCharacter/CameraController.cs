@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private CharacterManager characterManager = null;
+    //[SerializeField] private CharacterManager characterManager = null;
 
     [SerializeField] private float speedMovement = 0f;
     [SerializeField] private float speedRotation = 0f;
@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        characterManager = CharacterManager.Instance;
-        characterManager.CharacterController = this.gameObject;
+        //characterManager = CharacterManager.Instance;
+        //characterManager.CharacterController = this.gameObject;
     }
     // Update is called once per frame
     void Update()
@@ -40,21 +40,22 @@ public class CameraController : MonoBehaviour
 
         movementCamera.z += forwardMove.z + rightMove.z;
         movementCamera.x += forwardMove.x + rightMove.x;
-        movementCamera.y -= Input.GetAxis("ScrollWheel") * zoomSpeed * Time.deltaTime;
+        movementCamera.y += Input.GetAxis("ScrollWheel") * zoomSpeed * Time.deltaTime;
+
+        Debug.Log(Input.GetAxis("ScrollWheel"));
 
         Vector3 yAxisCamera = movementCamera;
         yAxisCamera.y = Mathf.Clamp(yAxisCamera.y, minHeight, maxHeight);
         transform.position = yAxisCamera;
 
-        characterManager.OnCharacterMove();
+        //characterManager.OnCharacterMove();
     }
 
     private void CameraRotation()
     {
-        Debug.Log(Input.GetAxis("RotateCamera"));
         rotationTarget = new Vector3(0, Input.GetAxis("RotateCamera") * speedRotation * Time.deltaTime, 0);
 
-        Vector3 eulerAngles = new Vector3(45, transform.eulerAngles.y + rotationTarget.y, 0);
+        Vector3 eulerAngles = new Vector3(0, transform.eulerAngles.y + rotationTarget.y, 0);
         Vector3 lerp = Vector3.Lerp(transform.eulerAngles, eulerAngles, speedAlpha);
 
         transform.rotation = Quaternion.Euler(lerp);

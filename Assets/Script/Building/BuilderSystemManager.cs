@@ -45,8 +45,10 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
     #endregion MONO
     public void SelectedBuild(ABuildClass prefab)
     {
+        
+        
         selectedBuild = prefab;
-        PlayerInteraction.Instance.ChangePlayerState(EPlayerState.CONSTURCTION);
+
         if (onBuildSelected != null)
         {
             onBuildSelected(prefab);

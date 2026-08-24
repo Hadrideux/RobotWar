@@ -57,10 +57,6 @@ public class PlaceableObjectComponent : MonoBehaviour
         }
 
         Size = new Vector3Int(Mathf.Abs((vertices[0] - vertices[1]).x), Mathf.Abs((vertices[0] - vertices[3]).y), 1);
-
-        Debug.Log($"vertices[0] = {vertices[0]}");
-        Debug.Log($"vertices[1] = {vertices[1]}");
-        Debug.Log($"Size calculé = {Size}");
     }
 
     public Vector3 GetStartPosition()

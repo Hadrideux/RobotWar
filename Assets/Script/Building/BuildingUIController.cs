@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class BuildingUIController : MonoBehaviour
     [Header("Ressource UI")]
     [SerializeField] private Canvas SupplyUI = null;
 
+    #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +37,21 @@ public class BuildingUIController : MonoBehaviour
     private void Update()
     {
     }
+
+    private void OnDestroy()
+    {
+        selectableManager.OnBuildingSelected -= OpenBuildingUI;
+        selectableManager.OnSelectionCleared -= CloseBuildingUI;
+        selectableManager.OnUnitSelected -= CloseBuildingUI;
+    }
+    private void OnApplicationQuit()
+    {
+        selectableManager.OnBuildingSelected -= OpenBuildingUI;
+        selectableManager.OnSelectionCleared -= CloseBuildingUI;
+        selectableManager.OnUnitSelected -= CloseBuildingUI;
+    }
+    #endregion MONO
+
 
     private void OpenBuildingUI(ABuildClass build)
     {

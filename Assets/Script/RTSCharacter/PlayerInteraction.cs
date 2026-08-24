@@ -7,8 +7,6 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
     [SerializeField] private EPlayerState currentState = EPlayerState.NONE;
 
-    [SerializeField] private Camera cameraCharacter = null;
-
     [SerializeField] private LayerMask interactionMask = new LayerMask();
     [SerializeField] private LayerMask orderMask = new LayerMask();
 
@@ -156,7 +154,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            switch (currentState)
+            switch(currentState)
             {
                 case EPlayerState.COMMAND:
                     if (onDragStarted != null)
@@ -173,7 +171,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
                         onConfirmPlacement();
                     }
 
-                    currentState = EPlayerState.COMMAND;
+                    //currentState = EPlayerState.COMMAND;
 
                     break;
                 default:

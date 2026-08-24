@@ -159,4 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   currentState: 0
-  cameraCharacter: {fileID: 0}
+  interactionMask:
+    serializedVersion: 2
+    m_Bits: 192
+  orderMask:
+    serializedVersion: 2
+    m_Bits: 192

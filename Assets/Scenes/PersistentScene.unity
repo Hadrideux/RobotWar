@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &215120399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215120400}
+  - component: {fileID: 215120401}
+  m_Layer: 0
+  m_Name: SelectableManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &215120400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215120399}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 126.97756, y: 28.703514, z: 0.34223413}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1386601834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &215120401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215120399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e44708939fe1f46ac289c487bdfb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectableManager
+  playerInteraction: {fileID: 0}
+  selectableObj: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &318104578
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +334,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0978f382ca56624a8950a8ce53a95f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildManager
+--- !u!1 &1079496181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079496182}
+  - component: {fileID: 1079496184}
+  - component: {fileID: 1079496183}
+  m_Layer: 0
+  m_Name: EnnemyIAManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079496182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079496181}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 120.52696, y: 28.703524, z: 1.5167941}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1386601834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079496183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079496181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b864f8c091267479226000f8c134cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnnemyRequsitionManager
+  requisitionStock: 0
+--- !u!114 &1079496184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079496181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66ccbb2efa6fef448c0c50dc8a3d01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnnemyIAManager
+  currentState: 0
+  defenseUnitList: []
+  attackUnitList: []
+  currentAttackList: []
+  defenseUnitThreshold: 0
+  attackUnitThreshold: 0
+  baseUnderAttackWarning: 0
+  baseUnderAttackwarningRemaining: 0
+  baseUnderAttack: 0
+  responseTime: 0
 --- !u!1 &1152561882
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,8 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e03b3cc6ca0fee45937097940d08fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  currentState: 2
-  cameraCharacter: {fileID: 0}
+  currentState: 0
   interactionMask:
     serializedVersion: 2
     m_Bits: 192
@@ -490,10 +606,12 @@ Transform:
   - {fileID: 573965098}
   - {fileID: 354844954}
   - {fileID: 1154735932}
+  - {fileID: 215120400}
   - {fileID: 1681661432}
   - {fileID: 1188970292}
   - {fileID: 1152561883}
   - {fileID: 318104579}
+  - {fileID: 1079496182}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681661431

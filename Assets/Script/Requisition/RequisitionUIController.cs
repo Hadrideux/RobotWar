@@ -41,7 +41,6 @@ public class RequisitionUIController : MonoBehaviour
 
     private void UpdateRequisitionLoad(int amount)
     {
-        Debug.Log("Réquisition enregistré");
         totalRequisitionAmount += amount;
         requisitionAmount.text = totalRequisitionAmount.ToString();
 

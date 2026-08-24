@@ -14,7 +14,6 @@ public class RequisitionManager : Singleton<RequisitionManager>
         get => requisitionStock;
         set
         {
-            Debug.Log($"Requisition of {value}");
             requisitionStock = value;
             OnUpdateRequisitionEvent(value);
         }
