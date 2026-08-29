@@ -19,6 +19,8 @@ public class BuilderSystemController : MonoBehaviour
 
     public GridLayout GridLayout => gridLayout;
 
+    #region METHODES
+    #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +31,20 @@ public class BuilderSystemController : MonoBehaviour
         playerInteraction.OnConfirmPlacement += PlaceBuilding;
         playerInteraction.OnCancelAction += CancelBuilding;
     }
+
+    private void OnDestroy()
+    {
+        builderManager.OnBuildSelected -= InitializeWithObject;
+        playerInteraction.OnConfirmPlacement -= PlaceBuilding;
+        playerInteraction.OnCancelAction -= CancelBuilding;
+    }
+    private void OnApplicationQuit()
+    {
+        builderManager.OnBuildSelected -= InitializeWithObject;
+        playerInteraction.OnConfirmPlacement -= PlaceBuilding;
+        playerInteraction.OnCancelAction -= CancelBuilding;
+    }
+    #endregion
     public Vector3 SnapCoordinateToGrid(Vector3 pos)
     {
         Vector3Int cellPos = gridLayout.WorldToCell(pos);
@@ -44,9 +60,10 @@ public class BuilderSystemController : MonoBehaviour
 
         objectToPlace = obj.GetComponent<PlaceableObjectComponent>();
         objectToPlace.BuilderSystemController = this;
+        objectToPlace.DragComponent.BuilderSystemController = this;
 
-        obj.gameObject.AddComponent<ObjectDragComponent>();
-        obj.GetComponent<ObjectDragComponent>().BuilderSystemController = this;
+        //obj.gameObject.AddComponent<ObjectDragComponent>();
+        //obj.GetComponent<ObjectDragComponent>().BuilderSystemController = this;
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -92,14 +109,14 @@ public class BuilderSystemController : MonoBehaviour
         if (CanBePlaced(objectToPlace) && objectToPlace != null)
         {
             objectToPlace.Place();
+
             Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
             TakeArea(start, objectToPlace.Size);
+
             objectToPlace = null;
         }
         else
         {
-            Debug.Log("Construction échoué");
-
             Destroy(objectToPlace.gameObject);
         }
     }
@@ -108,4 +125,7 @@ public class BuilderSystemController : MonoBehaviour
     {
         Destroy(objectToPlace.gameObject);
     }
+    #endregion
+
+
 }

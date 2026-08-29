@@ -14,6 +14,7 @@ public class SelectableManager : Singleton<SelectableManager>
     #region PROPERTY
     public IReadOnlyList<ISelectable> SelectableObj => selectableObj;
     #endregion
+
     #region EVENT
     private event Action onUnitSelected = null;
     public event Action OnUnitSelected

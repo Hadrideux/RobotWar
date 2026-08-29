@@ -34,19 +34,16 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
 
     #endregion EVENT
 
-    #region MONO
+    #region METHODES
 
+    #region MONO
     void Start()
     {
         PlayerInteraction.Instance.OnConfirmPlacement += BuildCanceled;
     }
-
-
     #endregion MONO
     public void SelectedBuild(ABuildClass prefab)
     {
-        
-        
         selectedBuild = prefab;
 
         if (onBuildSelected != null)
@@ -59,7 +56,5 @@ public class BuilderSystemManager : Singleton<BuilderSystemManager>
     {
         selectedBuild = null;
     }
-
-
-
+    #endregion METHODES
 }

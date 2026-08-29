@@ -34,6 +34,8 @@ public class Assembly : ABuildClass
         }
     }
 
+    #endregion
+
     private void ProductionTimer()
     {
         if (isProductionEnabled == false)
@@ -96,10 +98,10 @@ public class Assembly : ABuildClass
         UnitManager.Instance.UnitAvailable(unit);
     }
 
-    #endregion
-    #endregion
+    
     protected override void BuildDestroyed()
     {
         
     }
+    #endregion
 }

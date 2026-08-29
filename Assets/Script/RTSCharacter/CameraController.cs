@@ -42,8 +42,6 @@ public class CameraController : MonoBehaviour
         movementCamera.x += forwardMove.x + rightMove.x;
         movementCamera.y += Input.GetAxis("ScrollWheel") * zoomSpeed * Time.deltaTime;
 
-        Debug.Log(Input.GetAxis("ScrollWheel"));
-
         Vector3 yAxisCamera = movementCamera;
         yAxisCamera.y = Mathf.Clamp(yAxisCamera.y, minHeight, maxHeight);
         transform.position = yAxisCamera;

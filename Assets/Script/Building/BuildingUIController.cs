@@ -80,7 +80,6 @@ public class BuildingUIController : MonoBehaviour
     private void CloseBuildingUI()
     {
         assemblyUI.gameObject.SetActive(false);
-
     }
 
     public void AssemblyProductionSelect(AUnitClass unit)

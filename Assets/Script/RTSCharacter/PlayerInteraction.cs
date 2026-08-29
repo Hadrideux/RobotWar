@@ -170,9 +170,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
                     {
                         onConfirmPlacement();
                     }
-
-                    //currentState = EPlayerState.COMMAND;
-
+                    currentState = EPlayerState.COMMAND;
                     break;
                 default:
                     break;

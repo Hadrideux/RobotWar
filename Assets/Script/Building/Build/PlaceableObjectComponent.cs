@@ -11,6 +11,7 @@ public class PlaceableObjectComponent : MonoBehaviour
     [SerializeField] private BoxCollider boxCollider = null;
 
     [SerializeField] private BuilderSystemController builderSystemController = null;
+    [SerializeField] private ObjectDragComponent dragComponent = null;
     #endregion
 
     #region PROPERTIES
@@ -28,8 +29,16 @@ public class PlaceableObjectComponent : MonoBehaviour
         set => builderSystemController = value;
     }
 
+    public ObjectDragComponent DragComponent
+    {
+        get => dragComponent;
+    }
+
     #endregion
 
+
+    #region METHODES
+    #region MONO
     void Start()
     {
         if (isPlaced) return;
@@ -37,6 +46,7 @@ public class PlaceableObjectComponent : MonoBehaviour
         GetColliderVectexPositionLocal();
         CalculateSizeInCell();
     }
+    #endregion
     public void GetColliderVectexPositionLocal()
     {
         objectVertices = new Vector3[4];
@@ -66,10 +76,11 @@ public class PlaceableObjectComponent : MonoBehaviour
 
     public void Place()
     {
-        ObjectDragComponent drag = GetComponent<ObjectDragComponent>();
-        Destroy(drag);
-
+        //ObjectDragComponent drag = GetComponent<ObjectDragComponent>();
+        dragComponent.gameObject.SetActive(false);
+        //Destroy(drag);
+        Debug.Log(dragComponent.enabled);
         isPlaced = true;
     }
-
+    #endregion
 }
