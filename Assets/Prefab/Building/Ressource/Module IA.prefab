@@ -1127,6 +1127,7 @@ GameObject:
   - component: {fileID: 8354767981568113557}
   - component: {fileID: 1917079753587842855}
   - component: {fileID: 4402014342734866932}
+  - component: {fileID: 5417778901839452556}
   m_Layer: 7
   m_Name: Module IA
   m_TagString: Untagged
@@ -1189,4 +1190,19 @@ MonoBehaviour:
   size: {x: 0, y: 0, z: 0}
   objectVertices: []
   boxCollider: {fileID: 2370397279479401522}
+  builderSystemController: {fileID: 0}
+  dragComponent: {fileID: 5417778901839452556}
+--- !u!114 &5417778901839452556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296739828509557223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9361eebedc61b489bca7cdc1c3259e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectDragComponent
+  playerInteraction: {fileID: 0}
   builderSystemController: {fileID: 0}

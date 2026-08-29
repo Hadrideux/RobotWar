@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 public class Assembly : ABuildClass
 {
     #region ATTRIBUTS
@@ -87,7 +86,7 @@ public class Assembly : ABuildClass
             }
         }
 
-            
+
     }
 
     public void SpawnUnit(AUnitClass spawnUnit)
@@ -98,10 +97,10 @@ public class Assembly : ABuildClass
         UnitManager.Instance.UnitAvailable(unit);
     }
 
-    
+
     protected override void BuildDestroyed()
     {
-        
+
     }
     #endregion
 }

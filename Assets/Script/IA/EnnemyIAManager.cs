@@ -135,7 +135,7 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
 
     private void AddUnit(AUnitClass unit)
     {
-        if(defenseUnitList.Count < defenseUnitThreshold)
+        if (defenseUnitList.Count < defenseUnitThreshold)
         {
             defenseUnitList.Add(unit);
         }
@@ -160,13 +160,13 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
 
     private void AttackInProgress()
     {
-        if(currentAttackList.Count == 0 )
+        if (currentAttackList.Count == 0)
         {
             currentState = EIAState.IDLE;
         }
-        else if(currentState == EIAState.ATTACKING)
+        else if (currentState == EIAState.ATTACKING)
         {
-            if(onAttack != null)
+            if (onAttack != null)
             {
                 onAttack();
             }
@@ -174,12 +174,12 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
     }
     private void AttackAvailable()
     {
-        if(attackUnitList.Count > attackUnitThreshold)
+        if (attackUnitList.Count > attackUnitThreshold)
         {
             currentState = EIAState.ATTACKING;
             currentAttackList = attackUnitList;
         }
-        else if(currentAttackList.Count == 0)
+        else if (currentAttackList.Count == 0)
         {
             currentState = EIAState.IDLE;
             //attackUnitThreshold += attackUnitThreshold;
@@ -188,7 +188,7 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
 
     private void BaseAttacked(float time)
     {
-        if(!baseUnderAttack)
+        if (!baseUnderAttack)
         {
             return;
         }
@@ -208,7 +208,7 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
             }
         }
     }
-        
+
     #endregion METHODES
 }
 

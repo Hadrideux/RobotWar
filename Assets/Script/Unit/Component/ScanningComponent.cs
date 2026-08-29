@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScanningComponent : MonoBehaviour
@@ -32,7 +29,7 @@ public class ScanningComponent : MonoBehaviour
 
     private void Update()
     {
-        if (!isPeacfully) 
+        if (!isPeacfully)
             ScanForTarget();
     }
     #endregion
@@ -41,7 +38,7 @@ public class ScanningComponent : MonoBehaviour
     {
         Collider[] col = Physics.OverlapSphere(transform.position, unit.UnitData.AttackRange, layerMask);
 
-        RefreshTargetList(col);        
+        RefreshTargetList(col);
 
         for (int i = 0; i < col.Length; i++)
         {

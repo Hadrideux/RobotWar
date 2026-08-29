@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-public class IdleState : AUnitState
+﻿public class IdleState : AUnitState
 {
     public override void Enter(AUnitClass unit)
     {

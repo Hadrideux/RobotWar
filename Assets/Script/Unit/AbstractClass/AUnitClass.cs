@@ -1,4 +1,3 @@
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -59,8 +58,8 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         get => unitFaction;
         set => unitFaction = value;
     }
-    public GameObject TargetObject 
-    { 
+    public GameObject TargetObject
+    {
         get => gameObject;
     }
 
@@ -161,8 +160,8 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     }
 
     public void TargetUnit()
-    {                                 
-        if(currentOrder.OrderTarget != null)
+    {
+        if (currentOrder.OrderTarget != null)
         {
             TurnTurret(currentOrder.OrderTarget.TargetObject);
         }
@@ -198,7 +197,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         }
     }
     public void Fire(GameObject target)
-    { 
+    {
         if (reloading <= 0)
         {
             ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);

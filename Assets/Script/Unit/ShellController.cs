@@ -1,7 +1,4 @@
-using UnityEditor;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class ShellController : MonoBehaviour
 {
@@ -52,7 +49,7 @@ public class ShellController : MonoBehaviour
             }
         }
 
-        
+
     }
 
     #endregion MONO

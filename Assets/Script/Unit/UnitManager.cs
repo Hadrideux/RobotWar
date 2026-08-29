@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
 
     [SerializeField] private List<AUnitClass> activeUnits = new List<AUnitClass>();
-    
+
 
     public List<AUnitClass> ActiveUnits
     {
@@ -64,7 +63,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
-        switch(unitDestroyed.FactionObject)
+        switch (unitDestroyed.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Remove(unitDestroyed);
@@ -82,7 +81,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public void UnitAvailable(AUnitClass unitProduced)
     {
-        switch(unitProduced.FactionObject)
+        switch (unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Add(unitProduced);
@@ -92,10 +91,10 @@ public class UnitManager : Singleton<UnitManager>
                 {
                     onUnitProduced(unitProduced);
                 }
-                break; 
+                break;
             default:
                 break;
         }
-        
+
     }
 }

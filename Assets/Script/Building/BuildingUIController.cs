@@ -1,7 +1,5 @@
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class BuildingUIController : MonoBehaviour
@@ -65,7 +63,7 @@ public class BuildingUIController : MonoBehaviour
                 durabilityText.text = "Durability: " + assembly.CurrentDurability.ToString();
                 armorText.text = "Armor: " + assembly.BuildData.Armor.ToString();
 
-                if(assembly.UnitAssembled != null)
+                if (assembly.UnitAssembled != null)
                 {
                     unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
                 }

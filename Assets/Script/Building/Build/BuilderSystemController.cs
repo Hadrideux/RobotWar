@@ -106,7 +106,7 @@ public class BuilderSystemController : MonoBehaviour
 
     public void PlaceBuilding()
     {
-        if(objectToPlace == null)
+        if (objectToPlace == null)
         {
             return;
         }

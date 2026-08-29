@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class CommandSystemController : MonoBehaviour
 {
@@ -36,13 +35,13 @@ public class CommandSystemController : MonoBehaviour
         {
             bool orderSent = false;
 
-            if(hit.collider == null)
+            if (hit.collider == null)
             {
                 OrderData orderData = new OrderData(EOrderType.STOP);
             }
             else if (hit.collider.TryGetComponent(out ITargetableObject target))
             {
-                OrderData orderData = new OrderData(EOrderType.ATTACK,target);
+                OrderData orderData = new OrderData(EOrderType.ATTACK, target);
                 orderSent = PushOrder(orderData);
 
                 if (orderSent)

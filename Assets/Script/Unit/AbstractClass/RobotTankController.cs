@@ -1,6 +1,3 @@
-
-using UnityEngine;
-
 public class RobotTankController : AUnitClass
 {
     #region ATTRIBUTS

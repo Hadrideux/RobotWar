@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class SupplyTower : ABuildClass
 {
@@ -121,7 +118,7 @@ public class SupplyTower : ABuildClass
     {
         if (currentCaptureProgression > captureDuration)
         {
-            switch(ObjectFaction)
+            switch (ObjectFaction)
             {
                 case EFactionType.ALLY:
                     buildFaction = EFactionType.IA;

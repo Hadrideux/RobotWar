@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class BuildManager : Singleton<BuildManager>
 {
@@ -24,7 +23,7 @@ public class BuildManager : Singleton<BuildManager>
     #region METHODES
     public void BuildignAttacked(ABuildClass build)
     {
-        if(onBuildingAttacked != null)
+        if (onBuildingAttacked != null)
         {
             onBuildingAttacked(build);
         }

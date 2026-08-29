@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class MovingState : AUnitState
 {
@@ -18,8 +15,8 @@ public class MovingState : AUnitState
         unit.NavMeshAgent.SetDestination(currentDestination);
     }
     public override void Update(AUnitClass unit)
-    { 
-        if(!unit.NavMeshAgent.pathPending && unit.NavMeshAgent.remainingDistance <= unit.NavMeshAgent.stoppingDistance)
+    {
+        if (!unit.NavMeshAgent.pathPending && unit.NavMeshAgent.remainingDistance <= unit.NavMeshAgent.stoppingDistance)
         {
             unit.ChangeState(new IdleState());
         }

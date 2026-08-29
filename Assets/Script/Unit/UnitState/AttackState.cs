@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackState : AUnitState
 {
@@ -32,8 +30,8 @@ public class AttackState : AUnitState
 
             if (targetDistance <= unit.UnitData.AttackRange)
             {
-                if(unit.NavMeshAgent.isStopped == false)
-                    unit.NavMeshAgent.ResetPath();              
+                if (unit.NavMeshAgent.isStopped == false)
+                    unit.NavMeshAgent.ResetPath();
 
                 unit.TargetUnit();
             }

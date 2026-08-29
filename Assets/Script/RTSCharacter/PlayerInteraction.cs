@@ -154,7 +154,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            switch(currentState)
+            switch (currentState)
             {
                 case EPlayerState.COMMAND:
                     if (onDragStarted != null)
@@ -209,7 +209,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if (onExecuteOrder != null)
             {
@@ -227,7 +227,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 //Shift clicked
-                if (onGameObjectSelected != null )
+                if (onGameObjectSelected != null)
                 {
                     onGameObjectSelected(hit, true);
                 }
@@ -235,7 +235,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             else
             {
                 //Normal clicked
-                if (onGameObjectSelected != null )
+                if (onGameObjectSelected != null)
                 {
                     onGameObjectSelected(hit, false);
                 }
