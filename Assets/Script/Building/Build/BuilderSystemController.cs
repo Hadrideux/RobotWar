@@ -88,7 +88,7 @@ public class BuilderSystemController : MonoBehaviour
 
         TileBase[] baseArray = GetTilesBlock(area, buildTileMap);
 
-        foreach (var b in baseArray)
+        foreach (TileBase b in baseArray)
         {
             if (b == buildTileBase)
             {
@@ -106,7 +106,12 @@ public class BuilderSystemController : MonoBehaviour
 
     public void PlaceBuilding()
     {
-        if (CanBePlaced(objectToPlace) && objectToPlace != null)
+        if(objectToPlace == null)
+        {
+            return;
+        }
+
+        if (CanBePlaced(objectToPlace))
         {
             objectToPlace.Place();
 

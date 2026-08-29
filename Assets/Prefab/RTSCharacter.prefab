@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2605bb5578e3d354ca3b740663d07366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  characterManager: {fileID: 0}
   speedMovement: 200
   speedRotation: 100
   zoomSpeed: 20
@@ -158,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e03b3cc6ca0fee45937097940d08fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  currentState: 0
+  currentState: 2
   interactionMask:
     serializedVersion: 2
     m_Bits: 192

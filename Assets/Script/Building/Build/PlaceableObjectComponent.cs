@@ -41,8 +41,6 @@ public class PlaceableObjectComponent : MonoBehaviour
     #region MONO
     void Start()
     {
-        if (isPlaced) return;
-
         GetColliderVectexPositionLocal();
         CalculateSizeInCell();
     }
@@ -76,10 +74,7 @@ public class PlaceableObjectComponent : MonoBehaviour
 
     public void Place()
     {
-        //ObjectDragComponent drag = GetComponent<ObjectDragComponent>();
-        dragComponent.gameObject.SetActive(false);
-        //Destroy(drag);
-        Debug.Log(dragComponent.enabled);
+        dragComponent.enabled = false;
         isPlaced = true;
     }
     #endregion
