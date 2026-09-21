@@ -43,6 +43,4 @@ public class EnnemyUnitController : MonoBehaviour
         }
     }
     #endregion METHODES
-
-
 }

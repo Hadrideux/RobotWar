@@ -1,18 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "WaveData", menuName = "Scriptable Objects/WaveData")]
 public class WaveData : ScriptableObject
 {
-    [SerializeField] private AUnitClass[] unitPrefab = null;
-    [SerializeField] private int[] unitCount = null;
+    [SerializeReference] private Dictionary<AUnitClass, int> unitPrefab = new Dictionary<AUnitClass, int>();
+    [SerializeField] private int unitCount = 0;
 
-    [SerializeField] private float delayBetweenSpawns = 0;
     [SerializeField] private float statMultiplierHealth = 0;
     [SerializeField] private float statMultiplierDamage = 0;
 
-    public AUnitClass[] UnitPrefab => unitPrefab;
-    public int[] UnitCount => unitCount;
-    public float DelayBetweenHealth => delayBetweenSpawns;
+    public Dictionary<AUnitClass, int> UnitPrefab => unitPrefab;
+    public int UnitCount => unitCount;
     public float StatMulitiplierHealth => statMultiplierHealth;
     public float StatMultiplierDamage => statMultiplierDamage;
 }
