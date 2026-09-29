@@ -1051,281 +1051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126ea21f85578d74c962cc43ce707dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DictionaryExamplesComponent
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: []
-    ReferencedUnityObjects:
-    - {fileID: 0}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: IntMaterialLookup
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Material,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 7
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: StringStringDictionary
-      Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: One
-    - Name: $v
-      Entry: 1
-      Data: Lorem Ipsum
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Seven
-    - Name: $v
-      Entry: 1
-      Data: Game Object
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: CustomLabels
-      Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[DictionaryExamplesComponent+SomeEnum,
-        Assembly-CSharp],[DictionaryExamplesComponent+MyCustomType, Assembly-CSharp]],
-        mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[DictionaryExamplesComponent+SomeEnum,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: DictionaryExamplesComponent+MyCustomType, Assembly-CSharp
-    - Name: SomeMember
-      Entry: 3
-      Data: 0
-    - Name: SomePrefab
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: DictionaryExamplesComponent+MyCustomType, Assembly-CSharp
-    - Name: SomeMember
-      Entry: 3
-      Data: 0
-    - Name: SomePrefab
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: StringListDictionary
-      Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Collections.Generic.List`1[[System.Int32,
-        mscorlib]], mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Numbers
-    - Name: $v
-      Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: EnumObjectLookup
-      Entry: 7
-      Data: 8|System.Collections.Generic.Dictionary`2[[DictionaryExamplesComponent+SomeEnum,
-        Assembly-CSharp],[DictionaryExamplesComponent+MyCustomType, Assembly-CSharp]],
-        mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 5
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 7
-      Data: DictionaryExamplesComponent+MyCustomType, Assembly-CSharp
-    - Name: SomeMember
-      Entry: 3
-      Data: 0
-    - Name: SomePrefab
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 7
-      Data: DictionaryExamplesComponent+MyCustomType, Assembly-CSharp
-    - Name: SomeMember
-      Entry: 3
-      Data: 0
-    - Name: SomePrefab
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
 --- !u!4 &339171671
 Transform:
   m_ObjectHideFlags: 0
@@ -1443,7 +1168,7 @@ PrefabInstance:
       objectReference: {fileID: 1502836543}
     - target: {fileID: 5065092751962126212, guid: dfe2a3aed1525144aaf6bfbad1a3c789, type: 3}
       propertyPath: buildFaction
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5065092751962126212, guid: dfe2a3aed1525144aaf6bfbad1a3c789, type: 3}
       propertyPath: unitAssembled
@@ -1771,7 +1496,7 @@ PrefabInstance:
       objectReference: {fileID: 1723077381}
     - target: {fileID: 7017607514082920913, guid: f7ff4d2bbd0bad64595be500b82db9c5, type: 3}
       propertyPath: buildFaction
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7666597814781989149, guid: f7ff4d2bbd0bad64595be500b82db9c5, type: 3}
       propertyPath: m_Mesh
@@ -3103,6 +2828,7 @@ GameObject:
   - component: {fileID: 1079661803}
   - component: {fileID: 1079661802}
   - component: {fileID: 1079661801}
+  - component: {fileID: 1079661805}
   m_Layer: 0
   m_Name: IAManager
   m_TagString: Untagged
@@ -3150,9 +2876,36 @@ MonoBehaviour:
   currentState: 0
   defenseUnitList: []
   attackUnitList: []
-  currentAttackList: []
-  defenseUnitThreshold: 5
-  attackUnitThreshold: 10
+  thresholdAttackUnitCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackThreshold: 0
+  minAttackThreshold: 10
+  maxAttackThreshold: 50
+  attackCount: 0
+  maxAttackCount: 10
+  defenseUnitThreshold: 0
   baseUnderAttackWarning: 0
   baseUnderAttackwarningRemaining: 0
   baseUnderAttack: 0
@@ -3172,6 +2925,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079661805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079661800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca13753b385d791419bfd733975975f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnnemyWaveSpawner
+  IAManager: {fileID: 0}
+  reinforcementDatas:
+  - {fileID: 11400000, guid: 4b79d24292b52d14aa2ce1bebfcdacc6, type: 2}
+  currentWaveIndex: 0
+  spawnPoint: {fileID: 1526389376}
+  unitContainer: {fileID: 468809694}
+  thresholdDeltaTimer:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1
+      outSlope: -7.5970364
+      tangentMode: 1
+      weightedMode: 1
+      inWeight: 0.33333334
+      outWeight: 0.089690104
+    - serializedVersion: 3
+      time: 0.23835373
+      value: 0.26970282
+      inSlope: -1.0701799
+      outSlope: -1.0701799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1386152
+      outWeight: 0.040294837
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  defaultWaveTimer: 10
+  minWaveTimer: 5
+  nextWaveTimer: 0
+  currentWaveTimer: 0
 --- !u!1 &1295112056
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,6 +3526,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!4 &1526389376 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6701191765124576068, guid: f7ff4d2bbd0bad64595be500b82db9c5, type: 3}
+  m_PrefabInstance: {fileID: 392252058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1532564015
 Mesh:
   m_ObjectHideFlags: 0

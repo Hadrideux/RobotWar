@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnnemyRequsitionManager : Singleton<EnnemyRequsitionManager>
+public class IARequsitionManager : Singleton<IARequsitionManager>
 {
     [SerializeField] private int requisitionStock = 0;
 

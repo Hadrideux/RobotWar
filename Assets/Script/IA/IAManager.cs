@@ -3,31 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyIAManager : Singleton<EnnemyIAManager>
+public class IAManager : Singleton<IAManager>
 {
     #region ATTRIBUTS
     [SerializeField] private EIAState currentState = EIAState.NONE;
 
     [SerializeField] private List<AUnitClass> defenseUnitList = new List<AUnitClass>();
     [SerializeField] private List<AUnitClass> attackUnitList = new List<AUnitClass>();
-    [SerializeField] private List<AUnitClass> currentAttackList = new List<AUnitClass>();
 
-    [SerializeField] private int defenseUnitThreshold = 0;
-    [SerializeField] private int attackUnitThreshold = 0;
+    [Header("Attack")]
+    [SerializeField] private AnimationCurve thresholdAttackUnitCurve = null;
+    [SerializeField] private int attackThreshold = 5;
+    [SerializeField] private int minAttackThreshold = 10;
+    [SerializeField] private int maxAttackThreshold = 50;
 
+    [SerializeField] private int attackCount = 0;
+    [SerializeField] private int maxAttackCount = 10;
+
+    [Header("Defense")]
+    [SerializeField] private int defenseUnitThreshold = 10;
     [SerializeField] private float baseUnderAttackWarning = 0f;
     [SerializeField] private float baseUnderAttackwarningRemaining = 0f;
     [SerializeField] private bool baseUnderAttack = false;
 
     [SerializeField] private float responseTime = 0f;
-
     #endregion ATTRIBUTS
 
     #region PROPERTY
     public List<AUnitClass> AttackUnit => attackUnitList;
     public List<AUnitClass> DefenseUnit => defenseUnitList;
 
+    public int AttackThreshold => attackThreshold;
+    public int MaxAttackThreshold => maxAttackThreshold;
+    public int MinAttackThreshold => minAttackThreshold;
 
+
+    public int AttackCount => attackCount;
+    public int MaxAttackCount => maxAttackCount;
     #endregion PROPERTY
 
     #region EVENT
@@ -74,12 +86,15 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
 
 
     #endregion  EVENT
+
     #region METHODES
     #region MONO
     // Use this for initialization
     void Start()
     {
         currentState = EIAState.IDLE;
+        
+        ComputeAttackThreshold();
         StartCoroutine(ChangeIAState());
 
         UnitManager.Instance.OnUnitProduced += AddUnit;
@@ -89,7 +104,6 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
     // Update is called once per frame
     void Update()
     {
-
     }
 
     private IEnumerator ChangeIAState()
@@ -102,7 +116,6 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
                     currentState = EIAState.IDLE;
                     AttackAvailable();
                     BaseAttacked(responseTime);
-
                     yield return new WaitForSeconds(responseTime);
                     break;
                 case EIAState.ATTACKING:
@@ -137,11 +150,11 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
     {
         if (defenseUnitList.Count < defenseUnitThreshold)
         {
-            defenseUnitList.Add(unit);
+            RefillBackLine(unit);
         }
         else
         {
-            attackUnitList.Add(unit);
+            RefillFrontLine(unit);
         }
     }
 
@@ -149,18 +162,35 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
     {
         if (defenseUnitList.Contains(unit))
         {
-            defenseUnitList.Remove(unit);
+            RemoveFromBackLine(unit);
         }
-        else if (attackUnitList.Contains(unit) && currentAttackList.Contains(unit))
+        
+        if (attackUnitList.Contains(unit))
         {
-            attackUnitList.Remove(unit);
-            currentAttackList.Remove(unit);
+            RemoveFromFrontLine(unit);
         }
+    }
+
+    public void RefillFrontLine(AUnitClass unit)
+    {
+        attackUnitList.Add(unit);
+    }
+    public void RefillBackLine(AUnitClass unit)
+    {
+        defenseUnitList.Add(unit);
+    }
+    public void RemoveFromFrontLine(AUnitClass unit)
+    {
+        attackUnitList.Remove(unit);
+    }
+    public void RemoveFromBackLine(AUnitClass unit)
+    {
+        defenseUnitList.Remove(unit);
     }
 
     private void AttackInProgress()
     {
-        if (currentAttackList.Count == 0)
+        if (attackUnitList.Count == 0)
         {
             currentState = EIAState.IDLE;
         }
@@ -172,18 +202,28 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
             }
         }
     }
+
     private void AttackAvailable()
     {
-        if (attackUnitList.Count > attackUnitThreshold)
+        if (attackUnitList.Count >= attackThreshold)
         {
             currentState = EIAState.ATTACKING;
-            currentAttackList = attackUnitList;
+            attackCount ++;
+
+            ComputeAttackThreshold();            
         }
-        else if (currentAttackList.Count == 0)
+        else if (attackUnitList.Count == 0)
         {
             currentState = EIAState.IDLE;
-            //attackUnitThreshold += attackUnitThreshold;
+
         }
+    }
+
+    private void ComputeAttackThreshold()
+    {
+        float progress = (float)attackCount / maxAttackCount;
+        float shape = thresholdAttackUnitCurve.Evaluate(progress);
+        attackThreshold = Mathf.RoundToInt(Mathf.Lerp(minAttackThreshold, maxAttackThreshold, shape));
     }
 
     private void BaseAttacked(float time)
@@ -208,7 +248,6 @@ public class EnnemyIAManager : Singleton<EnnemyIAManager>
             }
         }
     }
-
     #endregion METHODES
 }
 
