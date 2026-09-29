@@ -73,7 +73,7 @@ public class SupplyTower : ABuildClass
                 RequisitionManager.Instance.RequisitionStock += requisitionRate;
                 break;
             case EFactionType.IA:
-                EnnemyRequsitionManager.Instance.RequisitionStock += requisitionRate;
+                IARequsitionManager.Instance.RequisitionStock += requisitionRate;
                 break;
             default:
                 break;

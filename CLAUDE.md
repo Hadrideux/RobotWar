@@ -16,6 +16,8 @@ Systèmes cœur :
 
 Les échanges sur ce projet se font en français.
 
+Projet Notion : RobotWar
+
 ## Comment travailler avec Hadrien sur ce projet
 
 - **Pas un développeur pro** → privilégier des solutions simples, lisibles, directes : appels singleton directs, patterns MonoBehaviour classiques, abstraction minimale.
@@ -90,20 +92,9 @@ Approche timer-based dans `Update()`. `captureMultiplier` volontairement **non c
 - Pattern classe utilitaire statique pour le debug de gizmos editor-only (`CollisionGizmos`, guards `#if UNITY_EDITOR`).
 - Exploration des templates de script Visual Studio / VS Code, snippets avec tab stops, et raccourcis de régions.
 
-## Automatisation de reporting (en cours de mise en place)
+## Automatisation de reporting
 
-Hadrien met en place un **hook git `post-commit`** qui lance `claude -p` en headless pour analyser chaque commit et écrire un rapport dans Notion :
-- Page cible : `Base de Donnée Global / Liste Projet / RobotWar / Design Log / Programming Log`
-- Architecture envisagée :
-  ```
-  .claude-hooks/post-commit-report.sh   (versionné, activé via `git config core.hooksPath .claude-hooks`)
-    → claude -p "$(cat prompt-template.md)" \
-        --mcp-config notion-mcp.json \
-        --allowedTools "Bash(git:*),mcp__notion" \
-        --permission-mode acceptEdits
-  ```
-- Détection automatique du projet (RobotWar vs Exosteam) via le nom du dossier repo ou une variable `.claude-hooks/config`.
-- Une base de données Notion dédiée est en cours de conception côté Hadrien pour recevoir ces rapports (schéma de propriétés à caler).
+Skill global **`/rapport-session`** (`~/.claude/skills/rapport-session/`) à lancer en fin de session : commit git de fin de session (après confirmation), puis entrée dans la base Notion commune `Base de Donnée Global / Design Log` (Catégorie `Log Session`, propriété `Projet` lue depuis la ligne `Projet Notion :` ci-dessus). Remplace l'ancienne idée de hook git `post-commit` + `claude -p`, qui ne voyait que le diff et pas la conversation.
 
 ## ⚠️ Non transférable depuis cette surface
 

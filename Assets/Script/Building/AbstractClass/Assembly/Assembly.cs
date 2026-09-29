@@ -64,9 +64,9 @@ public class Assembly : ABuildClass
                     }
                     break;
                 case EFactionType.IA:
-                    if (UnitAssembled.UnitData.RequisitionCost <= EnnemyRequsitionManager.Instance.RequisitionStock && !isProductionStart)
+                    if (UnitAssembled.UnitData.RequisitionCost <= IARequsitionManager.Instance.RequisitionStock && !isProductionStart)
                     {
-                        EnnemyRequsitionManager.Instance.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+                        IARequsitionManager.Instance.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
                         isProductionStart = true;
                     }
 
