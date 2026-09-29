@@ -13,19 +13,24 @@ public class IAManager : Singleton<IAManager>
 
     [Header("Attack")]
     [SerializeField] private AnimationCurve thresholdAttackUnitCurve = null;
+    [Space(5)]
     [SerializeField] private int attackThreshold = 5;
     [SerializeField] private int minAttackThreshold = 10;
     [SerializeField] private int maxAttackThreshold = 50;
-
+    [Space(5)]
     [SerializeField] private int attackCount = 0;
     [SerializeField] private int maxAttackCount = 10;
+    [Space(5)]
+    [SerializeField] private OrderData order = null;
+    [SerializeField] private ABuildClass playerHQ = null;
 
     [Header("Defense")]
     [SerializeField] private int defenseUnitThreshold = 10;
+    [Space(5)]
     [SerializeField] private float baseUnderAttackWarning = 0f;
     [SerializeField] private float baseUnderAttackwarningRemaining = 0f;
+    [Space(5)]
     [SerializeField] private bool baseUnderAttack = false;
-
     [SerializeField] private float responseTime = 0f;
     #endregion ATTRIBUTS
 
@@ -92,10 +97,9 @@ public class IAManager : Singleton<IAManager>
     // Use this for initialization
     void Start()
     {
-        currentState = EIAState.IDLE;
-        
+        UpdateState(EIAState.IDLE);
+
         ComputeAttackThreshold();
-        StartCoroutine(ChangeIAState());
 
         UnitManager.Instance.OnUnitProduced += AddUnit;
         UnitManager.Instance.OnUnitDestroyed += RemoveUnit;
@@ -104,34 +108,7 @@ public class IAManager : Singleton<IAManager>
     // Update is called once per frame
     void Update()
     {
-    }
-
-    private IEnumerator ChangeIAState()
-    {
-        while (true)
-        {
-            switch (currentState)
-            {
-                case EIAState.IDLE:
-                    currentState = EIAState.IDLE;
-                    AttackAvailable();
-                    BaseAttacked(responseTime);
-                    yield return new WaitForSeconds(responseTime);
-                    break;
-                case EIAState.ATTACKING:
-                    AttackInProgress();
-                    currentState = EIAState.ATTACKING;
-                    yield return new WaitForSeconds(responseTime);
-                    break;
-                case EIAState.DEFENDING:
-                    BaseAttacked(responseTime);
-                    yield return new WaitForSeconds(responseTime);
-                    break;
-                default:
-                    yield return new WaitForSeconds(responseTime);
-                    break;
-            }
-        }
+        UpdateState(currentState); 
     }
 
     void OnDestroy()
@@ -146,6 +123,26 @@ public class IAManager : Singleton<IAManager>
     }
     #endregion MONO
 
+    public void UpdateState(EIAState state)
+    {
+        switch (state)
+        {
+            case EIAState.IDLE:
+                currentState = state;
+                AttackAvailable();
+                BaseAttacked(responseTime);
+                break;
+            case EIAState.ATTACKING:
+                AttackInProgress();
+                currentState = state;
+                break;
+            case EIAState.DEFENDING:
+                BaseAttacked(responseTime);
+                break;
+            default:
+                break;
+        }
+    }
     private void AddUnit(AUnitClass unit)
     {
         if (defenseUnitList.Count < defenseUnitThreshold)
@@ -174,6 +171,11 @@ public class IAManager : Singleton<IAManager>
     public void RefillFrontLine(AUnitClass unit)
     {
         attackUnitList.Add(unit);
+
+        if (currentState == EIAState.ATTACKING)
+        {
+            unit.ReceiveOrder(order);
+        }
     }
     public void RefillBackLine(AUnitClass unit)
     {
@@ -190,16 +192,10 @@ public class IAManager : Singleton<IAManager>
 
     private void AttackInProgress()
     {
+        
         if (attackUnitList.Count == 0)
         {
             currentState = EIAState.IDLE;
-        }
-        else if (currentState == EIAState.ATTACKING)
-        {
-            if (onAttack != null)
-            {
-                onAttack();
-            }
         }
     }
 
@@ -208,14 +204,16 @@ public class IAManager : Singleton<IAManager>
         if (attackUnitList.Count >= attackThreshold)
         {
             currentState = EIAState.ATTACKING;
+
+            order = new OrderData(EOrderType.ATTACK, playerHQ);
+            foreach (AUnitClass unit in attackUnitList)
+            {
+                unit.ReceiveOrder(order);
+            }
+
             attackCount ++;
 
             ComputeAttackThreshold();            
-        }
-        else if (attackUnitList.Count == 0)
-        {
-            currentState = EIAState.IDLE;
-
         }
     }
 

@@ -35,8 +35,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
     [Header("Unit Debug")]
     [SerializeField] protected bool isFreezeUnit = false;
-
-
     #endregion ATTRIBUTS
 
     #region PROPERTIES
@@ -63,10 +61,10 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         get => gameObject;
     }
 
-    public OrderData Order
+    public AUnitState CurrenState
     {
-        get => currentOrder;
-        set => currentOrder = value;
+        get => currentState;
+        set => currentState = value;
     }
 
     #endregion PROPERTIES
@@ -76,7 +74,11 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     void Start()
     {
         InitUnit();
-        ChangeState(new IdleState());
+
+        if(currentState == null)
+        {
+            ChangeState(new IdleState());
+        }
     }
 
     void Update()
@@ -128,6 +130,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
             case EOrderType.STOP:
                 ChangeState(new IdleState());
+                currentOrder = null;
                 break;
 
             default:
@@ -150,11 +153,16 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
 
-        NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        UnitManager.Instance.UnitAvailable(this);
+        /*if(unitFaction != EFactionType.IA)
+        {
+            NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
+        } else
+        {
+            IARequsitionManager.Instance.CurrentLoad += UnitData.NetworkCost;
+        }*/
     }
 
-    public void UnitDestroyed()
+    public void UnitKilled()
     {
         Destroy(gameObject);
     }
@@ -193,7 +201,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         if (angle <= 0.25)
         {
             Fire(target);
-            Debug.Log("Targeted");
         }
     }
     public void Fire(GameObject target)
@@ -204,8 +211,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
             shell.SetDirection(target.transform.position);
 
             reloading = ShellController.AmmoData.ReloadTime;
-
-            Debug.Log("Attacking");
         }
     }
 

@@ -5,6 +5,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     #region ATTRIBUTS
     [Header("Manager")]
     [SerializeField] protected RequisitionManager requisitionManager = null;
+    [SerializeField] protected IARequsitionManager IARequsition = null;
 
     [Header("Component")]
     [SerializeField] protected PlaceableObjectComponent placeableComponent = null;
@@ -54,6 +55,8 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     // Start is called before the first frame update
     void Start()
     {
+        requisitionManager = RequisitionManager.Instance;
+        IARequsition = IARequsitionManager.Instance;
         InitBuild();
     }
 

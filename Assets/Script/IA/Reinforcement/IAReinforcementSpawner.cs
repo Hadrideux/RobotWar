@@ -39,7 +39,6 @@ public class IAReinforcementSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         CooldownNewWave();
     }
     #endregion
@@ -62,20 +61,21 @@ public class IAReinforcementSpawner : MonoBehaviour
 
             if (unit  == null)
             {
-                currentWaveIndex++;
+                SetupNextWave();
                 return;
 
             }
             else
             {
                 AUnitClass reinforcement = Instantiate(unit, spawnPoint.position, Quaternion.identity, unitContainer);
+                Debug.Log(reinforcement.NavMeshAgent.isOnNavMesh);
                 reinforcement.FactionObject = EFactionType.IA;
                 //reinforcement.CurrentHealth *= waveData[i].StatMulitiplierHealth;
                 IAManager.RefillFrontLine(reinforcement);
             }
         }
-        
-        currentWaveIndex = Mathf.Clamp(currentWaveIndex + 1, 0, reinforcementDatas.Length - 1);
+
+        SetupNextWave();
     }
 
     private AUnitClass RandomReinforcementUnit(ReinforcementData reinforcementData)
@@ -86,8 +86,6 @@ public class IAReinforcementSpawner : MonoBehaviour
         foreach (int weight in reinforcementData.ReinforcementUnit.Values)
         {
             totalweight += weight;
-
-            
         }
 
         roll = Random.Range(0, totalweight);
@@ -121,7 +119,7 @@ public class IAReinforcementSpawner : MonoBehaviour
 
     private void SetupNextWave()
     {
-
+        currentWaveIndex = Mathf.Clamp(currentWaveIndex++, 0, reinforcementDatas.Length - 1);
     }
     #endregion
 }

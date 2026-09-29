@@ -17,7 +17,7 @@ public class RobotTankController : AUnitClass
 
                 if (currentHealth <= 0)
                 {
-                    UnitDestroyed();
+                    UnitKilled();
                 }
                 break;
 
@@ -26,6 +26,7 @@ public class RobotTankController : AUnitClass
         }
     }
 
+    
     #endregion  ABSTRACT
 
     #endregion

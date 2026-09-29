@@ -16,8 +16,6 @@ public class AttackState : AUnitState
 
     public override void Update(AUnitClass unit)
     {
-        Debug.Log("Attack State");
-
         if (currentTarget == null)
         {
             unit.NavMeshAgent.ResetPath();
@@ -44,6 +42,5 @@ public class AttackState : AUnitState
 
     public override void Exit(AUnitClass unit)
     {
-        unit.Order = null;
     }
 }

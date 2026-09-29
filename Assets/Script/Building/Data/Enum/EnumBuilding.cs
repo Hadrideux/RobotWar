@@ -7,6 +7,7 @@
 public enum EBuildType
 {
     NONE,
+    HEADQUARTER,
     ASSEMBLY,
     SUPPLY,
     SPACEELEVATOR,

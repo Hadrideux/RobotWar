@@ -46,17 +46,19 @@ public class Assembly : ABuildClass
             switch (buildFaction)
             {
                 case EFactionType.ALLY:
-                    if (UnitAssembled.UnitData.RequisitionCost <= RequisitionManager.Instance.RequisitionStock && !isProductionStart)
+                    if(!isProductionStart)
                     {
-                        RequisitionManager.Instance.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+
+                    }
+                    if (UnitAssembled.UnitData.RequisitionCost <= requisitionManager.RequisitionStock && !isProductionStart)
+                    {
+                        requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
                         isProductionStart = true;
                     }
 
                     if (productionTime >= UnitAssembled.UnitData.ProductionTime && isProductionStart == true)
                     {
                         SpawnUnit(UnitAssembled);
-                        isProductionStart = false;
-                        productionTime = 0;
                     }
                     else
                     {
@@ -64,17 +66,15 @@ public class Assembly : ABuildClass
                     }
                     break;
                 case EFactionType.IA:
-                    if (UnitAssembled.UnitData.RequisitionCost <= IARequsitionManager.Instance.RequisitionStock && !isProductionStart)
+                    if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock && !isProductionStart)
                     {
-                        IARequsitionManager.Instance.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+                        requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
                         isProductionStart = true;
                     }
 
                     if (productionTime >= UnitAssembled.UnitData.ProductionTime && isProductionStart == true)
                     {
                         SpawnUnit(UnitAssembled);
-                        isProductionStart = false;
-                        productionTime = 0;
                     }
                     else
                     {
@@ -88,16 +88,16 @@ public class Assembly : ABuildClass
 
 
     }
-
     public void SpawnUnit(AUnitClass spawnUnit)
     {
         AUnitClass unit = Instantiate(spawnUnit, spawner.position, Quaternion.identity, unitContainer);
         unit.FactionObject = buildFaction;
 
         UnitManager.Instance.UnitAvailable(unit);
+
+        isProductionStart = false;
+        productionTime = 0;
     }
-
-
     protected override void BuildDestroyed()
     {
 

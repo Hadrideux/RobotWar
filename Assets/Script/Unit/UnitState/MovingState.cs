@@ -24,7 +24,6 @@ public class MovingState : AUnitState
 
     public override void Exit(AUnitClass unit)
     {
-        unit.Order = null;
         unit.NavMeshAgent.ResetPath();
     }
 
