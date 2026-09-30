@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class Assembly : ABuildClass
 {
-    #region ATTRIBUTS
+#region ATTRIBUTS
 
     [SerializeField] protected AUnitClass unitAssembled = null;
 
@@ -12,18 +12,18 @@ public class Assembly : ABuildClass
 
     [SerializeField] protected Transform spawner = null;
     [SerializeField] protected Transform unitContainer = null;
-    #endregion
+#endregion
 
-    #region PROPERTY
+#region PROPERTY
     public AUnitClass UnitAssembled
     {
         get => unitAssembled;
         set => unitAssembled = value;
     }
-    #endregion
+#endregion
 
-    #region METHODE
-    #region MONO
+#region METHODE
+#region MONO
 
     void Update()
     {
@@ -32,8 +32,14 @@ public class Assembly : ABuildClass
             ProductionTimer();
         }
     }
+    #endregion MONO
 
-    #endregion
+    #region ABSTRACT
+    protected override void BuildDestroyed()
+    {
+        throw new System.NotImplementedException();
+    }
+    #endregion ABSTRACT
 
     private void ProductionTimer()
     {
@@ -68,7 +74,7 @@ public class Assembly : ABuildClass
                 case EFactionType.IA:
                     if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock && !isProductionStart)
                     {
-                        requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+                        IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
                         isProductionStart = true;
                     }
 
@@ -98,9 +104,5 @@ public class Assembly : ABuildClass
         isProductionStart = false;
         productionTime = 0;
     }
-    protected override void BuildDestroyed()
-    {
-
-    }
-    #endregion
+#endregion
 }

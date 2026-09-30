@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-
     [SerializeField] private List<AUnitClass> activeUnits = new List<AUnitClass>();
-
 
     public List<AUnitClass> ActiveUnits
     {
@@ -43,9 +41,6 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
     #endregion EVENTS
-
-
-
     public List<AUnitClass> GetElligibleUnits(EStatEffectedType effectType)
     {
         List<AUnitClass> elligibleUnits = new List<AUnitClass>();
@@ -69,6 +64,7 @@ public class UnitManager : Singleton<UnitManager>
                 activeUnits.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
+                IAManager.Instance.RemoveUnit(unitDestroyed);    
                 break;
             default:
                 break;

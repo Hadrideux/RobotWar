@@ -52,7 +52,7 @@ public class IAReinforcementSpawner : MonoBehaviour
 
     private void WaveSpawning()
     {
-        int missing = Mathf.Max(IAManager.AttackThreshold - IAManager.AttackUnit.Count, 0);
+        int missing = Mathf.Max(IAManager.AttackUnitThreshold - IAManager.AttackUnit.Count, 0);
         ReinforcementData data = reinforcementDatas[currentWaveIndex];
            
         for(int i = 0; i < missing; i++)
@@ -61,16 +61,14 @@ public class IAReinforcementSpawner : MonoBehaviour
 
             if (unit  == null)
             {
-                SetupNextWave();
                 return;
-
             }
             else
             {
                 AUnitClass reinforcement = Instantiate(unit, spawnPoint.position, Quaternion.identity, unitContainer);
-                Debug.Log(reinforcement.NavMeshAgent.isOnNavMesh);
                 reinforcement.FactionObject = EFactionType.IA;
                 //reinforcement.CurrentHealth *= waveData[i].StatMulitiplierHealth;
+                //reinforcement. *= waveData[i].;                
                 IAManager.RefillFrontLine(reinforcement);
             }
         }
@@ -119,7 +117,7 @@ public class IAReinforcementSpawner : MonoBehaviour
 
     private void SetupNextWave()
     {
-        currentWaveIndex = Mathf.Clamp(currentWaveIndex++, 0, reinforcementDatas.Length - 1);
+        currentWaveIndex = Mathf.Clamp(currentWaveIndex + 1, 0, reinforcementDatas.Length - 1);
     }
     #endregion
 }

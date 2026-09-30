@@ -104,6 +104,13 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
             default:
                 break;
         }
+
+        if (buildFaction == EFactionType.ALLY)
+        {
+        }
+        else if (buildFaction == EFactionType.IA)
+        {
+        }
     }
 
     protected void DurabilityUpdate(float damage)

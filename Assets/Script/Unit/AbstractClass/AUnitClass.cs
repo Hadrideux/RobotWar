@@ -97,7 +97,16 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     void OnDestroy()
     {
         UnitManager.Instance.UnitDestroyed(this);
-        NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
+
+        if (unitFaction == EFactionType.ALLY)
+        {
+            NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
+
+        }
+        else if (unitFaction == EFactionType.IA)
+        {
+            IANetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
+        }
     }
     #endregion MONO
     #region INTERFACE
