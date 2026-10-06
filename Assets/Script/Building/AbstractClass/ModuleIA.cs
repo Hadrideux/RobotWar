@@ -3,11 +3,7 @@ using UnityEngine;
 public class ModuleIA : ABuildClass
 {
     #region ATTRIBUTS
-
-    [SerializeField] private NetworkManager networkManager = null;
-
     [SerializeField] private int augmentLoad = 0;
-
     #endregion ATTRIBUTS
 
     #region Methode 
@@ -17,8 +13,14 @@ public class ModuleIA : ABuildClass
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        networkManager = NetworkManager.Instance;
-        networkManager.IncreaseNetworkLoad(augmentLoad);
+        if (buildFaction == EFactionType.ALLY)
+        {
+            NetworkManager.Instance.CurrentLoad += augmentLoad;
+        }
+        else if (buildFaction == EFactionType.IA)
+        {
+            IANetworkManager.Instance.CurrentLoad += augmentLoad;
+        }
     }
 
     // Update is called once per frame
@@ -31,7 +33,14 @@ public class ModuleIA : ABuildClass
     #region ABSTRACT
     protected override void BuildDestroyed()
     {
-        NetworkManager.Instance.DecreseNetworkLoad(augmentLoad);
+        if (buildFaction == EFactionType.ALLY)
+        {
+            NetworkManager.Instance.CurrentLoad -= augmentLoad;
+        }
+        else if (buildFaction == EFactionType.IA)
+        {
+            IANetworkManager.Instance.CurrentLoad -= augmentLoad;
+        }
 
         Destroy(gameObject);
     }

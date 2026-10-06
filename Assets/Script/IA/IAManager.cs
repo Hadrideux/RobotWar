@@ -8,51 +8,50 @@ public class IAManager : Singleton<IAManager>
     #region ATTRIBUTS
     [SerializeField] private EIAState currentState = EIAState.NONE;
 
-    [SerializeField] private List<AUnitClass> defenseUnitList = new List<AUnitClass>();
-    [SerializeField] private List<AUnitClass> attackUnitList = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> defenseUnits = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> attackUnits = new List<AUnitClass>();
 
     [Header("Attack")]
     [SerializeField] private IAAttackController attackController = null;
-    [SerializeField] private AnimationCurve thresholdAttackUnitCurve = null;
+    [SerializeField] private AnimationCurve attackThresholdCurve = null;
     [Space(5)]
-    [SerializeField] private int attackUnitThreshold = 5;
-    [SerializeField] private int minAttackUnitThreshold = 10;
-    [SerializeField] private int maxAttackUnitThreshold = 50;
+    [SerializeField] private int attackThreshold = 5;
+    [SerializeField] private int minAttackThreshold = 10;
+    [SerializeField] private int maxAttackThreshold = 50;
     [Space(5)]
-    [SerializeField] private int attackCount = 0;
-    [SerializeField] private int maxAttackCount = 10;
+    [SerializeField] private int launchedAttackCount = 0;
+    [SerializeField] private int attackCountAtMaxThreshold = 10;
     [Space(5)]  
     [SerializeField] private ABuildClass playerHQ = null;
 
     [Header("Defense")]
     [SerializeField] private IADefenseController defenseController = null;
-    [SerializeField] private int defenseUnitThreshold = 10;
+    [SerializeField] private int defenseThreshold = 10;
     [Space(5)]
-    [SerializeField] private float baseUnderAttackWarning = 0f;
-    [SerializeField] private float baseUnderAttackwarningRemaining = 0f;
+    [SerializeField] private float calmDuration = 5f;
+    [SerializeField] private float calmTimer = 0f;
     [Space(5)]
-    [SerializeField] private bool baseUnderAttack = false;
-    [SerializeField] private float responseTime = 0f;
+    [SerializeField] private bool isBaseUnderAttack = false;
     #endregion ATTRIBUTS
 
     #region PROPERTY
-    public List<AUnitClass> AttackUnit => attackUnitList;
-    public List<AUnitClass> DefenseUnit => defenseUnitList;
+    public List<AUnitClass> AttackUnits => attackUnits;
+    public int AttackThreshold => attackThreshold;
 
-    public int AttackUnitThreshold => attackUnitThreshold;
-    public int MaxAttackThreshold => maxAttackUnitThreshold;
-    public int MinAttackThreshold => minAttackUnitThreshold;
+    public List<AUnitClass> DefenseUnits => defenseUnits;
+    public int DefenseThreshold => defenseThreshold;
 
-    public int AttackCount => attackCount;
-    public int MaxAttackCount => maxAttackCount;
+    public int LaunchedAttackCount => launchedAttackCount;
+    public int AttackCountAtMaxThreshold => attackCountAtMaxThreshold;
 
-    public bool BaseUnderAttack
+    public ABuildClass PlayerHQ
     {
-        get => baseUnderAttack;
-        set => baseUnderAttack = value;
+        get => playerHQ;
+        set => playerHQ = value;
     }
 
-    public ABuildClass PlayerHQ => playerHQ;
+    public EIAState CurrentState => currentState;
+    public bool IsBaseUnderAttack => isBaseUnderAttack;
     #endregion PROPERTY
 
     #region EVENT
@@ -70,6 +69,19 @@ public class IAManager : Singleton<IAManager>
         }
     }
 
+    private event Action<AUnitClass> onUnitJoinAttack = null;
+    public event Action<AUnitClass> OnUnitJoinAttack
+    {
+        add
+        {
+            onUnitJoinAttack -= value;
+            onUnitJoinAttack += value;
+        }
+        remove
+        {
+            onUnitJoinAttack -= value;
+        }
+    }
     private event Action onAttack = null;
     public event Action OnAttack
     {
@@ -83,8 +95,8 @@ public class IAManager : Singleton<IAManager>
             onAttack -= value;
         }
     }
-    private event Action onDefend = null;
-    public event Action OnDefend
+    private event Action<ABuildClass> onDefend = null;
+    public event Action<ABuildClass> OnDefend
     {
         add
         {
@@ -96,7 +108,6 @@ public class IAManager : Singleton<IAManager>
             onDefend -= value;
         }
     }
-
 
     #endregion  EVENT
 
@@ -110,24 +121,41 @@ public class IAManager : Singleton<IAManager>
         HandleAttackThreshold();
 
         UnitManager.Instance.OnUnitProduced += AddUnit;
-        UnitManager.Instance.OnUnitDestroyed += RemoveUnit;
+
+        BuildManager.Instance.OnBuildingAttacked += BaseUnderAttacked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateState(currentState); 
+        UpdateState(currentState);
+
+        if (isBaseUnderAttack)
+        {
+            if (calmTimer >= calmDuration)
+            {
+                calmTimer = 0;
+                isBaseUnderAttack = false;
+            }
+            else
+            {
+                calmTimer += Time.deltaTime;
+            }
+        }
+        
     }
 
     void OnDestroy()
     {
         UnitManager.Instance.OnUnitProduced -= AddUnit;
-        UnitManager.Instance.OnUnitDestroyed -= RemoveUnit;
+
+        BuildManager.Instance.OnBuildingAttacked -= BaseUnderAttacked;
     }
     private void OnApplicationQuit()
     {
         UnitManager.Instance.OnUnitProduced -= AddUnit;
-        UnitManager.Instance.OnUnitDestroyed -= RemoveUnit;
+
+        BuildManager.Instance.OnBuildingAttacked -= BaseUnderAttacked;
     }
     #endregion MONO
 
@@ -140,14 +168,10 @@ public class IAManager : Singleton<IAManager>
             case EIAState.IDLE:
                 
                 AttackAvailable();
-                BaseUnderAttacked(responseTime);
                 break;
             case EIAState.ATTACKING:
-                AttackFinished();
-                break;
-            case EIAState.DEFENDING:
 
-                BaseUnderAttacked(responseTime);
+                AttackFinished();
                 break;
             default:
                 break;
@@ -155,94 +179,90 @@ public class IAManager : Singleton<IAManager>
     }
     public void AddUnit(AUnitClass unit)
     {
-        if (defenseUnitList.Count < defenseUnitThreshold)
+        if (defenseUnits.Count < defenseThreshold)
         {
-            RefillBackLine(unit);
+            AddToDefense(unit);
         }
         else
         {
-            RefillFrontLine(unit);
+            AddToAttack(unit);
         }
     }
     public void RemoveUnit(AUnitClass unit)
     {
-        if (defenseUnitList.Contains(unit))
-        {
-            RemoveFromBackLine(unit);
-        }
-        
-        if (attackUnitList.Contains(unit))
-        {
-            RemoveFromFrontLine(unit);
-        }
+        RemoveFromDefense(unit);
+        RemoveFromAttack(unit);
     }
-    public void RefillFrontLine(AUnitClass unit)
+    public void AddToAttack(AUnitClass unit)
     {
-        attackUnitList.Add(unit);
+        attackUnits.Add(unit);
         
         if (currentState == EIAState.ATTACKING)
         {
-            attackController.TransmitOrder(unit);
+            if(onUnitJoinAttack != null)
+            {
+                onUnitJoinAttack(unit);
+            }
         }
     }
-    public void RefillBackLine(AUnitClass unit)
+    public void AddToDefense(AUnitClass unit)
     {
-        defenseUnitList.Add(unit);
+        defenseUnits.Add(unit);
     }
-    public void RemoveFromFrontLine(AUnitClass unit)
+    public void RemoveFromAttack(AUnitClass unit)
     {
-        attackUnitList.Remove(unit);
+        attackUnits.Remove(unit);
     }
-    public void RemoveFromBackLine(AUnitClass unit)
+    public void RemoveFromDefense(AUnitClass unit)
     {
-        defenseUnitList.Remove(unit);
+        defenseUnits.Remove(unit);
     }
 
     private void AttackFinished()
     {
-        if (attackUnitList.Count == 0)
+        if (attackUnits.Count == 0)
         {
             UpdateState(EIAState.IDLE);
         }
     }
     private void AttackAvailable()
     {
-        if (attackUnitList.Count >= attackUnitThreshold)
+        if (attackUnits.Count >= attackThreshold)
         {
-            currentState = EIAState.ATTACKING;
+            UpdateState(EIAState.ATTACKING);
 
-            attackController.LaunchAttack();
+            if (onAttack != null)
+            {
+                onAttack();
+            }
 
-            attackCount++;
+            launchedAttackCount++;
             HandleAttackThreshold();
         }
     }
     private void HandleAttackThreshold()
     {
-        float progress = (float)attackCount / maxAttackCount;
-        float shape = thresholdAttackUnitCurve.Evaluate(progress);
-        attackUnitThreshold = Mathf.RoundToInt(Mathf.Lerp(minAttackUnitThreshold, maxAttackUnitThreshold, shape));
+        float progress = (float)launchedAttackCount / attackCountAtMaxThreshold;
+        float shape = attackThresholdCurve.Evaluate(progress);
+        attackThreshold = Mathf.RoundToInt(Mathf.Lerp(minAttackThreshold, maxAttackThreshold, shape));
     }
-    private void BaseUnderAttacked(float time)
+
+    private void BaseUnderAttacked(ABuildClass build)
     {
-        if (!baseUnderAttack)
+        if(build.FactionObject != EFactionType.IA)
         {
             return;
         }
-        else if (baseUnderAttackwarningRemaining >= baseUnderAttackWarning)
+
+        calmTimer = 0;
+
+        if (!isBaseUnderAttack)
         {
-            currentState = EIAState.IDLE;
-            baseUnderAttackwarningRemaining = 0;
-            baseUnderAttack = false;
-        }
-        else if (currentState != EIAState.DEFENDING)
-        {
-            currentState = EIAState.DEFENDING;
-            baseUnderAttackwarningRemaining += time;
+            isBaseUnderAttack = true;
 
             if (onDefend != null)
             {
-                onDefend();
+                onDefend(build);
             }
         }
     }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Vehicle_Factory_SO
   m_EditorClassIdentifier: Assembly-CSharp::BuildData
   buildName: Vehicle Factory
-  buildType: 1
+  buildType: 2
   maxDurability: 100
-  armor: 10
+  armor: 15
   buildingTime: 0
   buildingCost: 0

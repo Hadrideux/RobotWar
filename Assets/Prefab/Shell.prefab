@@ -99,8 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShellController
   ammoData: {fileID: 11400000, guid: 04be3bffcf2d6954c8420bf3e3448bf2, type: 2}
+  shellLifeTime: 5
   rb: {fileID: 2790916125197161165}
   shellDir: {x: 0, y: 0, z: 0}
+  shellFaction: 0
 --- !u!1 &3718372618601491679
 GameObject:
   m_ObjectHideFlags: 0

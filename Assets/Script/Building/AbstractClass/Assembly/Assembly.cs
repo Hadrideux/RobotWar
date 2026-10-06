@@ -27,9 +27,29 @@ public class Assembly : ABuildClass
 
     void Update()
     {
-        if (placeableComponent.IsPlaced)
+        if (placeableComponent.IsPlaced && isProductionEnabled)
         {
-            ProductionTimer();
+            if(isProductionStart == false)
+            {
+                TryStartProduction();
+            }
+
+            if (isProductionStart)
+            {
+                if (productionTime >= UnitAssembled.UnitData.ProductionTime)
+                {
+                    productionTime = 0;
+                    isProductionStart = false;
+
+                    SpawnUnitProduction(unitAssembled);
+                }
+                else
+                {
+                    productionTime += Time.deltaTime;
+                }
+            }
+
+            
         }
     }
     #endregion MONO
@@ -37,72 +57,39 @@ public class Assembly : ABuildClass
     #region ABSTRACT
     protected override void BuildDestroyed()
     {
-        throw new System.NotImplementedException();
     }
     #endregion ABSTRACT
-
-    private void ProductionTimer()
+    private void TryStartProduction()
     {
-        if (isProductionEnabled == false)
+        switch (buildFaction)
         {
-            return;
+            case EFactionType.ALLY:
+                if (UnitAssembled.UnitData.RequisitionCost <= requisitionManager.RequisitionStock)
+                {
+                    isProductionStart = true;
+                    requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+                    return;
+                }
+                break;
+            case EFactionType.IA:
+                if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock)
+                {
+                    IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+                    isProductionStart = true;
+                    return;
+                }
+                break;
+            default:
+                break;
         }
-        else
-        {
-            switch (buildFaction)
-            {
-                case EFactionType.ALLY:
-                    if(!isProductionStart)
-                    {
-
-                    }
-                    if (UnitAssembled.UnitData.RequisitionCost <= requisitionManager.RequisitionStock && !isProductionStart)
-                    {
-                        requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
-                        isProductionStart = true;
-                    }
-
-                    if (productionTime >= UnitAssembled.UnitData.ProductionTime && isProductionStart == true)
-                    {
-                        SpawnUnit(UnitAssembled);
-                    }
-                    else
-                    {
-                        productionTime += Time.deltaTime;
-                    }
-                    break;
-                case EFactionType.IA:
-                    if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock && !isProductionStart)
-                    {
-                        IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
-                        isProductionStart = true;
-                    }
-
-                    if (productionTime >= UnitAssembled.UnitData.ProductionTime && isProductionStart == true)
-                    {
-                        SpawnUnit(UnitAssembled);
-                    }
-                    else
-                    {
-                        productionTime += Time.deltaTime;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
     }
-    public void SpawnUnit(AUnitClass spawnUnit)
+    public void SpawnUnitProduction(AUnitClass spawnUnit)
     {
         AUnitClass unit = Instantiate(spawnUnit, spawner.position, Quaternion.identity, unitContainer);
         unit.FactionObject = buildFaction;
 
         UnitManager.Instance.UnitAvailable(unit);
-
-        isProductionStart = false;
-        productionTime = 0;
+        
     }
 #endregion
 }

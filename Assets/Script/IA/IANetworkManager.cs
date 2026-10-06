@@ -6,7 +6,6 @@ public class IANetworkManager : Singleton<IANetworkManager>
 
     [Header("Network Charge")]
     [SerializeField] private int defaultNetworkLoad = 100;
-    [SerializeField] private int currentMaxLoad = 0;
     [SerializeField] private int currentLoad = 0;
 
     [SerializeField] private NetworkEffectData[] networkEffect = null;
@@ -15,12 +14,6 @@ public class IANetworkManager : Singleton<IANetworkManager>
 
     #region PROPERTIES
     public int DefaultLoad => defaultNetworkLoad;
-
-    public int CurrentMaxLoad
-    {
-        get => currentMaxLoad;
-        set => currentMaxLoad = value;
-    }
     public int CurrentLoad
     {
         get => currentLoad;
@@ -34,12 +27,6 @@ public class IANetworkManager : Singleton<IANetworkManager>
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        currentLoad += defaultNetworkLoad;
     }
 }

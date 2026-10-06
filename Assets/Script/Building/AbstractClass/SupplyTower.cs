@@ -26,11 +26,6 @@ public class SupplyTower : ABuildClass
             Gizmos.DrawWireSphere(transform.position, captureDistance);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -47,10 +42,6 @@ public class SupplyTower : ABuildClass
     }
 
     #endregion ABSTRACT
-
-    public override void InitBuild()
-    {
-    }
 
     private void ProductionTimer()
     {
@@ -70,10 +61,10 @@ public class SupplyTower : ABuildClass
         switch (buildFaction)
         {
             case EFactionType.ALLY:
-                RequisitionManager.Instance.RequisitionStock += requisitionRate;
+                requisitionManager.RequisitionStock += requisitionRate;
                 break;
             case EFactionType.IA:
-                IARequsitionManager.Instance.RequisitionStock += requisitionRate;
+                IARequsition.RequisitionStock += requisitionRate;
                 break;
             default:
                 break;

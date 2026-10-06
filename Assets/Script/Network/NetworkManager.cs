@@ -15,7 +15,6 @@ public class NetworkManager : Singleton<NetworkManager>
 
     #region PROPERTIES
     public int DefaultLoad => defaultNetworkLoad;
-
     public int CurrentMaxLoad
     {
         get => currentMaxLoad;
@@ -33,8 +32,8 @@ public class NetworkManager : Singleton<NetworkManager>
 
         }
     }
-    public NetworkEffectData[] NetworkEffect => networkEffect;
 
+    public NetworkEffectData[] NetworkEffect => networkEffect;
     #endregion PROPERTIES
 
     #region EVENT
@@ -89,14 +88,5 @@ public class NetworkManager : Singleton<NetworkManager>
     public void UpdateNetworkLoad(int load)
     {
         currentLoad += load;
-    }
-
-    public void IncreaseNetworkLoad(int load)
-    {
-        currentMaxLoad += load;
-    }
-    public void DecreseNetworkLoad(int load)
-    {
-        currentMaxLoad -= load;
     }
 }

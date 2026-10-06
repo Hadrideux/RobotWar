@@ -21,6 +21,7 @@ public class BuildManager : Singleton<BuildManager>
     #endregion EVENTS
 
     #region METHODES
+
     public void BuildignAttacked(ABuildClass build)
     {
         if (onBuildingAttacked != null)

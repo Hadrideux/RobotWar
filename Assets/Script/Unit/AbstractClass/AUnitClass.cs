@@ -97,16 +97,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
     void OnDestroy()
     {
         UnitManager.Instance.UnitDestroyed(this);
-
-        if (unitFaction == EFactionType.ALLY)
-        {
-            NetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
-
-        }
-        else if (unitFaction == EFactionType.IA)
-        {
-            IANetworkManager.Instance.CurrentLoad -= UnitData.NetworkCost;
-        }
     }
     #endregion MONO
     #region INTERFACE
@@ -161,14 +151,6 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         navMeshAgent.speed = unitData.MaxSpeed;
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
-
-        /*if(unitFaction != EFactionType.IA)
-        {
-            NetworkManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        } else
-        {
-            IARequsitionManager.Instance.CurrentLoad += UnitData.NetworkCost;
-        }*/
     }
 
     public void UnitKilled()
@@ -176,24 +158,9 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         Destroy(gameObject);
     }
 
-    public void TargetUnit()
+    public void TargetUnit(GameObject target)
     {
-        if (currentOrder.OrderTarget != null)
-        {
-            TurnTurret(currentOrder.OrderTarget.TargetObject);
-        }
-        else
-        {
-            foreach (ITargetableObject unitTargeted in scanningComponent.TargetedObject)
-            {
-                float closestTarget = Vector3.Distance(unitTargeted.TargetObject.transform.position, transform.position);
-
-                if (closestTarget <= UnitData.AttackRange)
-                {
-                    TurnTurret(unitTargeted.TargetObject);
-                }
-            }
-        }
+        TurnTurret(target);
     }
     public void TurnTurret(GameObject target)
     {
@@ -218,6 +185,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         {
             ShellController shell = Instantiate(shellController, spawnShellPoint.position, Quaternion.identity);
             shell.SetDirection(target.transform.position);
+            shell.ShellFaction = unitFaction;
 
             reloading = ShellController.AmmoData.ReloadTime;
         }

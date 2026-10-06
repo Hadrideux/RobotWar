@@ -1165,15 +1165,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AModuleIA
   requisitionManager: {fileID: 0}
+  IARequsition: {fileID: 0}
   placeableComponent: {fileID: 4402014342734866932}
   selectionObject: {fileID: 4730283557811703793}
   buildData: {fileID: 11400000, guid: 1c9eb5de361e1e5408fb7826e77d2d01, type: 2}
   currentDurability: 0
   currentArmor: 0
-  buildType: 2
+  buildType: 3
   buildFaction: 0
-  networkManager: {fileID: 0}
-  augmentLoad: 0
+  augmentLoad: 5
 --- !u!114 &4402014342734866932
 MonoBehaviour:
   m_ObjectHideFlags: 0

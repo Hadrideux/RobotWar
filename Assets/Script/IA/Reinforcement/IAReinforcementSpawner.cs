@@ -6,20 +6,22 @@ public class IAReinforcementSpawner : MonoBehaviour
     #region ATTRIBUTS
 
     [SerializeField] private IAManager IAManager = null;
-    [Header("Wave")]
+    [Header("Reinforcement")]
     [SerializeField] private ReinforcementData[] reinforcementDatas = null;
-    [SerializeField] private int currentWaveIndex = 0;
+    [SerializeField] private int currentReinforcementIndex = 0;
 
-    [Header("Wave Spawn")]
+    [Header("Reinforcement Spawn")]
     [SerializeField] private Transform spawnPoint = null;
     [SerializeField] protected Transform unitContainer = null;
 
-    [Header("Wave Timer")]
-    [SerializeField] private AnimationCurve thresholdDeltaTimer = null;
-    [SerializeField] private int defaultWaveTimer = 60;
-    [SerializeField] private int minWaveTimer = 20;
-    [SerializeField] private float nextWaveTimer = 0;
-    [SerializeField] private float currentWaveTimer = 0;
+    [Header("Reinforcement Timer")]
+    [SerializeField] private AnimationCurve reinforcementDurationCurve = null;
+    [Space(5)]
+    [SerializeField] private int defaultReinforcementTimer = 60;
+    [Space(5)]
+    [SerializeField] private float reinforcementDuration = 0;
+    [SerializeField] private float reinforcementTimer = 0;
+    [SerializeField] private int minReinforcementTimer = 20;
     #endregion
 
     #region PROPERTIES
@@ -31,7 +33,7 @@ public class IAReinforcementSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        nextWaveTimer = defaultWaveTimer;
+        reinforcementDuration = defaultReinforcementTimer;
         IAManager = IAManager.Instance;
 
     }
@@ -39,41 +41,41 @@ public class IAReinforcementSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CooldownNewWave();
+        ReinforcementCooldown();
     }
     #endregion
 
-    private void ReinforcementUnitTreshold()
+    private void HandleReinforcementDuration()
     {
-        float progress = (float)IAManager.AttackCount / IAManager.MaxAttackCount;
-        float shape = thresholdDeltaTimer.Evaluate(progress);
-        nextWaveTimer = Mathf.Lerp(defaultWaveTimer, minWaveTimer, shape);
+        float progress = (float)IAManager.LaunchedAttackCount / IAManager.AttackCountAtMaxThreshold;
+        float shape = reinforcementDurationCurve.Evaluate(progress);
+        reinforcementDuration = Mathf.Lerp(defaultReinforcementTimer, minReinforcementTimer, shape);
     }
 
-    private void WaveSpawning()
+    public void ReinforcementSpawning()
     {
-        int missing = Mathf.Max(IAManager.AttackUnitThreshold - IAManager.AttackUnit.Count, 0);
-        ReinforcementData data = reinforcementDatas[currentWaveIndex];
-           
-        for(int i = 0; i < missing; i++)
-        {
-            AUnitClass unit = RandomReinforcementUnit(data);
+        int missing = Mathf.Max(0, IAManager.AttackThreshold - IAManager.AttackUnits.Count);
+        ReinforcementData data = reinforcementDatas[currentReinforcementIndex];
 
-            if (unit  == null)
+        for (int i = 0; i < missing; i++)
+        {
+            AUnitClass unitPrefab = RandomReinforcementUnit(data);
+
+            if (unitPrefab == null)
             {
                 return;
             }
             else
             {
-                AUnitClass reinforcement = Instantiate(unit, spawnPoint.position, Quaternion.identity, unitContainer);
+                AUnitClass reinforcement = Instantiate(unitPrefab, spawnPoint.position, Quaternion.identity, unitContainer);
                 reinforcement.FactionObject = EFactionType.IA;
                 //reinforcement.CurrentHealth *= waveData[i].StatMulitiplierHealth;
                 //reinforcement. *= waveData[i].;                
-                IAManager.RefillFrontLine(reinforcement);
+                IAManager.AddToAttack(reinforcement);
             }
         }
 
-        SetupNextWave();
+        NextReinforcementData();
     }
 
     private AUnitClass RandomReinforcementUnit(ReinforcementData reinforcementData)
@@ -100,24 +102,23 @@ public class IAReinforcementSpawner : MonoBehaviour
 
         return null;
     }
-    private void CooldownNewWave()
+    private void ReinforcementCooldown()
     {
-        if(currentWaveTimer >= nextWaveTimer)
+        if(reinforcementTimer >= reinforcementDuration)
         {
-            WaveSpawning();
-            
-            currentWaveTimer = 0;
-            ReinforcementUnitTreshold();
+            reinforcementTimer = 0;
+            ReinforcementSpawning();
+            HandleReinforcementDuration();
         }
         else
         {
-            currentWaveTimer += Time.deltaTime;
+            reinforcementTimer += Time.deltaTime;
         }
     }
 
-    private void SetupNextWave()
+    private void NextReinforcementData()
     {
-        currentWaveIndex = Mathf.Clamp(currentWaveIndex + 1, 0, reinforcementDatas.Length - 1);
+        currentReinforcementIndex = Mathf.Clamp(currentReinforcementIndex + 1, 0, reinforcementDatas.Length - 1);
     }
     #endregion
 }

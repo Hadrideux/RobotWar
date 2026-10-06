@@ -1807,7 +1807,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3931
+  m_VersionIndex: 3934
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3705,7 +3705,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3931
+  m_VersionIndex: 3934
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5634,7 +5634,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3931
+  m_VersionIndex: 3934
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5975,7 +5975,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2449
+  m_VersionIndex: 2452
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6247,8 +6247,8 @@ MonoBehaviour:
   buildData: {fileID: 11400000, guid: 3e7d257d159fddf4bbb06c58befa7b31, type: 2}
   currentDurability: 0
   currentArmor: 0
-  buildType: 1
-  buildFaction: 3
+  buildType: 2
+  buildFaction: 1
   unitAssembled: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
   productionTime: 0
   isProductionEnabled: 1

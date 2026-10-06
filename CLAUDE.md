@@ -46,27 +46,45 @@ SpaceElevator (timer) → PlayerResources.Add() → PlayerResources (tampon)
 ```
 Découplage intentionnel : `SpaceElevator` ne connaît que `PlayerResources` (alimente) ; `ConstructionManager` ne connaît que `PlayerResources` (dépense) ; aucun couplage direct entre les deux. Permet d'ajouter facilement une 2ᵉ source de réquisition (event bonus, capture de point stratégique) sans toucher au reste.
 
-## État actuel — Systèmes de commande et de comportement des unités (travail actif)
+## Systèmes de commande et de comportement des unités
 
 - `CommandSystemController` avec méthode `ExecuteOrder` distribuant des `OrderData` aux unités via `IOrderReceiver`.
-- State machine : `AUnitState` (classe abstraite, `Enter/Update/Exit`) avec états concrets `IdleState`, `MovingState`, `AttackState`.
+- State machine : `AUnitState` (classe abstraite, `Enter/Update/Exit`) avec états concrets `IdleState`, `MovingState`, `AttackState`. `AttackState` repasse l'unité en `IdleState` quand sa cible devient `null`.
 - Architecture par interfaces : `ITargetableObject`, `ISelectable`, `IOrderReceiver`.
-- `OrderData` : struct avec constructeurs spécialisés par type d'ordre (MOVETO, ATTACK, STOP).
+- `OrderData` : classe avec constructeurs spécialisés par type d'ordre (MOVETO, ATTACK, STOP). `ReceiveOrder()` recrée un état à chaque appel → ne jamais envoyer un ordre à chaque frame.
 - ✅ Résolu : dead code / branche `MOVETO` inaccessible dans `ExecuteOrder`, corrigé via `TryGetComponent<ITargetableObject>()`.
 - ✅ Résolu : null reference dans `AttackState.Enter` causée par des sources de vérité conflictuelles pour la cible d'attaque.
-- 🔴 **Bug ouvert** : les unités se déplacent jusqu'au contact mêlée avec leur cible au lieu de s'arrêter à portée d'attaque — probable condition booléenne inversée dans `AttackState.Update()` combinant `targetDistance >= AttackRange` avec `!unit.NavMeshAgent.isStopped`.
+- 🟡 Probablement résolu (à confirmer en jeu) : unités qui avançaient jusqu'au contact au lieu de s'arrêter à portée — `AttackState.Update()` teste maintenant `targetDistance <= AttackRange` puis `ResetPath()`.
 
-**Prochaine étape** : résoudre ce bug de portée d'attaque, puis compléter une revue d'architecture Game Design / Gameplay Programming plus large (demandée mais différée en attendant la résolution des bugs actifs).
+Différé : revue d'architecture Game Design / Gameplay Programming plus large.
 
-## IA ennemie (planifiée, non implémentée)
+## IA ennemie (travail actif)
 
-FSM avec états `IDLE`, `ATTACKING`, `DEFENDING`, répartie sur les scripts `EnnemyIAManager`, `EnnemyUnitController`, et `Assembly` (production continue d'unités).
+Scripts dans `Assets/Script/IA/` :
+- `IAManager` (singleton) : **deux machines à états en parallèle** dans `Update()` — attaque via `currentState` (`IDLE` ↔ `ATTACKING`, `UpdateState(currentState)`), défense via le bool `isBaseUnderAttack` (calme ↔ alerte). La défense ne touche jamais `currentState`. Possède les listes `defenseUnits` / `attackUnits` (remplies via `UnitManager.OnUnitProduced` : défense en priorité jusqu'à `defenseThreshold`, puis attaque), `launchedAttackCount` et `attackThreshold` (courbe `attackThresholdCurve` + `Lerp` min/max, progression = attaques lancées / `attackCountAtMaxThreshold`). Communique avec les contrôleurs par événements `OnAttack` / `OnDefend(ABuildClass)`.
+- `Attack/IAAttackController` : abonné à `OnAttack` ; `LaunchAttack()` crée l'`OrderData` ATTACK vers `playerHQ` (`HeadQuarter : ABuildClass`) et l'envoie une fois ; `TransmitOrder(unit)` pour les renforts arrivés pendant une attaque.
+- `Defense/IADefenseController` : abonné à `OnDefend` ; `LaunchDefense(building)` envoie un `MOVETO` vers la position du bâtiment attaqué aux `DefenseUnits` (à l'arrivée : `IdleState` → engagement automatique).
+- Défense : `IAManager` écoute `BuildManager.OnBuildingAttacked` (filtre faction IA) → `calmTimer = 0` à chaque coup, ordre envoyé seulement au premier coup ; `calmTimer` avance dans `Update`, alerte terminée quand `calmTimer >= calmDuration`.
+- `Reinforcement/IAReinforcementSpawner` + `ReinforcementData` (Odin) : renforts gratuits qui complètent `attackUnits` jusqu'au seuil, tirage pondéré, boucle sur le dernier palier.
+- Côté unités : `IdleState` engage automatiquement la 1ʳᵉ cible de `ScanningComponent.TargetedObject` ; `AttackState` passe `currentTarget` à `TargetUnit(target)` (ne lit plus `currentOrder`) et ne tire qu'à portée ; `ShellController.shellFaction` (réglée dans `Fire()`) ignore les cibles de même faction.
+- `IARequsitionManager` (alimenté par `SupplyTower`, dépensé par `Assembly` côté IA) et `IANetworkManager` (charge réseau IA, séparée de celle du joueur).
 
-Problèmes connus identifiés à l'avance :
-- `ChangeIAState()` : coroutine sans `while(true)` manquant.
-- `BaseAttacked()` : usage incorrect de `Time.deltaTime` dans une coroutine à tick lent.
-- `currentAttackList` jamais peuplée.
-- `SpawnUnit()` ne déclenche pas encore l'allocation des unités dans les listes IA.
+**Règle d'architecture validée** : `IAManager` **décide** et **possède ses données** (état, listes, compteurs) ; les contrôleurs **exécutent** (construire/envoyer les ordres, détecter). Une donnée = un seul propriétaire. Une action « une seule fois » se place **sur la transition d'état** (comme `Enter()`), pas derrière un booléen redondant avec l'état.
+
+État : attaque et défense écrites et en parallèle, **à tester en jeu** (prochaine étape : session de tests de toutes les mécaniques).
+
+À faire / bugs connus :
+- `UpdateState(state)` change l'état ET exécute sa logique ; `AttackAvailable`/`AttackFinished` l'appellent depuis `UpdateState` (réentrant). Hadrien préfère garder cette forme (lisible) — risque connu : si `attackThreshold == 0` → récursion infinie IDLE↔ATTACKING (StackOverflow). Alternative proposée : `ChangeState()` / `UpdateState()` séparés comme dans `AUnitClass`.
+- Ménage : `DEFENDING` dans l'enum et `responseTime` inutilisés.
+- `IdleState` : `TargetedObject[0]` peut pointer un objet tout juste détruit (ordre des `Update` non garanti) → `MissingReferenceException` possible, à surveiller en test. Un ordre `STOP` remet en Idle → réengagement immédiat (à décider).
+- ✅ Résolu : `Assembly` — spawn à la chaîne (le minuteur avançait pendant l'attente de réquisition). Désormais mini-FSM `isProductionStart` : en attente → `TryStartProduction()` vérifie ET débite la réquisition (paiement au début) → en production, minuteur → `SpawnUnitProduction()`. `BuildDestroyed()` ne lève plus d'exception (vide).
+- ✅ Résolu : `RemoveUnit` appelé deux fois pour les unités IA → abonnement de `IAManager` à `OnUnitDestroyed` supprimé, seul l'appel direct dans `UnitManager.UnitDestroyed` reste (cohérent avec les appels directs à `NetworkManager`/`IANetworkManager`). L'événement `OnUnitDestroyed` est toujours déclaré mais n'est plus déclenché ni écouté.
+- Multiplicateurs de stats des renforts non appliqués ; tous les renforts spawnent sur un seul point.
+- Engagement en chemin : une unité en `AttackState` va droit sur sa cible et ignore les ennemis croisés (concerne l'IA qui fonce sur le QG). Pistes : (a) tir en mouvement — la tourelle vise l'ennemi le plus proche pendant que le châssis suit l'ordre ; (b) ordre « attack-move » via `EOrderType.AUTONOMOUS` (inutilisé).
+- Portée de vision > portée de tir (`ScanningComponent` utilise `AttackRange` : des attaquants à longue portée ne sont pas vus par les défenseurs).
+- Ciblage étape 2 (QG ou unité joueur connue la plus proche ; questions ouvertes : portée de vision, connaissance partagée).
+
+Idée long terme (validée) : **refondre l'IA en arbre de comportement** (Sélecteur / Séquence / Parallèle, `IAManager` = blackboard, contrôleurs = actions) quand elle devra gérer plus de priorités avant d'attaquer le joueur (prendre des Supply Towers, protéger les Assembly, se replier…). Options : package officiel Unity Behavior, assets (Behavior Designer, NodeCanvas), ou implémentation maison (~150 lignes). Belle pièce de portfolio.
 
 ## Points de capture (Supply Tower)
 

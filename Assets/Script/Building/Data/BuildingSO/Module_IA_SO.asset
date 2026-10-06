@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Module_IA_SO
   m_EditorClassIdentifier: Assembly-CSharp::BuildData
   buildName: Module IA
-  buildType: 2
-  maxDurability: 0
-  armor: 0
-  productionTime: 0
-  requisitonCost: 0
-  augmentLoad: 10
+  buildType: 3
+  maxDurability: 100
+  armor: 5
+  buildingTime: 0
+  buildingCost: 0

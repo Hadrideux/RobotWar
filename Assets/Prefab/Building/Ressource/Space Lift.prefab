@@ -1186,9 +1186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARequisition
   requisitionManager: {fileID: 0}
+  IARequsition: {fileID: 0}
   placeableComponent: {fileID: 0}
   selectionObject: {fileID: 3597321721566692933}
-  buildData: {fileID: 0}
+  buildData: {fileID: 11400000, guid: 553d52072f33f2b40b5a5e0898e85c9a, type: 2}
   currentDurability: 0
   currentArmor: 0
   buildType: 3

@@ -22,7 +22,7 @@ public class AttackState : AUnitState
             unit.ChangeState(new IdleState());
             return;
         }
-        else if (currentTarget != null)
+        else
         {
             float targetDistance = Vector3.Distance(currentTarget.transform.position, unit.transform.position);
 
@@ -31,7 +31,7 @@ public class AttackState : AUnitState
                 if (unit.NavMeshAgent.isStopped == false)
                     unit.NavMeshAgent.ResetPath();
 
-                unit.TargetUnit();
+                unit.TargetUnit(currentTarget);
             }
             else
             {

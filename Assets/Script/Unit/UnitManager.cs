@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnitManager : Singleton<UnitManager>
 {
@@ -41,6 +42,8 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
     #endregion EVENTS
+
+    #region METHODES
     public List<AUnitClass> GetElligibleUnits(EStatEffectedType effectType)
     {
         List<AUnitClass> elligibleUnits = new List<AUnitClass>();
@@ -55,34 +58,34 @@ public class UnitManager : Singleton<UnitManager>
 
         return elligibleUnits;
     }
-
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
         switch (unitDestroyed.FactionObject)
         {
             case EFactionType.ALLY:
+                NetworkManager.Instance.CurrentLoad -= unitDestroyed.UnitData.NetworkCost;
                 activeUnits.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
-                IAManager.Instance.RemoveUnit(unitDestroyed);    
+                IANetworkManager.Instance.CurrentLoad -= unitDestroyed.UnitData.NetworkCost;
+                IAManager.Instance.RemoveUnit(unitDestroyed);
                 break;
             default:
                 break;
         }
-        if (onUnitDestroyed != null)
-            onUnitDestroyed(unitDestroyed);
-
-
     }
-
     public void UnitAvailable(AUnitClass unitProduced)
     {
         switch (unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Add(unitProduced);
+                NetworkManager.Instance.CurrentLoad += unitProduced.UnitData.NetworkCost;
                 break;
             case EFactionType.IA:
+
+                IANetworkManager.Instance.CurrentLoad += unitProduced.UnitData.NetworkCost;
+
                 if (onUnitProduced != null)
                 {
                     onUnitProduced(unitProduced);
@@ -91,6 +94,7 @@ public class UnitManager : Singleton<UnitManager>
             default:
                 break;
         }
-
     }
+    #endregion
+
 }

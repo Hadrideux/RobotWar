@@ -55,8 +55,15 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     // Start is called before the first frame update
     void Start()
     {
-        requisitionManager = RequisitionManager.Instance;
-        IARequsition = IARequsitionManager.Instance;
+        if (buildFaction == EFactionType.ALLY)
+        {
+            requisitionManager = RequisitionManager.Instance;
+        }
+        else if (buildFaction == EFactionType.IA)
+        {
+            IARequsition = IARequsitionManager.Instance;
+        }
+
         InitBuild();
     }
 
@@ -64,8 +71,6 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     #endregion MONO
     #region ABSTRACT
     abstract protected void BuildDestroyed();
-
-
     #endregion ABSTRACT
     #region INTERFACE
     public void Select()
@@ -78,14 +83,14 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
         selectionObject.SetActive(false);
     }
     #endregion
-
-    public virtual void InitBuild()
+    public void InitBuild()
     {
         currentDurability = buildData.MaxDurability;
         currentArmor = buildData.Armor;
 
         buildType = buildData.BuildType;
     }
+
     public void TakeDamage(AmmoData hitData)
     {
         switch (hitData.AmmoType)
@@ -103,14 +108,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
 
             default:
                 break;
-        }
-
-        if (buildFaction == EFactionType.ALLY)
-        {
-        }
-        else if (buildFaction == EFactionType.IA)
-        {
-        }
+        }   
     }
 
     protected void DurabilityUpdate(float damage)

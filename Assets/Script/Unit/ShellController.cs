@@ -3,22 +3,31 @@ using UnityEngine;
 public class ShellController : MonoBehaviour
 {
     [SerializeField] private AmmoData ammoData = null;
+    [SerializeField] private int shellLifeTime = 0;
 
     [SerializeField] private Rigidbody rb = null;
-
     [SerializeField] private Vector3 shellDir = Vector3.zero;
 
+    [SerializeField] private EFactionType shellFaction = EFactionType.NONE;
+
+    #region PROPERTIES
     public AmmoData AmmoData
     {
         get => ammoData;
         set => ammoData = value;
     }
+    public EFactionType ShellFaction
+    {
+        get => shellFaction;
+        set => shellFaction = value;
+    }
+    #endregion PROPERTIES
 
     #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, shellLifeTime);
     }
 
     // Update is called once per frame
@@ -33,6 +42,11 @@ public class ShellController : MonoBehaviour
 
         if (target != null)
         {
+            if (target.FactionObject == shellFaction)
+            {
+                return;
+            }
+
             if (target as AUnitClass)
             {
                 AUnitClass unit = target as AUnitClass;
@@ -48,8 +62,6 @@ public class ShellController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
-
     }
 
     #endregion MONO
