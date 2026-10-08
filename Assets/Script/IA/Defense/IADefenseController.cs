@@ -13,6 +13,7 @@ public class IADefenseController : MonoBehaviour
     {
 
         IAManager.Instance.OnDefend += LaunchDefense;
+        IAManager.Instance.OnUnitJoinDefense += TransmitOrder;
     }
 
     // Update is called once per frame
@@ -23,10 +24,12 @@ public class IADefenseController : MonoBehaviour
     void OnDestroy()
     {
         IAManager.Instance.OnDefend -= LaunchDefense;
+        IAManager.Instance.OnUnitJoinDefense -= TransmitOrder;
     }
     private void OnApplicationQuit()
     {
         IAManager.Instance.OnDefend -= LaunchDefense;
+        IAManager.Instance.OnUnitJoinDefense -= TransmitOrder;
     }
     #endregion MONO
 

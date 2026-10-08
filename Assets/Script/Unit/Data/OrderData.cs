@@ -2,9 +2,9 @@
 
 public class OrderData
 {
-    private EOrderType orderType = EOrderType.NONE;
-    private Vector3 orderDestination;
-    private ITargetableObject orderTarget;
+    [SerializeField] private EOrderType orderType = EOrderType.NONE;
+    [SerializeField] private Vector3 orderDestination;
+    [SerializeField] private ITargetableObject orderTarget;
 
     //Consturcteur de déplacement
     public OrderData(EOrderType type, Vector3 destination)

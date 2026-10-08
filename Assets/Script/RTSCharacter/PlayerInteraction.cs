@@ -14,6 +14,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
     #region PROPERTIES
     public LayerMask GroundMask => orderMask;
+    public EPlayerState EPlayerState => currentState;
     #endregion PROPERTIES
 
     #region EVENT

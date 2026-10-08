@@ -97,23 +97,24 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
         {
             case (EAmmoType.PHYSIQUE):
                 DurabilityUpdate(hitData.Damage);
-
-                BuildManager.Instance.BuildignAttacked(this);
-
-                if (currentDurability <= 0)
-                {
-                    BuildDestroyed();
-                }
+                
                 break;
 
             default:
                 break;
-        }   
+        }
+
+        BuildManager.Instance.BuildignAttacked(this);
     }
 
     protected void DurabilityUpdate(float damage)
     {
         currentDurability -= Mathf.Clamp(damage, 0, buildData.MaxDurability);
+
+        if (currentDurability <= 0)
+        {
+            BuildDestroyed();
+        }
     }
 
 

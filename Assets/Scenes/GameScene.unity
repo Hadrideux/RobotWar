@@ -5002,19 +5002,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnnemySpawner
   IAManager: {fileID: 0}
   reinforcementDatas: []
-  currentWaveIndex: 0
+  currentReinforcementIndex: 0
   spawnPoint: {fileID: 1368055041}
   unitContainer: {fileID: 0}
-  thresholdDeltaTimer:
+  reinforcementDurationCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   defaultReinforcementTimer: 60
-  minWaveTimer: 20
-  nextReinforcementTimer: 0
-  currentReinforcementTimer: 0
+  reinforcementDuration: 0
+  reinforcementTimer: 0
+  minReinforcementTimer: 20
 --- !u!114 &466640756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,7 +5028,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnnemyRequisitionController
   defaultNetworkLoad: 100
-  currentMaxLoad: 0
   currentLoad: 0
   networkEffect: []
 --- !u!43 &467296556
@@ -5681,7 +5680,7 @@ Transform:
   m_GameObject: {fileID: 509237284}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 88.57494, y: 8.32338, z: 200.79393}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5701,9 +5700,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
   m_SerializedVersion: 0
   m_AgentTypeID: 1479372276
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_CollectObjects: 1
+  m_Size: {x: 415, y: 25, z: 550}
+  m_Center: {x: 230, y: 0, z: 290}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5712,10 +5711,10 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
+  m_OverrideTileSize: 1
+  m_TileSize: 64
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.5
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d935a7cc91f289146a38d26dca1097de, type: 2}
   m_BuildHeightMesh: 0
@@ -9313,7 +9312,6 @@ Transform:
   m_Children:
   - {fileID: 2117981435}
   - {fileID: 509237285}
-  - {fileID: 1685491392}
   - {fileID: 1322148954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18360,55 +18358,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3032744611799858815, guid: dfe2a3aed1525144aaf6bfbad1a3c789, type: 3}
   m_PrefabInstance: {fileID: 1670669004}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1685491391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1685491392}
-  - component: {fileID: 1685491393}
-  m_Layer: 9
-  m_Name: NavMesh Modifier Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1685491392
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685491391}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 201.29, y: 13.69, z: 2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 909973353}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1685491393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685491391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifierVolume
-  m_SerializedVersion: 0
-  m_Size: {x: 512.3856, y: 45.34448, z: 1039.4785}
-  m_Center: {x: 47.78833, y: 4.000761, z: -492.54797}
-  m_Area: 1
-  m_AffectedAgents: ffffffff
 --- !u!1 &1687562054
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,11 +16,6 @@ public class IAAttackController : MonoBehaviour
         IAManager.Instance.OnUnitJoinAttack += TransmitOrder;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     void OnDestroy()
     {
         IAManager.Instance.OnAttack -= LaunchAttack;
@@ -46,7 +41,4 @@ public class IAAttackController : MonoBehaviour
         unit.ReceiveOrder(order);
     }
     #endregion METHODES
-
-
-
 }

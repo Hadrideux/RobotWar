@@ -6,11 +6,6 @@ public class IADebugTool : EditorWindow
 {
     private Vector2 scrollPos = Vector2.zero;
 
-    // --- Escouade joueur ---
-    private AUnitClass playerUnitPrefab = null;
-    private Transform squadSpawnPoint = null;
-    private int squadSize = 3;
-
     // --- Bâtiment à "frapper" ---
     private ABuildClass targetBuilding = null;
 
@@ -102,16 +97,6 @@ public class IADebugTool : EditorWindow
         {
             BuildManager.Instance.BuildignAttacked(targetBuilding);
         }
-
-        GUILayout.Space(4);
-        playerUnitPrefab = (AUnitClass)EditorGUILayout.ObjectField("Prefab unité joueur", playerUnitPrefab, typeof(AUnitClass), false);
-        squadSpawnPoint = (Transform)EditorGUILayout.ObjectField("Point d'apparition", squadSpawnPoint, typeof(Transform), true);
-        squadSize = EditorGUILayout.IntSlider("Taille escouade", squadSize, 1, 10);
-
-        if (GUILayout.Button("Faire apparaître une escouade joueur") && playerUnitPrefab != null && squadSpawnPoint != null)
-        {
-            SpawnPlayerSquad();
-        }
     }
 
     private void DrawTime()
@@ -133,17 +118,4 @@ public class IADebugTool : EditorWindow
         GUILayout.Space(2);
     }
     #endregion DRAW
-
-    #region ACTIONS
-    private void SpawnPlayerSquad()
-    {
-        for (int i = 0; i < squadSize; i++)
-        {
-            Vector3 offset = new Vector3(i * 2f, 0f, 0f);
-            AUnitClass unit = Instantiate(playerUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
-            unit.FactionObject = EFactionType.ALLY;
-            UnitManager.Instance.UnitAvailable(unit);
-        }
-    }
-    #endregion ACTIONS
 }

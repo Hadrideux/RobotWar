@@ -12,7 +12,6 @@ public class IAManager : Singleton<IAManager>
     [SerializeField] private List<AUnitClass> attackUnits = new List<AUnitClass>();
 
     [Header("Attack")]
-    [SerializeField] private IAAttackController attackController = null;
     [SerializeField] private AnimationCurve attackThresholdCurve = null;
     [Space(5)]
     [SerializeField] private int attackThreshold = 5;
@@ -25,7 +24,6 @@ public class IAManager : Singleton<IAManager>
     [SerializeField] private ABuildClass playerHQ = null;
 
     [Header("Defense")]
-    [SerializeField] private IADefenseController defenseController = null;
     [SerializeField] private int defenseThreshold = 10;
     [Space(5)]
     [SerializeField] private float calmDuration = 5f;
@@ -55,20 +53,6 @@ public class IAManager : Singleton<IAManager>
     #endregion PROPERTY
 
     #region EVENT
-    private event Action onBaseUnderAttack = null;
-    public event Action OnBaseUnderAttack
-    {
-        add
-        {
-            onBaseUnderAttack -= value;
-            onBaseUnderAttack += value;
-        }
-        remove
-        {
-            onBaseUnderAttack -= value;
-        }
-    }
-
     private event Action<AUnitClass> onUnitJoinAttack = null;
     public event Action<AUnitClass> OnUnitJoinAttack
     {
@@ -95,6 +79,20 @@ public class IAManager : Singleton<IAManager>
             onAttack -= value;
         }
     }
+
+    private event Action<AUnitClass> onUnitJoinDefense = null;
+    public event Action<AUnitClass> OnUnitJoinDefense
+    {
+        add
+        {
+            onUnitJoinDefense -= value;
+            onUnitJoinDefense += value;
+        }
+        remove
+        {
+            onUnitJoinDefense -= value;
+        }
+    }
     private event Action<ABuildClass> onDefend = null;
     public event Action<ABuildClass> OnDefend
     {
@@ -117,11 +115,9 @@ public class IAManager : Singleton<IAManager>
     void Start()
     {
         UpdateState(EIAState.IDLE);
-
         HandleAttackThreshold();
 
         UnitManager.Instance.OnUnitProduced += AddUnit;
-
         BuildManager.Instance.OnBuildingAttacked += BaseUnderAttacked;
     }
 
@@ -148,13 +144,11 @@ public class IAManager : Singleton<IAManager>
     void OnDestroy()
     {
         UnitManager.Instance.OnUnitProduced -= AddUnit;
-
         BuildManager.Instance.OnBuildingAttacked -= BaseUnderAttacked;
     }
     private void OnApplicationQuit()
     {
         UnitManager.Instance.OnUnitProduced -= AddUnit;
-
         BuildManager.Instance.OnBuildingAttacked -= BaseUnderAttacked;
     }
     #endregion MONO
@@ -208,6 +202,14 @@ public class IAManager : Singleton<IAManager>
     public void AddToDefense(AUnitClass unit)
     {
         defenseUnits.Add(unit);
+
+        if (isBaseUnderAttack)
+        {
+            if (onUnitJoinDefense != null)
+            {
+                onUnitJoinDefense(unit);
+            }
+        }
     }
     public void RemoveFromAttack(AUnitClass unit)
     {
