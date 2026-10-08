@@ -1,11 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[Serializable]
 public class OrderData
 {
     [SerializeField] private EOrderType orderType = EOrderType.NONE;
     [SerializeField] private Vector3 orderDestination;
     [SerializeField] private ITargetableObject orderTarget;
+    #region ATTRIBUTS
 
+    #endregion ATTRIBUTS
+
+    #region PROPERTIES
+    public EOrderType OrderType => orderType;
+    public Vector3 OrderDestination => orderDestination;
+    public ITargetableObject OrderTarget => orderTarget;
+    #endregion PROPERTIES
+
+    #region CONTRUCT
     //Consturcteur de déplacement
     public OrderData(EOrderType type, Vector3 destination)
     {
@@ -24,10 +36,10 @@ public class OrderData
     {
         orderType = type;
     }
+    #endregion CONTRUCT
 
-    public EOrderType OrderType => orderType;
-    public Vector3 OrderDestination => orderDestination;
-    public ITargetableObject OrderTarget => orderTarget;
+
+    
 }
 
 public enum EOrderType

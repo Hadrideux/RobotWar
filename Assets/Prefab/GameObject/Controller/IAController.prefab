@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4031527765944110358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8067345517700199797}
+  - component: {fileID: 6297964635187850032}
+  - component: {fileID: 8080857179617496102}
+  - component: {fileID: 479889327477772930}
+  m_Layer: 0
+  m_Name: IAController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8067345517700199797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031527765944110358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.21244, y: -0.1, z: 8.50465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6297964635187850032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031527765944110358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca13753b385d791419bfd733975975f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IAReinforcementSpawner
+  IAManager: {fileID: 0}
+  reinforcementDatas:
+  - {fileID: 11400000, guid: 4b79d24292b52d14aa2ce1bebfcdacc6, type: 2}
+  - {fileID: 11400000, guid: 4b79d24292b52d14aa2ce1bebfcdacc6, type: 2}
+  - {fileID: 11400000, guid: 4b79d24292b52d14aa2ce1bebfcdacc6, type: 2}
+  currentReinforcementIndex: 0
+  spawnPoint: {fileID: 0}
+  unitContainer: {fileID: 0}
+  reinforcementDurationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1
+      outSlope: -7.5970364
+      tangentMode: 1
+      weightedMode: 1
+      inWeight: 0.33333334
+      outWeight: 0.089690104
+    - serializedVersion: 3
+      time: 0.23835373
+      value: 0.26970282
+      inSlope: -1.0701799
+      outSlope: -1.0701799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1386152
+      outWeight: 0.040294837
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  defaultReinforcementTimer: 60
+  reinforcementDuration: 0
+  reinforcementTimer: 0
+  minReinforcementTimer: 20
+--- !u!114 &8080857179617496102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031527765944110358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7a983138b64d64289e290b6b41161e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IAAttackController
+  order:
+    orderType: 0
+    orderDestination: {x: 0, y: 0, z: 0}
+--- !u!114 &479889327477772930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031527765944110358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f571c8aacd448b042ae2117e5f318ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IADefenseController
+  order:
+    orderType: 0
+    orderDestination: {x: 0, y: 0, z: 0}

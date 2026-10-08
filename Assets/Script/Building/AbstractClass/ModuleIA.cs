@@ -1,53 +1,30 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ModuleIA : ABuildClass
 {
     #region ATTRIBUTS
-    [SerializeField] private int augmentLoad = 0;
+    [FormerlySerializedAs("augmentLoad")]
+    [SerializeField] private int bonusMaxLoad = 0;
     #endregion ATTRIBUTS
 
-    #region Methode 
-
+    #region METHODES
     #region MONO
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (buildFaction == EFactionType.ALLY)
-        {
-            NetworkManager.Instance.CurrentLoad += augmentLoad;
-        }
-        else if (buildFaction == EFactionType.IA)
-        {
-            IANetworkManager.Instance.CurrentLoad += augmentLoad;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        NetworkManager.Instance.GetNetworkData(FactionObject).MaxLoad += bonusMaxLoad;
     }
 
     #endregion MONO
     #region ABSTRACT
     protected override void BuildDestroyed()
     {
-        if (buildFaction == EFactionType.ALLY)
-        {
-            NetworkManager.Instance.CurrentLoad -= augmentLoad;
-        }
-        else if (buildFaction == EFactionType.IA)
-        {
-            IANetworkManager.Instance.CurrentLoad -= augmentLoad;
-        }
+        NetworkManager.Instance.GetNetworkData(FactionObject).MaxLoad -= bonusMaxLoad;
 
         Destroy(gameObject);
     }
     #endregion ABSTRACT
-
-
-    #endregion METHODE
-
-
+    #endregion METHODES
 }

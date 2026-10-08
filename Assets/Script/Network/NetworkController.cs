@@ -1,34 +1,53 @@
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkController : MonoBehaviour
 {
-    [SerializeField] private NetworkManager networkManager = null;
+
+    #region ATTRIBUTS
+    [ShowInInspector] private NetworkData network = null;
     [SerializeField] private UnitManager unitManager = null;
 
     [SerializeField] private Dictionary<NetworkEffectData, float> cooldownEffect = new Dictionary<NetworkEffectData, float>();
     [SerializeField] private float currentCooldownEffect = 0f;
 
+    #endregion ATTRIBUTS
+    #region METHODES
+    #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        networkManager = NetworkManager.Instance;
+        network = NetworkManager.Instance.GetNetworkData(EFactionType.ALLY);
         unitManager = UnitManager.Instance;
+
+        network.OnLoadChange += HandleNetworkEffect;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleNetworkEffect();
+
     }
 
-    public void HandleNetworkEffect()
+    void OnDestroy()
     {
-        NetworkEffectData[] effect = networkManager.NetworkEffect;
+        network.OnLoadChange -= HandleNetworkEffect;
+    }
+
+    void OnApplicationQuit()
+    {
+        network.OnLoadChange -= HandleNetworkEffect;
+    }
+    #endregion MONO
+
+    public void HandleNetworkEffect(float percent)
+    {
+        NetworkEffectData[] effect = NetworkManager.Instance.NetworkEffect;
         for (int i = 0; i <= effect.Length - 1; i++)
         {
             float threshold = effect[i].ThresholdEffect;
-            if (threshold <= NetworkPercentLoad())
+            if (threshold <= percent)
             {
                 Debug.Log($"Effect cast : {effect[i]}");
                 ApplyEffect(effect[i]);
@@ -78,11 +97,6 @@ public class NetworkController : MonoBehaviour
 
         currentCooldownEffect = effect.Cooldown;
     }
-    public float NetworkPercentLoad()
-    {
-        float currentLoad = networkManager.CurrentLoad;
-        int maxLoad = networkManager.CurrentMaxLoad;
+    #endregion METHODES
 
-        return currentLoad / maxLoad;
-    }
 }

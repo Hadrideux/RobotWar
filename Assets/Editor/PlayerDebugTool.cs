@@ -10,6 +10,9 @@ public class PlayerDebugTool : EditorWindow
     private Transform squadSpawnPoint = null;
     private int squadSize = 3;
 
+    // --- Charge Réseaux Joueur ---
+    private int networkLoad = 0;
+
     // --- Bâtiment à "frapper" ---
     private ABuildClass targetBuilding = null;
 
@@ -39,6 +42,7 @@ public class PlayerDebugTool : EditorWindow
         }
 
         DrawPlayerStatus();
+        DrawNetworkLoad();
         DrawSpawnSquad();
         DrawDefense();
 
@@ -58,7 +62,8 @@ public class PlayerDebugTool : EditorWindow
         RequisitionManager requisitionManager = RequisitionManager.Instance;
         EditorGUILayout.LabelField("Stock réquisition", requisitionManager.RequisitionStock.ToString());
         NetworkManager networkManager = NetworkManager.Instance;
-        EditorGUILayout.LabelField("Charge du réseaux", networkManager.CurrentLoad.ToString()); 
+        EditorGUILayout.LabelField("Charge du réseaux", networkManager.GetNetworkData(EFactionType.ALLY).CurrentLoad.ToString()); 
+        EditorGUILayout.LabelField("Pourcentage de charge du réseaux", networkManager.GetNetworkData(EFactionType.ALLY).PercentLoad.ToString()); 
     }
 
     private void DrawSpawnSquad()
@@ -88,6 +93,19 @@ public class PlayerDebugTool : EditorWindow
         {
             BuildManager.Instance.BuildignAttacked(targetBuilding);
         }
+    }
+
+    private void DrawNetworkLoad()
+    {
+        NetworkData networkManager = NetworkManager.Instance.GetNetworkData(EFactionType.ALLY);
+
+        DrawSeparator();
+        GUILayout.Label("Charge réseau joueur", EditorStyles.boldLabel);
+
+        GUILayout.Space(4);
+        networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
+        networkManager.CurrentLoad = networkLoad;
+        
     }
     #endregion DRAW
     #region ACTIONS

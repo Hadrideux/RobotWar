@@ -14,24 +14,23 @@ public class NetworkUIController : MonoBehaviour
     void Start()
     {
         networkManager = NetworkManager.Instance;
-        networkManager.OnLoadChange += UpdateNetworkLoad;
+        networkManager.GetNetworkData(EFactionType.ALLY).OnLoadChange += UpdateNetworkLoad;
 
         loadImage.fillAmount = 0;
     }
 
     private void OnDestroy()
     {
-        networkManager.OnLoadChange -= UpdateNetworkLoad;
+        networkManager.GetNetworkData(EFactionType.ALLY).OnLoadChange -= UpdateNetworkLoad;
     }
     private void OnApplicationQuit()
     {
-        networkManager.OnLoadChange -= UpdateNetworkLoad;
+        networkManager.GetNetworkData(EFactionType.ALLY).OnLoadChange -= UpdateNetworkLoad;
     }
 
     #endregion MONO
-    public void UpdateNetworkLoad(int loadValue)
+    public void UpdateNetworkLoad(float loadValue)
     {
-        float fill = (float)loadValue / networkManager.CurrentMaxLoad;
-        loadImage.fillAmount = Mathf.Clamp(fill, 0, 1);
+        loadImage.fillAmount = Mathf.Clamp(loadValue, 0, 1);
     }
 }

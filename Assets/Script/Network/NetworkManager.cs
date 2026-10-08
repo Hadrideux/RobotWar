@@ -4,89 +4,30 @@ using UnityEngine;
 public class NetworkManager : Singleton<NetworkManager>
 {
     #region ATTRIBUTS
-    [Header("Network Charge")]
-    [SerializeField] private int defaultNetworkLoad = 100;
-    [SerializeField] private int currentMaxLoad = 0;
-    [SerializeField] private int currentLoad = 0;
-
     [SerializeField] private NetworkEffectData[] networkEffect = null;
+    [SerializeField] private NetworkData playerNetwork = new NetworkData();
+    [SerializeField] private NetworkData IANetwork = new NetworkData();
 
     #endregion ATTRIBUTS
 
     #region PROPERTIES
-    public int DefaultLoad => defaultNetworkLoad;
-    public int CurrentMaxLoad
-    {
-        get => currentMaxLoad;
-        set => currentMaxLoad = value;
-    }
-    public int CurrentLoad
-    {
-        get => currentLoad;
-        set
-        {
-            currentLoad = value;
-
-            if (onLoadChange != null)
-                onLoadChange(currentLoad);
-
-        }
-    }
-
     public NetworkEffectData[] NetworkEffect => networkEffect;
     #endregion PROPERTIES
 
-    #region EVENT
-    private event Action<int> onLoadChange = null;
-    public event Action<int> OnLoadChange
-    {
-        add
-        {
-            onLoadChange -= value;
-            onLoadChange += value;
-        }
+    #region EVENTS
+    
+    #endregion EVENTS
 
-        remove
-        {
-            onLoadChange -= value;
-        }
-    }
-
-    private event Action<float> _onCoolingTriggered = null;
-    public event Action<float> OnCoolingTriggered
+    #region METHODES
+    #region MONO
+    #endregion MONO
+    public NetworkData GetNetworkData(EFactionType faction)
     {
-        add
+        if (faction == EFactionType.IA)
         {
-            _onCoolingTriggered -= value;
-            _onCoolingTriggered += value;
+            return IANetwork;
         }
-        remove
-        {
-            _onCoolingTriggered -= value;
-        }
+        return playerNetwork;
     }
-
-    private event Action _onOverclockTriggered = null;
-    public event Action OnOverclockTriggered
-    {
-        add
-        {
-            _onOverclockTriggered -= value;
-            _onOverclockTriggered += value;
-        }
-        remove
-        {
-            _onOverclockTriggered -= value;
-        }
-    }
-    #endregion EVENT
-
-    void Start()
-    {
-        currentMaxLoad = defaultNetworkLoad;
-    }
-    public void UpdateNetworkLoad(int load)
-    {
-        currentLoad += load;
-    }
+    #endregion METHODES
 }

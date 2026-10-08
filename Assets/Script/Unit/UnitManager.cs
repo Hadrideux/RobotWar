@@ -60,14 +60,14 @@ public class UnitManager : Singleton<UnitManager>
     }
     public void UnitDestroyed(AUnitClass unitDestroyed)
     {
+        NetworkManager.Instance.GetNetworkData(unitDestroyed.FactionObject).CurrentLoad -= unitDestroyed.UnitData.NetworkCost;
+
         switch (unitDestroyed.FactionObject)
         {
             case EFactionType.ALLY:
-                NetworkManager.Instance.CurrentLoad -= unitDestroyed.UnitData.NetworkCost;
                 activeUnits.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
-                IANetworkManager.Instance.CurrentLoad -= unitDestroyed.UnitData.NetworkCost;
                 IAManager.Instance.RemoveUnit(unitDestroyed);
                 break;
             default:
@@ -76,15 +76,14 @@ public class UnitManager : Singleton<UnitManager>
     }
     public void UnitAvailable(AUnitClass unitProduced)
     {
+        NetworkManager.Instance.GetNetworkData(unitProduced.FactionObject).CurrentLoad += unitProduced.UnitData.NetworkCost;
+        
         switch (unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
                 activeUnits.Add(unitProduced);
-                NetworkManager.Instance.CurrentLoad += unitProduced.UnitData.NetworkCost;
                 break;
             case EFactionType.IA:
-
-                IANetworkManager.Instance.CurrentLoad += unitProduced.UnitData.NetworkCost;
 
                 if (onUnitProduced != null)
                 {
