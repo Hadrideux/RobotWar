@@ -19,5 +19,5 @@ MonoBehaviour:
   statModifier: 0.15
   duration: 3
   imageEffect: {fileID: 21300000, guid: 41b9317a308e93c43bf199bc838297e1, type: 3}
-  procProbability: 0.25
+  procProbability: 0.75
   cooldown: 2

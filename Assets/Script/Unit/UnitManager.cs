@@ -5,12 +5,18 @@ using UnityEngine.Events;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    [SerializeField] private List<AUnitClass> activeUnits = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> playerActiveUnits = new List<AUnitClass>();
+    [SerializeField] private List<AUnitClass> iaActiveUnits = new List<AUnitClass>();
 
-    public List<AUnitClass> ActiveUnits
+    public List<AUnitClass> PlayerActiveUnits
     {
-        get => activeUnits;
-        set => activeUnits = value;
+        get => playerActiveUnits;
+        set => playerActiveUnits = value;
+    }
+    public List<AUnitClass> IAActiveUnits
+    {
+        get => iaActiveUnits;
+        set => iaActiveUnits  = value;
     }
 
     #region EVENTS
@@ -48,7 +54,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         List<AUnitClass> elligibleUnits = new List<AUnitClass>();
 
-        foreach (AUnitClass unit in activeUnits)
+        foreach (AUnitClass unit in playerActiveUnits)
         {
             if (unit.EffectComponent.IsEligibleFor(effectType))
             {
@@ -65,7 +71,7 @@ public class UnitManager : Singleton<UnitManager>
         switch (unitDestroyed.FactionObject)
         {
             case EFactionType.ALLY:
-                activeUnits.Remove(unitDestroyed);
+                playerActiveUnits.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
                 IAManager.Instance.RemoveUnit(unitDestroyed);
@@ -81,7 +87,7 @@ public class UnitManager : Singleton<UnitManager>
         switch (unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
-                activeUnits.Add(unitProduced);
+                playerActiveUnits.Add(unitProduced);
                 break;
             case EFactionType.IA:
 

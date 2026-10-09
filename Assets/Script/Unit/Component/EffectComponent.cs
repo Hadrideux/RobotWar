@@ -22,9 +22,9 @@ public class EffectComponent : MonoBehaviour
 
     public void ApplyIAEffect(NetworkEffectData effect)
     {
-
-        //L'unité applique l'effet sur ses stats locales
-        StartCoroutine(ApplyTemporaryEffect(effect));
+        if (currentEffect != null)
+            StopCoroutine(currentEffect);
+        currentEffect = StartCoroutine(ApplyTemporaryEffect(effect));
     }
 
     private IEnumerator ApplyTemporaryEffect(NetworkEffectData effect)

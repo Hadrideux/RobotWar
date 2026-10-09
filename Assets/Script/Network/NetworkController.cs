@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +10,11 @@ public class NetworkController : MonoBehaviour
     [ShowInInspector] private NetworkData network = null;
     [SerializeField] private UnitManager unitManager = null;
 
-    [SerializeField] private Dictionary<NetworkEffectData, float> cooldownEffect = new Dictionary<NetworkEffectData, float>();
-    [SerializeField] private float currentCooldownEffect = 0f;
-
+    [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
+    [SerializeField] private float procInterval = 0.25f;
+   
     #endregion ATTRIBUTS
+
     #region METHODES
     #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,43 +23,40 @@ public class NetworkController : MonoBehaviour
         network = NetworkManager.Instance.GetNetworkData(EFactionType.ALLY);
         unitManager = UnitManager.Instance;
 
-        network.OnLoadChange += HandleNetworkEffect;
+        StartCoroutine(NetworkLoad());
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void OnDestroy()
-    {
-        network.OnLoadChange -= HandleNetworkEffect;
-    }
-
-    void OnApplicationQuit()
-    {
-        network.OnLoadChange -= HandleNetworkEffect;
+        UpdateEffectCooldown();
     }
     #endregion MONO
 
+    #region ENUMERATOR
+
+    private IEnumerator NetworkLoad()
+    {
+        while (true)
+        {
+            HandleNetworkEffect(network.PercentLoad);
+            yield return new WaitForSeconds(procInterval);
+        }
+    }
+    #endregion ENUMERATOR
+
     public void HandleNetworkEffect(float percent)
     {
-        NetworkEffectData[] effect = NetworkManager.Instance.NetworkEffect;
-        for (int i = 0; i <= effect.Length - 1; i++)
+        for (int i = 0; i <= NetworkManager.Instance.NetworkEffect.Length - 1; i++)
         {
-            float threshold = effect[i].ThresholdEffect;
+            float threshold = NetworkManager.Instance.NetworkEffect[i].ThresholdEffect;
             if (threshold <= percent)
             {
-                Debug.Log($"Effect cast : {effect[i]}");
-                ApplyEffect(effect[i]);
-            }
-            else
-            {
-                Debug.Log($"effet : {effect[i].EffectName} n'est pas actif");
+                ApplyEffect(NetworkManager.Instance.NetworkEffect[i]);
             }
         }
     }
+
     public void Shuffle(List<AUnitClass> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -66,36 +65,38 @@ public class NetworkController : MonoBehaviour
             (list[i], list[j]) = (list[j], list[i]);
         }
     }
+
     public void ApplyEffect(NetworkEffectData effect)
     {
-        if (!cooldownEffect.ContainsKey(effect))
-            cooldownEffect.Add(effect, effect.Cooldown);
+        if (effectInCooldown.ContainsKey(effect))
+            return; 
 
-        if (cooldownEffect.ContainsKey(effect) && currentCooldownEffect > 0)
-        {
-            Debug.Log($"Effet : {effect.EffectName} n'est pas prêt");
-            currentCooldownEffect -= Time.deltaTime;
-            return;
-        }
         if (Random.Range(0f, 1f) > effect.ProcProbability)
-        {
-            Debug.Log($"Effet : {effect.EffectName} n'as pas proc");
-            currentCooldownEffect -= Time.deltaTime;
-            return;
-        }
-
+            return; 
+        effectInCooldown.Add(effect, effect.Cooldown); 
+        
         List<AUnitClass> unitEligible = unitManager.GetElligibleUnits(effect.StatAffected);
-
         if (unitEligible.Count == 0)
             return;
 
-        int count = Mathf.Max(1, Mathf.RoundToInt(unitEligible.Count * effect.ProcProbability));
+        int count = Random.Range(1, unitEligible.Count + 1);
 
         Shuffle(unitEligible);
         for (int i = 0; i < count; i++)
             unitEligible[i].EffectComponent.ApplyIAEffect(effect);
+    }
 
-        currentCooldownEffect = effect.Cooldown;
+    private void UpdateEffectCooldown()
+    {
+        foreach(NetworkEffectData effect in new List<NetworkEffectData>(effectInCooldown.Keys))
+        {
+            effectInCooldown[effect] -= Time.deltaTime;
+
+            if (effectInCooldown[effect] <= 0f)
+            {
+                effectInCooldown.Remove(effect);
+            }
+        }
     }
     #endregion METHODES
 

@@ -97,7 +97,7 @@ public class UnitDragComponent : MonoBehaviour
     }
     public void SelectUnits()
     {
-        foreach (AUnitClass unit in UnitManager.Instance.ActiveUnits)
+        foreach (AUnitClass unit in UnitManager.Instance.PlayerActiveUnits)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(unit.transform.position)))
             {

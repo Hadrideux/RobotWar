@@ -6,6 +6,14 @@ public class IADebugTool : EditorWindow
 {
     private Vector2 scrollPos = Vector2.zero;
 
+    // --- Escouade IA ---
+    private AUnitClass IAUnitPrefab = null;
+    private Transform squadSpawnPoint = null;
+    private int squadSize = 3;
+
+    // --- Charge Réseaux IA ---
+    private int networkLoad = 0;
+
     // --- Bâtiment à "frapper" ---
     private ABuildClass targetBuilding = null;
 
@@ -35,7 +43,9 @@ public class IADebugTool : EditorWindow
         }
 
         DrawIAStatus();
+        DrawNetworkLoad();
         DrawReinforcement();
+        DrawSpawnSquad();
         DrawAttack();
         DrawDefense();
         DrawTime();
@@ -55,8 +65,38 @@ public class IADebugTool : EditorWindow
         EditorGUILayout.LabelField("Unités de défense", $"{ia.DefenseUnits.Count} / {ia.DefenseThreshold}");
         EditorGUILayout.LabelField("Attaques lancées", ia.LaunchedAttackCount.ToString());
         EditorGUILayout.LabelField("Base attaquée", ia.IsBaseUnderAttack ? "Oui" : "Non");
-    }
 
+        NetworkManager networkManager = NetworkManager.Instance;
+        EditorGUILayout.LabelField("Charge du réseaux", networkManager.GetNetworkData(EFactionType.IA).CurrentLoad.ToString());
+        EditorGUILayout.LabelField("Pourcentage de charge du réseaux", networkManager.GetNetworkData(EFactionType.IA).PercentLoad.ToString());
+    }
+    private void DrawSpawnSquad()
+    {
+        DrawSeparator();
+        GUILayout.Label("Escouade IA", EditorStyles.boldLabel);
+
+        GUILayout.Space(4);
+        IAUnitPrefab = (AUnitClass)EditorGUILayout.ObjectField("Prefab unité IA", IAUnitPrefab, typeof(AUnitClass), false);
+        squadSpawnPoint = (Transform)EditorGUILayout.ObjectField("Point d'apparition", squadSpawnPoint, typeof(Transform), true);
+        squadSize = EditorGUILayout.IntSlider("Taille escouade", squadSize, 1, 10);
+
+        if (GUILayout.Button("Faire apparaître une escouade IA") && IAUnitPrefab != null && squadSpawnPoint != null)
+        {
+            SpawnIASquad();
+        }
+    }
+    private void DrawNetworkLoad()
+    {
+        NetworkData networkManager = NetworkManager.Instance.GetNetworkData(EFactionType.IA);
+
+        DrawSeparator();
+        GUILayout.Label("Charge réseau IA", EditorStyles.boldLabel);
+
+        GUILayout.Space(4);
+        networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
+        networkManager.CurrentLoad = networkLoad;
+
+    }
     private void DrawReinforcement()
     {
         DrawSeparator();
@@ -111,11 +151,23 @@ public class IADebugTool : EditorWindow
         GUILayout.EndHorizontal();
     }
 
+    #endregion DRAW
+    #region ACTIONS
+    private void SpawnIASquad()
+    {
+        for (int i = 0; i < squadSize; i++)
+        {
+            Vector3 offset = new Vector3(i * 2f, 0f, 0f);
+            AUnitClass unit = Instantiate(IAUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
+            unit.FactionObject = EFactionType.IA;
+            UnitManager.Instance.UnitAvailable(unit);
+        }
+    }
     private void DrawSeparator()
     {
         GUILayout.Space(4);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         GUILayout.Space(2);
     }
-    #endregion DRAW
+    #endregion ACTIONS
 }
