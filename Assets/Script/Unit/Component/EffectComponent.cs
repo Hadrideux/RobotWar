@@ -22,9 +22,8 @@ public class EffectComponent : MonoBehaviour
 
     public void ApplyIAEffect(NetworkEffectData effect)
     {
-        if (currentEffect != null)
-            StopCoroutine(currentEffect);
-        currentEffect = StartCoroutine(ApplyTemporaryEffect(effect));
+        if (currentEffect == null)
+            currentEffect = StartCoroutine(ApplyTemporaryEffect(effect));
     }
 
     private IEnumerator ApplyTemporaryEffect(NetworkEffectData effect)

@@ -4,8 +4,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
 {
     #region ATTRIBUTS
     [Header("Manager")]
-    [SerializeField] protected RequisitionManager requisitionManager = null;
-    [SerializeField] protected IARequsitionManager IARequsition = null;
+    [SerializeField] protected RequisitionData requisitionFaction = null;
 
     [Header("Component")]
     [SerializeField] protected PlaceableObjectComponent placeableComponent = null;
@@ -53,18 +52,14 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     #region MONO
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        if (buildFaction == EFactionType.ALLY)
-        {
-            requisitionManager = RequisitionManager.Instance;
-        }
-        else if (buildFaction == EFactionType.IA)
-        {
-            IARequsition = IARequsitionManager.Instance;
-        }
+        requisitionFaction = RequisitionManager.Instance.GetRequisitionData(buildFaction);
 
-        InitBuild();
+        currentDurability = buildData.MaxDurability;
+        currentArmor = buildData.Armor;
+
+        buildType = buildData.BuildType;
     }
 
 
@@ -83,13 +78,6 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
         selectionObject.SetActive(false);
     }
     #endregion
-    public void InitBuild()
-    {
-        currentDurability = buildData.MaxDurability;
-        currentArmor = buildData.Armor;
-
-        buildType = buildData.BuildType;
-    }
 
     public void TakeDamage(AmmoData hitData)
     {

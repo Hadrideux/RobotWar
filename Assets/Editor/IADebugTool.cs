@@ -69,6 +69,9 @@ public class IADebugTool : EditorWindow
         NetworkManager networkManager = NetworkManager.Instance;
         EditorGUILayout.LabelField("Charge du réseaux", networkManager.GetNetworkData(EFactionType.IA).CurrentLoad.ToString());
         EditorGUILayout.LabelField("Pourcentage de charge du réseaux", networkManager.GetNetworkData(EFactionType.IA).PercentLoad.ToString());
+
+        RequisitionManager requisitionManager = RequisitionManager.Instance;
+        EditorGUILayout.LabelField("Stock réquisition", requisitionManager.GetRequisitionData(EFactionType.ALLY).ToString());
     }
     private void DrawSpawnSquad()
     {

@@ -128,7 +128,10 @@ public class BuilderSystemController : MonoBehaviour
 
     public void CancelBuilding()
     {
-        Destroy(objectToPlace.gameObject);
+        if(objectToPlace != null)
+        {
+            Destroy(objectToPlace.gameObject);
+        }
     }
     #endregion
 

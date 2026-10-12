@@ -18,6 +18,8 @@ public class Warehouse : ABuildClass
 
     void Start()
     {
+        base.Start();
+
         playerInteraction = PlayerInteraction.Instance;
 
         playerInteraction.OnConfirmPlacement += FindAndRegisterTower;

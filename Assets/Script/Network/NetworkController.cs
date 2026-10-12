@@ -7,7 +7,9 @@ public class NetworkController : MonoBehaviour
 {
 
     #region ATTRIBUTS
-    [ShowInInspector] private NetworkData network = null;
+    [SerializeField] private NetworkData networkData = null;
+    [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
+
     [SerializeField] private UnitManager unitManager = null;
 
     [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
@@ -20,7 +22,7 @@ public class NetworkController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        network = NetworkManager.Instance.GetNetworkData(EFactionType.ALLY);
+        networkData = NetworkManager.Instance.GetNetworkData(controllerFaction);
         unitManager = UnitManager.Instance;
 
         StartCoroutine(NetworkLoad());
@@ -39,7 +41,7 @@ public class NetworkController : MonoBehaviour
     {
         while (true)
         {
-            HandleNetworkEffect(network.PercentLoad);
+            HandleNetworkEffect(networkData.PercentLoad);
             yield return new WaitForSeconds(procInterval);
         }
     }

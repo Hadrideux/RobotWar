@@ -4,11 +4,7 @@ using UnityEngine;
 public class RequisitionUIController : MonoBehaviour
 {
     #region ATTRIBUTS
-
-    [SerializeField] private RequisitionManager requisitionManager = null;
-
-    [SerializeField] private TMP_Text requisitionAmount = null;
-    [SerializeField] private int totalRequisitionAmount = 0;
+    [SerializeField] private TMP_Text requisitionText = null;
     #endregion ATTRIBUTS
 
     #region METHODE
@@ -16,10 +12,9 @@ public class RequisitionUIController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        requisitionAmount.text = string.Empty;
+        requisitionText.text = RequisitionManager.Instance.GetRequisitionData(EFactionType.ALLY).RequisitionStock.ToString();
 
-        requisitionManager = RequisitionManager.Instance;
-        requisitionManager.OnUpdateRequisition += UpdateRequisitionLoad;
+        RequisitionManager.Instance.GetRequisitionData(EFactionType.ALLY).OnUpdateRequisition += UpdateRequisitionLoad;
     }
 
     // Update is called once per frame
@@ -29,11 +24,11 @@ public class RequisitionUIController : MonoBehaviour
     }
     private void OnDestroy()
     {
-        requisitionManager.OnUpdateRequisition -= UpdateRequisitionLoad;
+        RequisitionManager.Instance.GetRequisitionData(EFactionType.ALLY).OnUpdateRequisition -= UpdateRequisitionLoad;
     }
     private void OnApplicationQuit()
     {
-        requisitionManager.OnUpdateRequisition -= UpdateRequisitionLoad;
+        RequisitionManager.Instance.GetRequisitionData(EFactionType.ALLY).OnUpdateRequisition -= UpdateRequisitionLoad;
     }
     #endregion
     #endregion
@@ -41,9 +36,7 @@ public class RequisitionUIController : MonoBehaviour
 
     private void UpdateRequisitionLoad(int amount)
     {
-        totalRequisitionAmount += amount;
-        requisitionAmount.text = totalRequisitionAmount.ToString();
-
+        requisitionText.text = amount.ToString();
     }
 
 }

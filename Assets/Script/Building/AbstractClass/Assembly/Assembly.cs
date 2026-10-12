@@ -48,8 +48,6 @@ public class Assembly : ABuildClass
                     productionTime += Time.deltaTime;
                 }
             }
-
-            
         }
     }
     #endregion MONO
@@ -61,27 +59,28 @@ public class Assembly : ABuildClass
     #endregion ABSTRACT
     private void TryStartProduction()
     {
-        switch (buildFaction)
+        if (UnitAssembled.UnitData.RequisitionCost <= requisitionFaction.RequisitionStock)
         {
-            case EFactionType.ALLY:
-                if (UnitAssembled.UnitData.RequisitionCost <= requisitionManager.RequisitionStock)
-                {
-                    isProductionStart = true;
-                    requisitionManager.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
-                    return;
-                }
-                break;
-            case EFactionType.IA:
-                if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock)
-                {
-                    IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
-                    isProductionStart = true;
-                    return;
-                }
-                break;
-            default:
-                break;
+            isProductionStart = true;
+            requisitionFaction.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+            return;
         }
+        //switch (buildFaction)
+        //{
+        //    case EFactionType.ALLY:
+                
+        //        break;
+        //    case EFactionType.IA:
+        //        if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock)
+        //        {
+        //            IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
+        //            isProductionStart = true;
+        //            return;
+        //        }
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
     public void SpawnUnitProduction(AUnitClass spawnUnit)
     {
@@ -89,7 +88,6 @@ public class Assembly : ABuildClass
         unit.FactionObject = buildFaction;
 
         UnitManager.Instance.UnitAvailable(unit);
-        
     }
 #endregion
 }

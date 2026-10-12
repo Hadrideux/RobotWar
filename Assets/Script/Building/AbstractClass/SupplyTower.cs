@@ -58,17 +58,7 @@ public class SupplyTower : ABuildClass
 
     private void ProduceRequisition()
     {
-        switch (buildFaction)
-        {
-            case EFactionType.ALLY:
-                requisitionManager.RequisitionStock += requisitionRate;
-                break;
-            case EFactionType.IA:
-                IARequsition.RequisitionStock += requisitionRate;
-                break;
-            default:
-                break;
-        }
+        requisitionFaction.RequisitionStock += requisitionRate;
     }
 
     public void AddWarehouseBonus(int bonus)
@@ -122,6 +112,8 @@ public class SupplyTower : ABuildClass
                     break;
             }
 
+            requisitionFaction = RequisitionManager.Instance.GetRequisitionData(FactionObject);
+            
             currentCaptureProgression = 0;
         }
         else

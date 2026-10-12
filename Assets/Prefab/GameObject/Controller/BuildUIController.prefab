@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6359582898733035232}
   - component: {fileID: 7294124772991462495}
   m_Layer: 0
-  m_Name: BuildController
+  m_Name: BuildUIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

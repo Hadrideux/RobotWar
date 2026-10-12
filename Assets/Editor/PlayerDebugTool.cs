@@ -60,7 +60,8 @@ public class PlayerDebugTool : EditorWindow
 
         DrawSeparator();
         RequisitionManager requisitionManager = RequisitionManager.Instance;
-        EditorGUILayout.LabelField("Stock réquisition", requisitionManager.RequisitionStock.ToString());
+        EditorGUILayout.LabelField("Stock réquisition", requisitionManager.GetRequisitionData(EFactionType.ALLY).ToString());
+
         NetworkManager networkManager = NetworkManager.Instance;
         EditorGUILayout.LabelField("Charge du réseaux", networkManager.GetNetworkData(EFactionType.ALLY).CurrentLoad.ToString()); 
         EditorGUILayout.LabelField("Pourcentage de charge du réseaux", networkManager.GetNetworkData(EFactionType.ALLY).PercentLoad.ToString()); 
