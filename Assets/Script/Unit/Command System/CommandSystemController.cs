@@ -28,7 +28,6 @@ public class CommandSystemController : MonoBehaviour
     }
     #endregion
 
-
     private void ExecuteOrder(RaycastHit hit)
     {
         if (selectionManager.SelectableObj.Count > 0)
@@ -41,6 +40,9 @@ public class CommandSystemController : MonoBehaviour
             }
             else if (hit.collider.TryGetComponent(out ITargetableObject target))
             {
+                if (!target.IsTargetable)
+                    return;
+
                 OrderData orderData = new OrderData(EOrderType.ATTACK, target);
                 orderSent = PushOrder(orderData);
 

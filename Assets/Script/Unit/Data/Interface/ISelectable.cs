@@ -1,6 +1,7 @@
 public interface ISelectable
 {
     public ESelectableType SelectableType { get; }
+    public EFactionType SelectionFaction { get; }
 
     public void Select();
     public void Deselect();

@@ -56,6 +56,8 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         get => unitFaction;
         set => unitFaction = value;
     }
+    public EFactionType SelectionFaction => unitFaction;
+
     public GameObject TargetObject
     {
         get => gameObject;
@@ -66,6 +68,9 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         get => currentState;
         set => currentState = value;
     }
+
+    public bool IsTargetable => true;
+
 
     #endregion PROPERTIES
 
@@ -83,6 +88,9 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
     void Update()
     {
+        if (isFreezeUnit)
+            return;
+
         if (reloading > 0)
         {
             reloading -= Time.deltaTime;

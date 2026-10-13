@@ -16,6 +16,8 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
 
     [SerializeField] protected float currentDurability = 0;
     [SerializeField] protected int currentArmor = 0;
+    [SerializeField] protected bool isInvulnerable = false;
+    [SerializeField] protected bool isTargetable = true;
 
     [Header("Buildding Type")]
     [SerializeField] protected EBuildType buildType = EBuildType.NONE;
@@ -30,6 +32,10 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
         get => buildFaction;
         set => buildFaction = value;
     }
+    public EFactionType SelectionFaction => buildFaction;
+
+    public bool IsTargetable => isTargetable;
+
     #endregion INTERFACE
 
     public ESelectableType SelectableType => ESelectableType.BUILDING;
@@ -45,6 +51,7 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
     }
 
     public GameObject TargetObject => gameObject;
+
 
     #endregion PROPERTY
 
@@ -97,6 +104,9 @@ public abstract class ABuildClass : MonoBehaviour, ISelectable, ITargetableObjec
 
     protected void DurabilityUpdate(float damage)
     {
+        if (isInvulnerable)
+            return;
+
         currentDurability -= Mathf.Clamp(damage, 0, buildData.MaxDurability);
 
         if (currentDurability <= 0)

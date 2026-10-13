@@ -75,24 +75,39 @@ public class SupplyTower : ABuildClass
     {
         Collider[] targetCol = Physics.OverlapSphere(transform.position, captureDistance, layerMask);
 
-        float friendlyUnit = 0;
-        float hotileUnit = 0;
-
+        float playerUnit = 0;
+        float IaUnit = 0;
         for (int i = 0; i < targetCol.Length; i++)
         {
             AUnitClass unitScanned = targetCol[i].gameObject.GetComponent<AUnitClass>();
 
-            if (unitScanned.FactionObject != ObjectFaction)
+            switch(unitScanned.FactionObject)
             {
-                hotileUnit++;
-            }
-            else if (unitScanned.FactionObject == ObjectFaction)
-            {
-                friendlyUnit++;
+                case EFactionType.ALLY:
+                    playerUnit ++;
+                    break;
+
+                case EFactionType.IA:
+                    IaUnit++;
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        captureMultiplier = Mathf.Clamp(hotileUnit - friendlyUnit, 0, Mathf.Infinity);
+        if(IaUnit > playerUnit)
+        {
+            captureMultiplier = Mathf.Clamp(IaUnit / playerUnit, 0, Mathf.Infinity);
+        }
+        else if (IaUnit < playerUnit)
+        {
+            captureMultiplier = Mathf.Clamp(playerUnit / IaUnit, 0, Mathf.Infinity);
+        }
+        else
+        {
+            captureMultiplier = 1;
+        }
     }
 
     private void CaptureTimer()

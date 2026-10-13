@@ -6240,13 +6240,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecac7f04f8213f547b52982120ab0159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assembly
-  requisitionManager: {fileID: 0}
-  IARequsition: {fileID: 0}
+  requisitionFaction:
+    requisitionStock: 0
   placeableComponent: {fileID: 207475432930593336}
   selectionObject: {fileID: 7944569213471026314}
   buildData: {fileID: 11400000, guid: 3e7d257d159fddf4bbb06c58befa7b31, type: 2}
   currentDurability: 0
   currentArmor: 0
+  isInvulnerable: 0
+  isTargetable: 1
   buildType: 2
   buildFaction: 1
   unitAssembled: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}

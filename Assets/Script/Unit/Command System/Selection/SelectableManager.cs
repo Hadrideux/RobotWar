@@ -82,23 +82,24 @@ public class SelectableManager : Singleton<SelectableManager>
 
     public void ClickSelect(RaycastHit hit, bool isShifted)
     {
-        if (hit.collider.GetComponent<ISelectable>() != null)
+        if (hit.collider.TryGetComponent(out ISelectable target))
         {
-            ISelectable selectionToAdd = hit.collider.GetComponent<ISelectable>();
+            if(target.SelectionFaction == EFactionType.IA )
+                return;
 
-            if (selectableObj.Count > 0 && selectionToAdd.SelectableType != selectableObj[0].SelectableType)
+            if (selectableObj.Count > 0 && target.SelectableType != selectableObj[0].SelectableType)
             {
                 DeselectAll();
-                SwitchSelectableObjList(selectionToAdd);
+                SwitchSelectableObjList(target);
             }
-            else if (isShifted && (selectableObj.Count == 0 || selectionToAdd.SelectableType == selectableObj[0].SelectableType))
+            else if (isShifted && (selectableObj.Count == 0 || target.SelectableType == selectableObj[0].SelectableType))
             {
-                ShiftClickSelect(selectionToAdd);
+                ShiftClickSelect(target);
             }
             else
             {
                 DeselectAll();
-                SwitchSelectableObjList(selectionToAdd);
+                SwitchSelectableObjList(target);
             }
         }
     }

@@ -46,9 +46,12 @@ public class ScanningComponent : MonoBehaviour
 
             if (scannedObject != unit as ITargetableObject)
             {
-                if (scannedObject.FactionObject != unit.FactionObject && !targetedObject.Contains(scannedObject))
+                if(scannedObject.IsTargetable)
                 {
-                    targetedObject.Add(scannedObject);
+                    if (scannedObject.FactionObject != unit.FactionObject && !targetedObject.Contains(scannedObject))
+                    {
+                        targetedObject.Add(scannedObject);
+                    }
                 }
             }
         }
