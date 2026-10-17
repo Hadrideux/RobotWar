@@ -72,6 +72,7 @@ public class UnitManager : Singleton<UnitManager>
         {
             case EFactionType.ALLY:
                 playerActiveUnits.Remove(unitDestroyed);
+                SelectableManager.Instance.SelectableObj.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
                 IAManager.Instance.RemoveUnit(unitDestroyed);

@@ -12,7 +12,11 @@ public class SelectableManager : Singleton<SelectableManager>
     #endregion
 
     #region PROPERTY
-    public IReadOnlyList<ISelectable> SelectableObj => selectableObj;
+    public List<ISelectable> SelectableObj
+    {
+        get => selectableObj;
+        set => selectableObj = value;
+    }
     #endregion
 
     #region EVENT
@@ -173,6 +177,5 @@ public class SelectableManager : Singleton<SelectableManager>
                 break;
         }
     }
-
     #endregion
 }

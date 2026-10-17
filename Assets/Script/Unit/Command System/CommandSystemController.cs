@@ -30,52 +30,51 @@ public class CommandSystemController : MonoBehaviour
 
     private void ExecuteOrder(RaycastHit hit)
     {
-        if (selectionManager.SelectableObj.Count > 0)
+        if (selectionManager.SelectableObj.Count <= 0)
+            return;
+
+        OrderData orderData = null;
+        Vector3 markerPos = Vector3.zero;
+
+        if (hit.collider == null)
         {
-            bool orderSent = false;
+            orderData = new OrderData(EOrderType.STOP);
+        }
+        else if (hit.collider.TryGetComponent(out ITargetableObject target))
+        {
+            if (!target.IsTargetable || target.FactionObject == EFactionType.ALLY)
+                return;
 
-            if (hit.collider == null)
-            {
-                OrderData orderData = new OrderData(EOrderType.STOP);
-            }
-            else if (hit.collider.TryGetComponent(out ITargetableObject target))
-            {
-                if (!target.IsTargetable)
-                    return;
+            orderData = new OrderData(EOrderType.ATTACK, target);
+            markerPos = target.TargetObject.transform.position;
+        }
+        else
+        {
+            orderData = new OrderData(EOrderType.MOVETO, hit.point);
+            markerPos = hit.point;
 
-                OrderData orderData = new OrderData(EOrderType.ATTACK, target);
-                orderSent = PushOrder(orderData);
+        }
 
-                if (orderSent)
-                {
-                    groundMarker.transform.position = target.TargetObject.transform.position;
-                }
-            }
-            else
-            {
-                OrderData orderData = new OrderData(EOrderType.MOVETO, hit.point);
-                orderSent = PushOrder(orderData);
-
-                if (orderSent)
-                {
-                    groundMarker.transform.position = hit.point;
-                }
-            }
+        if (PushOrder(orderData) && orderData.OrderType != EOrderType.STOP)
+        {
+            groundMarker.transform.position = markerPos;
         }
     }
 
     private bool PushOrder(OrderData orderData)
     {
+        bool received = false;
+
         foreach (ISelectable selectable in selectionManager.SelectableObj)
         {
             IOrderReceiver unit = selectable as IOrderReceiver;
             if (unit != null)
             {
                 unit.ReceiveOrder(orderData);
+                received = true;
             }
         }
-
-        return true;
+        return received;
     }
     #endregion
 
