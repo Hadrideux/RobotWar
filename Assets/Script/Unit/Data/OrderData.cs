@@ -18,6 +18,8 @@ public class OrderData
     #endregion PROPERTIES
 
     #region CONTRUCT
+    public OrderData() {}
+
     //Consturcteur de déplacement
     public OrderData(EOrderType type, Vector3 destination)
     {
