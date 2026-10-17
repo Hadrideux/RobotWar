@@ -45,7 +45,7 @@ public class BuilderSystemController : MonoBehaviour
         playerInteraction.OnCancelAction -= CancelBuilding;
     }
     #endregion
-    public Vector3 SnapCoordinateToGrid(Vector3 pos)
+    public Vector3 SnapCoordinateToGrid(Vector3 pos) 
     {
         Vector3Int cellPos = gridLayout.WorldToCell(pos);
         pos = buildGrid.GetCellCenterWorld(cellPos);
@@ -61,9 +61,6 @@ public class BuilderSystemController : MonoBehaviour
         objectToPlace = obj.GetComponent<PlaceableObjectComponent>();
         objectToPlace.BuilderSystemController = this;
         objectToPlace.DragComponent.BuilderSystemController = this;
-
-        //obj.gameObject.AddComponent<ObjectDragComponent>();
-        //obj.GetComponent<ObjectDragComponent>().BuilderSystemController = this;
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)

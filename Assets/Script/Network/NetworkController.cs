@@ -7,7 +7,7 @@ public class NetworkController : MonoBehaviour
 {
 
     #region ATTRIBUTS
-    [SerializeField] private NetworkData networkData = null;
+    [ShowInInspector] private NetworkData networkData = null;
     [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
 
     [SerializeField] private UnitManager unitManager = null;

@@ -36,7 +36,6 @@ public class PlaceableObjectComponent : MonoBehaviour
 
     #endregion
 
-
     #region METHODES
     #region MONO
     void Start()

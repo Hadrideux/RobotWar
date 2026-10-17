@@ -144,14 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa803e6cde9efbf498b0628d633e7539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadQuarter
-  requisitionManager: {fileID: 0}
-  IARequsition: {fileID: 0}
+  requisitionFaction:
+    requisitionStock: 0
   placeableComponent: {fileID: 7701447213203341683}
   selectionObject: {fileID: 0}
   buildData: {fileID: 11400000, guid: 551856e3b868e6c47b54caa0bf2ad147, type: 2}
   currentDurability: 0
   currentArmor: 0
-  buildType: 0
+  isInvulnerable: 0
+  isTargetable: 0
+  buildType: 1
   buildFaction: 1
 --- !u!114 &7701447213203341683
 MonoBehaviour:
