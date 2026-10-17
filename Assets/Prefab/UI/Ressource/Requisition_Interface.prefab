@@ -572,5 +572,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442d6dd80204a4b4dad2bd2eb3334ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RequisitionUIController
-  requisitionManager: {fileID: 0}
-  requisitionAmount: {fileID: 4768401359651318192}
+  requisitionText: {fileID: 4768401359651318192}

@@ -7,6 +7,8 @@ public class IANetworkController : MonoBehaviour
 {
     #region ATTRIBUTS
     [ShowInInspector] private NetworkData network = null;
+    [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
+
     [SerializeField] private UnitManager unitManager = null;
 
     [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
@@ -21,7 +23,7 @@ public class IANetworkController : MonoBehaviour
     #region MONO
     void Start()
     {
-        network = NetworkManager.Instance.GetNetworkData(EFactionType.IA);
+        network = NetworkManager.Instance.GetNetworkData(controllerFaction);
         unitManager = UnitManager.Instance;
 
         StartCoroutine(NetworkLoad());

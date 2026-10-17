@@ -416,6 +416,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnitManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: playerActiveUnits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: 'playerActiveUnits.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: 'playerActiveUnits.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: 'playerActiveUnits.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: 'playerActiveUnits.Array.data[3]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529678368447328878, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
+      propertyPath: 'playerActiveUnits.Array.data[4]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7639056078498630051, guid: 3dfbc982760e717408dd6f82b65b6cb0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 270.3298
