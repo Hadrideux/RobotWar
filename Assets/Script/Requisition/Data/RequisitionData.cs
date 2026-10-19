@@ -13,7 +13,7 @@ public class RequisitionData
         get => requisitionStock;
         set
         {
-            requisitionStock = value;
+            requisitionStock = Mathf.Clamp(value, 0, int.MaxValue);
 
             if (onUpdateRequisition != null)
             {

@@ -159,6 +159,8 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         navMeshAgent.speed = unitData.MaxSpeed;
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
+
+        UnitManager.Instance.UnitAvailable(this);
     }
 
     public void UnitKilled()

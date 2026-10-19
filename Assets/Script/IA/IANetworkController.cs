@@ -78,7 +78,7 @@ public class IANetworkController : MonoBehaviour
             return;
         effectInCooldown.Add(effect, effect.Cooldown);
 
-        List<AUnitClass> unitEligible = unitManager.GetElligibleUnits(effect.StatAffected);
+        List<AUnitClass> unitEligible = unitManager.GetElligibleUnits(EFactionType.IA, effect.StatAffected);
         if (unitEligible.Count == 0)
             return;
 

@@ -50,18 +50,35 @@ public class UnitManager : Singleton<UnitManager>
     #endregion EVENTS
 
     #region METHODES
-    public List<AUnitClass> GetElligibleUnits(EStatEffectedType effectType)
+    public List<AUnitClass> GetElligibleUnits(EFactionType factionAffected, EStatEffectedType effectType)
     {
         List<AUnitClass> elligibleUnits = new List<AUnitClass>();
 
-        foreach (AUnitClass unit in playerActiveUnits)
+        switch (factionAffected)
         {
-            if (unit.EffectComponent.IsEligibleFor(effectType))
-            {
-                elligibleUnits.Add(unit);
-            }
-        }
+            case EFactionType.ALLY:
+                foreach (AUnitClass unit in playerActiveUnits)
+                {
+                    if (unit.EffectComponent.IsEligibleFor(effectType))
+                    {
+                        elligibleUnits.Add(unit);
+                    }
+                }
+                break;
+            case EFactionType.IA:
+                foreach (AUnitClass unit in iaActiveUnits)
+                {
+                    if (unit.EffectComponent.IsEligibleFor(effectType))
+                    {
+                        elligibleUnits.Add(unit);
+                    }
+                }
+                break;
 
+            default:
+                break;
+        }
+        
         return elligibleUnits;
     }
     public void UnitDestroyed(AUnitClass unitDestroyed)
@@ -75,6 +92,7 @@ public class UnitManager : Singleton<UnitManager>
                 SelectableManager.Instance.SelectableObj.Remove(unitDestroyed);
                 break;
             case EFactionType.IA:
+                iaActiveUnits.Remove(unitDestroyed);
                 IAManager.Instance.RemoveUnit(unitDestroyed);
                 break;
             default:
@@ -84,21 +102,28 @@ public class UnitManager : Singleton<UnitManager>
     public void UnitAvailable(AUnitClass unitProduced)
     {
         NetworkManager.Instance.GetNetworkData(unitProduced.FactionObject).CurrentLoad += unitProduced.UnitData.NetworkCost;
-        
+
         switch (unitProduced.FactionObject)
         {
             case EFactionType.ALLY:
                 playerActiveUnits.Add(unitProduced);
                 break;
             case EFactionType.IA:
-
-                if (onUnitProduced != null)
-                {
-                    onUnitProduced(unitProduced);
-                }
+                iaActiveUnits.Add(unitProduced);                
                 break;
             default:
                 break;
+        }
+    }
+    
+    public void UnitProduced(AUnitClass unitProduced)
+    {
+        if (unitProduced.FactionObject != EFactionType.IA)
+            return;
+
+        if (onUnitProduced != null)
+        {
+            onUnitProduced(unitProduced);
         }
     }
     #endregion
