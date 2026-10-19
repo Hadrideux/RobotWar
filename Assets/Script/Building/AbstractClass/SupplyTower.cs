@@ -92,7 +92,6 @@ public class SupplyTower : ABuildClass
                     break;
 
                 default:
-                    FactionObject = EFactionType.NEUTRAL;
                     break;
             }
         }
@@ -103,8 +102,7 @@ public class SupplyTower : ABuildClass
         }
         else if (IaUnit < playerUnit)
         {
-            captureMultiplier = Mathf.Clamp(playerUnit
-                / IaUnit, 0, Mathf.Infinity);
+            captureMultiplier = Mathf.Clamp(playerUnit / IaUnit, 0, Mathf.Infinity);
         }
         else
         {
