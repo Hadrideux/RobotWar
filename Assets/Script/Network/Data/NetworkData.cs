@@ -33,7 +33,7 @@ public class NetworkData
                 return;
             }
 
-            currentLoad = value;
+            currentLoad = Mathf.Clamp(value, 0, int.MaxValue);
             
             if (onLoadChange != null)
             {

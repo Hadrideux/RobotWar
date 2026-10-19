@@ -42,6 +42,7 @@ public class EffectComponent : MonoBehaviour
 
             imageEffect.sprite = effect.ImageEffect;
             panelEffect.SetActive(false);
+            currentEffect = null;
         }
     }
 

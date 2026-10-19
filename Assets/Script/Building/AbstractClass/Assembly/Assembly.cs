@@ -87,7 +87,8 @@ public class Assembly : ABuildClass
         AUnitClass unit = Instantiate(spawnUnit, spawner.position, Quaternion.identity, unitContainer);
         unit.FactionObject = buildFaction;
 
-        UnitManager.Instance.UnitAvailable(unit);
+        
+        UnitManager.Instance.UnitProduced(unit);
     }
 #endregion
 }
