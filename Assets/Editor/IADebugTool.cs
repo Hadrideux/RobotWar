@@ -96,8 +96,8 @@ public class IADebugTool : EditorWindow
         GUILayout.Label("Charge réseau IA", EditorStyles.boldLabel);
 
         GUILayout.Space(4);
-        networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
-        networkManager.CurrentLoad += networkLoad;
+        networkLoad = EditorGUILayout.IntSlider("Charge", networkManager.CurrentLoad, 0, networkManager.MaxLoad * 2);
+        networkManager.CurrentLoad = networkLoad;
 
     }
     private void DrawReinforcement()
@@ -173,7 +173,6 @@ public class IADebugTool : EditorWindow
             Vector3 offset = new Vector3(i * 2f, 0f, 0f);
             AUnitClass unit = Instantiate(IAUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
             unit.FactionObject = EFactionType.IA;
-            UnitManager.Instance.UnitRegistering(unit);
         }
     }
     private void DrawSeparator()

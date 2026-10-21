@@ -106,8 +106,8 @@ public class PlayerDebugTool : EditorWindow
         GUILayout.Label("Charge réseau joueur", EditorStyles.boldLabel);
 
         GUILayout.Space(4);
-        networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
-        networkManager.CurrentLoad += networkLoad;
+        networkLoad = EditorGUILayout.IntSlider("Charge", networkManager.CurrentLoad, 0, networkManager.MaxLoad * 2);
+        networkManager.CurrentLoad = networkLoad;
         
     }
 
@@ -133,7 +133,6 @@ public class PlayerDebugTool : EditorWindow
             Vector3 offset = new Vector3(i * 2f, 0f, 0f);
             AUnitClass unit = Instantiate(playerUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
             unit.FactionObject = EFactionType.ALLY;
-            UnitManager.Instance.UnitRegistering(unit);
         }
     }
     private void DrawSeparator()
