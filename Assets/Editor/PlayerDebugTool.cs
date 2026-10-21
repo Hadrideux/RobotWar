@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerDebugTool : EditorWindow
@@ -45,6 +46,7 @@ public class PlayerDebugTool : EditorWindow
         DrawNetworkLoad();
         DrawSpawnSquad();
         DrawDefense();
+        DrawHandleArmy();
 
         GUILayout.EndScrollView();
     }
@@ -105,8 +107,22 @@ public class PlayerDebugTool : EditorWindow
 
         GUILayout.Space(4);
         networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
-        networkManager.CurrentLoad = networkLoad;
+        networkManager.CurrentLoad += networkLoad;
         
+    }
+
+    private void DrawHandleArmy()
+    {
+        DrawSeparator();
+        if (GUILayout.Button("Détruire toutes les unités du joueur"))
+        {
+            // ④ On parcourt une COPIE : détruire une unité la retire de la liste d'origine
+            List<AUnitClass> units = new List<AUnitClass>(UnitManager.Instance.PlayerActiveUnits);
+            foreach (AUnitClass unit in units)
+            {
+                unit.UnitKilled();
+            }
+        }
     }
     #endregion DRAW
     #region ACTIONS
@@ -117,7 +133,7 @@ public class PlayerDebugTool : EditorWindow
             Vector3 offset = new Vector3(i * 2f, 0f, 0f);
             AUnitClass unit = Instantiate(playerUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
             unit.FactionObject = EFactionType.ALLY;
-            UnitManager.Instance.UnitAvailable(unit);
+            UnitManager.Instance.UnitRegistering(unit);
         }
     }
     private void DrawSeparator()

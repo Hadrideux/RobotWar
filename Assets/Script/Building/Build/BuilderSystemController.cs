@@ -57,6 +57,7 @@ public class BuilderSystemController : MonoBehaviour
         Vector3 pos = SnapCoordinateToGrid(playerInteraction.GetMouseWorlPosition(playerInteraction.GroundMask).point);
 
         ABuildClass obj = Instantiate(prefab, pos, Quaternion.identity);
+        obj.ObjectFaction = EFactionType.ALLY;
 
         objectToPlace = obj.GetComponent<PlaceableObjectComponent>();
         objectToPlace.BuilderSystemController = this;

@@ -97,7 +97,7 @@ public class IADebugTool : EditorWindow
 
         GUILayout.Space(4);
         networkLoad = EditorGUILayout.IntSlider("Charge", networkLoad, 0, networkManager.MaxLoad * 2);
-        networkManager.CurrentLoad = networkLoad;
+        networkManager.CurrentLoad += networkLoad;
 
     }
     private void DrawReinforcement()
@@ -122,6 +122,16 @@ public class IADebugTool : EditorWindow
         {
             // ④ On parcourt une COPIE : détruire une unité la retire de la liste d'origine
             List<AUnitClass> units = new List<AUnitClass>(IAManager.Instance.AttackUnits);
+            foreach (AUnitClass unit in units)
+            {
+                unit.UnitKilled();
+            }
+        }
+
+        if (GUILayout.Button("Détruire toutes les unités de l'IA"))
+        {
+            // ④ On parcourt une COPIE : détruire une unité la retire de la liste d'origine
+            List<AUnitClass> units = new List<AUnitClass>(UnitManager.Instance.IAActiveUnits);
             foreach (AUnitClass unit in units)
             {
                 unit.UnitKilled();
@@ -163,7 +173,7 @@ public class IADebugTool : EditorWindow
             Vector3 offset = new Vector3(i * 2f, 0f, 0f);
             AUnitClass unit = Instantiate(IAUnitPrefab, squadSpawnPoint.position + offset, Quaternion.identity);
             unit.FactionObject = EFactionType.IA;
-            UnitManager.Instance.UnitAvailable(unit);
+            UnitManager.Instance.UnitRegistering(unit);
         }
     }
     private void DrawSeparator()

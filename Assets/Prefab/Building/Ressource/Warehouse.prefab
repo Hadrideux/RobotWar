@@ -47,14 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178d7813e94f5ac48b83f15a7d2d0cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Warehouse
-  requisitionManager: {fileID: 0}
+  requisitionFaction:
+    requisitionStock: 0
   placeableComponent: {fileID: 8018100779503710612}
   selectionObject: {fileID: 0}
-  buildData: {fileID: 0}
+  buildData: {fileID: 11400000, guid: 1f3ad12450ce46c4a92180a0b3e7cc0c, type: 2}
   currentDurability: 0
   currentArmor: 0
-  buildType: 2
-  buildFaction: 0
+  isInvulnerable: 0
+  isTargetable: 1
+  buildType: 3
+  buildFaction: 1
   requisitionManger: {fileID: 0}
   playerInteraction: {fileID: 0}
   registeredTower: {fileID: 0}

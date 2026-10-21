@@ -80,7 +80,7 @@ public class SupplyTower : ABuildClass
         for (int i = 0; i < targetCol.Length; i++)
         {
             AUnitClass unitScanned = targetCol[i].gameObject.GetComponent<AUnitClass>();
-
+            /*
             switch(unitScanned.FactionObject)
             {
                 case EFactionType.ALLY:
@@ -94,6 +94,7 @@ public class SupplyTower : ABuildClass
                 default:
                     break;
             }
+            */
         }
 
         if(IaUnit > playerUnit)
@@ -114,6 +115,7 @@ public class SupplyTower : ABuildClass
     {
         if (currentCaptureProgression > captureDuration)
         {
+            /*
             switch (ObjectFaction)
             {
                 case EFactionType.ALLY:
@@ -126,7 +128,7 @@ public class SupplyTower : ABuildClass
                     buildFaction = EFactionType.NEUTRAL;
                     break;
             }
-
+            */
             requisitionFaction = RequisitionManager.Instance.GetRequisitionData(FactionObject);
             
             currentCaptureProgression = 0;

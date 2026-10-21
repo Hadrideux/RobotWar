@@ -120,6 +120,9 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
 
     public void ReceiveOrder(OrderData order)
     {
+        if (isFreezeUnit)
+            return;
+
         currentOrder = order;
 
         switch (order.OrderType)
@@ -160,7 +163,7 @@ public abstract class AUnitClass : MonoBehaviour, ISelectable, IOrderReceiver, I
         currentHealth = unitData.MaxHealth;
         currentArmor = unitData.Armor;
 
-        UnitManager.Instance.UnitAvailable(this);
+        UnitManager.Instance.UnitRegistering(this);
     }
 
     public void UnitKilled()

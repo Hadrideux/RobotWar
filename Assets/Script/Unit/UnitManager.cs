@@ -99,7 +99,7 @@ public class UnitManager : Singleton<UnitManager>
                 break;
         }
     }
-    public void UnitAvailable(AUnitClass unitProduced)
+    public void UnitRegistering(AUnitClass unitProduced)
     {
         NetworkManager.Instance.GetNetworkData(unitProduced.FactionObject).CurrentLoad += unitProduced.UnitData.NetworkCost;
 
