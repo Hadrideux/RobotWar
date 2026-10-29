@@ -4,14 +4,15 @@ using UnityEngine;
 public class RequisitionManager : Singleton<RequisitionManager>
 {
     #region ATTRIBUTS
-    [SerializeField] private RequisitionData playerRequisition = new RequisitionData();
-    [SerializeField] private RequisitionData IARequisition = new RequisitionData();
 
+    [Header("Requisition Controller")]
+    [SerializeField] private RequisitionData playerRequisition = new RequisitionData();    
+    [SerializeField] private RequisitionData IARequisition = new RequisitionData();
 
     #endregion  ATTRIBUTS
 
     #region PROPERTIES
-    #endregion
+    #endregion PROPERTIES
 
     #region EVENT
     #endregion EVENT

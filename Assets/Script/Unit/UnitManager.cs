@@ -5,9 +5,16 @@ using UnityEngine.Events;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    #region ATTRIBUTS
+
+    [Header("Active Unit")]
     [SerializeField] private List<AUnitClass> playerActiveUnits = new List<AUnitClass>();
+    [Space(2)]
     [SerializeField] private List<AUnitClass> iaActiveUnits = new List<AUnitClass>();
 
+    #endregion  ATTRIBUTS
+
+    #region PROPERTIES
     public List<AUnitClass> PlayerActiveUnits
     {
         get => playerActiveUnits;
@@ -16,10 +23,13 @@ public class UnitManager : Singleton<UnitManager>
     public List<AUnitClass> IAActiveUnits
     {
         get => iaActiveUnits;
-        set => iaActiveUnits  = value;
+        set => iaActiveUnits = value;
     }
 
+    #endregion PROPERTIES
+
     #region EVENTS
+
     private event Action<AUnitClass> onUnitDestroyed;
     public event Action<AUnitClass> OnUnitDestroyed
     {
@@ -47,6 +57,7 @@ public class UnitManager : Singleton<UnitManager>
             onUnitProduced -= value;
         }
     }
+
     #endregion EVENTS
 
     #region METHODES

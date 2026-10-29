@@ -6,12 +6,16 @@ using UnityEngine;
 public class IANetworkController : MonoBehaviour
 {
     #region ATTRIBUTS
+    [Header("Manager")]
+    [SerializeField] private UnitManager unitManager = null;
+    [Space(5)]
+    [Header("Data")]
     [ShowInInspector] private NetworkData network = null;
     [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
-
-    [SerializeField] private UnitManager unitManager = null;
-
+    [Space(5)]
+    [Header("Effect")]
     [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
+    
 
     #endregion ATTRIBUTS
 
@@ -43,7 +47,7 @@ public class IANetworkController : MonoBehaviour
         while (true)
         {
             HandleNetworkEffect(network.PercentLoad);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(NetworkManager.Instance.ProcInterval);
         }
     }
     #endregion ENUMERATOR

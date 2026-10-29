@@ -59,28 +59,15 @@ public class Assembly : ABuildClass
     #endregion ABSTRACT
     private void TryStartProduction()
     {
+        if (UnitAssembled == null)
+            return;
+
         if (UnitAssembled.UnitData.RequisitionCost <= requisitionFaction.RequisitionStock)
         {
             isProductionStart = true;
             requisitionFaction.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
             return;
         }
-        //switch (buildFaction)
-        //{
-        //    case EFactionType.ALLY:
-                
-        //        break;
-        //    case EFactionType.IA:
-        //        if (UnitAssembled.UnitData.RequisitionCost <= IARequsition.RequisitionStock)
-        //        {
-        //            IARequsition.RequisitionStock -= UnitAssembled.UnitData.RequisitionCost;
-        //            isProductionStart = true;
-        //            return;
-        //        }
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
     public void SpawnUnitProduction(AUnitClass spawnUnit)
     {

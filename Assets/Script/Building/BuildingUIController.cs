@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class BuildingUIController : MonoBehaviour
 {
-    [SerializeField] private SelectableManager selectableManager = null;
+    #region ATTRIBUTS
 
+    [Header("Manager")]
+    [SerializeField] private SelectableManager selectableManager = null;
+    [Space(5)]
     [Header("Factory UI")]
     [SerializeField] private GameObject assemblyUI = null;
     [SerializeField] private TMP_Text nameText = null;
@@ -15,10 +18,7 @@ public class BuildingUIController : MonoBehaviour
     [SerializeField] private TMP_Text productionCostText = null;
     [SerializeField] private Image assemblyProgress = null;
     [SerializeField] private Image unitAssembled = null;
-
-
-    [Header("Ressource UI")]
-    [SerializeField] private Canvas SupplyUI = null;
+    #endregion ATTRIBUTS
 
     #region MONO
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,6 +77,7 @@ public class BuildingUIController : MonoBehaviour
     }
     private void CloseBuildingUI()
     {
+        unitAssembled.sprite = null;
         assemblyUI.gameObject.SetActive(false);
     }
 
@@ -89,5 +90,6 @@ public class BuildingUIController : MonoBehaviour
             assembly.UnitAssembled = unit;
             unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
         }
+
     }
 }

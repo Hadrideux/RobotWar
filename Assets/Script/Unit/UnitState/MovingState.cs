@@ -25,7 +25,10 @@ public class MovingState : AUnitState
     }
     public override void Update(AUnitClass unit)
     {
-        if (!unit.NavMeshAgent.pathPending && unit.NavMeshAgent.remainingDistance <= unit.NavMeshAgent.stoppingDistance)
+        if (unit.NavMeshAgent.pathPending)
+            return;
+
+        if (unit.NavMeshAgent.remainingDistance <= unit.NavMeshAgent.stoppingDistance)
         {
             unit.ChangeState(new IdleState());
         }

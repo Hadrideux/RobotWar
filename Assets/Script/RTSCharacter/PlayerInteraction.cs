@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerInteraction : Singleton<PlayerInteraction>
 {
     #region ATTRIBUTS
-
+    [Header("Etat")]
     [SerializeField] private EPlayerState currentState = EPlayerState.NONE;
-
+    [Space(5)]
+    [Header("Mask interaction")]
     [SerializeField] private LayerMask interactionMask = new LayerMask();
     [SerializeField] private LayerMask orderMask = new LayerMask();
 
@@ -155,6 +157,9 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             switch (currentState)
             {
                 case EPlayerState.COMMAND:
@@ -192,7 +197,7 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetMouseButtonDown(2))
         {
             CancelPlayerAction();
         }
@@ -202,6 +207,9 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         if (Input.GetMouseButtonDown(1) && currentState == EPlayerState.COMMAND)
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             RaycastHit hit = GetMouseWorlPosition(orderMask);
 
             if (onExecuteOrder != null && hit.collider != null)

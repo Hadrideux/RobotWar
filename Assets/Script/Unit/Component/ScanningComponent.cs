@@ -44,6 +44,9 @@ public class ScanningComponent : MonoBehaviour
         {
             ITargetableObject scannedObject = col[i].gameObject.GetComponent<ITargetableObject>();
 
+            if(scannedObject == null) 
+                continue;
+
             if (scannedObject != unit as ITargetableObject)
             {
                 if(scannedObject.IsTargetable)

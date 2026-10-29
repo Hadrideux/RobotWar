@@ -7,11 +7,14 @@ public class NetworkController : MonoBehaviour
 {
 
     #region ATTRIBUTS
+    [Header("Manager")]
+    [SerializeField] private UnitManager unitManager = null;
+    [Space(5)]
+    [Header("Data")]
     [ShowInInspector] private NetworkData networkData = null;
     [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
-
-    [SerializeField] private UnitManager unitManager = null;
-
+    [Space(5)]
+    [Header("Effect")]
     [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
     [SerializeField] private float procInterval = 0.25f;
    
@@ -42,7 +45,7 @@ public class NetworkController : MonoBehaviour
         while (true)
         {
             HandleNetworkEffect(networkData.PercentLoad);
-            yield return new WaitForSeconds(procInterval);
+            yield return new WaitForSeconds(NetworkManager.Instance.ProcInterval);
         }
     }
     #endregion ENUMERATOR

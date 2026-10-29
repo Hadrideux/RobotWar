@@ -7,11 +7,13 @@ public class NetworkManager : Singleton<NetworkManager>
     [SerializeField] private NetworkEffectData[] networkEffect = null;
     [SerializeField] private NetworkData playerNetwork = new NetworkData();
     [SerializeField] private NetworkData IANetwork = new NetworkData();
+    [SerializeField] private float procInterval = 0.25f;
 
     #endregion ATTRIBUTS
 
     #region PROPERTIES
     public NetworkEffectData[] NetworkEffect => networkEffect;
+    public float ProcInterval => procInterval;
     #endregion PROPERTIES
 
     #region EVENTS

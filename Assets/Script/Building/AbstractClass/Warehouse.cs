@@ -22,17 +22,18 @@ public class Warehouse : ABuildClass
 
         playerInteraction = PlayerInteraction.Instance;
 
-        playerInteraction.OnConfirmPlacement += FindAndRegisterTower;
+        playerInteraction.OnConfirmPlacement += OnPlacemenConfirmed;
     }
 
     private void OnApplicationQuit()
     {
-        playerInteraction.OnConfirmPlacement -= FindAndRegisterTower;
+        playerInteraction.OnConfirmPlacement -= OnPlacemenConfirmed;
     }
 
     private void OnDestroy()
     {
         playerInteraction.OnConfirmPlacement -= OnPlacemenConfirmed;
+
 
         if (registeredTower != null)
             registeredTower.RemoveWarehouseBonus(requisitionBonus);
