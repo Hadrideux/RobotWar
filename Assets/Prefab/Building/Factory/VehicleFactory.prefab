@@ -57,8 +57,8 @@ Transform:
   m_GameObject: {fileID: 1936615687183252906}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 24.20174, y: 0.35280687, z: 5.05791}
-  m_LocalScale: {x: 25, y: 25, z: 1}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3032744611799858815}
@@ -122,6 +122,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &5816669932072171701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624219483408809137}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624219483408809137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5816669932072171701}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: -5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3032744611799858815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7944569213471026314
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +280,7 @@ Transform:
   m_Children:
   - {fileID: 4862759098512412608}
   - {fileID: 5963573775090796643}
+  - {fileID: 624219483408809137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &4403988784379402406
@@ -303,7 +335,7 @@ MonoBehaviour:
   requisitionFaction:
     requisitionStock: 0
   placeableComponent: {fileID: 207475432930593336}
-  selectionObject: {fileID: 7944569213471026314}
+  selectionObject: {fileID: 1936615687183252906}
   buildData: {fileID: 11400000, guid: 3e7d257d159fddf4bbb06c58befa7b31, type: 2}
   currentDurability: 0
   currentArmor: 0
@@ -311,11 +343,11 @@ MonoBehaviour:
   isTargetable: 1
   buildType: 2
   buildFaction: 1
-  unitAssembled: {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
+  unitAssembled: {fileID: 0}
   productionTime: 0
   isProductionEnabled: 1
   isProductionStart: 0
-  spawner: {fileID: 7599353631159498253}
+  spawner: {fileID: 624219483408809137}
   unitContainer: {fileID: 0}
 --- !u!114 &207475432930593336
 MonoBehaviour:

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7152800238912905990}
   - component: {fileID: 8077198578246762343}
   m_Layer: 5
-  m_Name: Assembly
+  m_Name: AssemblyUnitList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,10 +40,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 200, y: 135}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &5514159548978262993
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -133,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 2434612195494238227, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_Name
       value: BuildPanel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -289,6 +293,10 @@ PrefabInstance:
       value: BuildPanel (3)
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ProductionSelected
       objectReference: {fileID: 0}
@@ -443,6 +451,10 @@ PrefabInstance:
       value: BuildPanel (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ProductionSelected
       objectReference: {fileID: 0}
@@ -592,13 +604,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1698550568191707479, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5e8e9c42202f0604d9fa59f2efc9c386, type: 3}
     - target: {fileID: 2434612195494238227, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_Name
       value: BuildPanel
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ProductionSelected
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -627,6 +643,10 @@ PrefabInstance:
     - target: {fileID: 6274990291112716331, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7264380589721426145, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_text
+      value: Tank
       objectReference: {fileID: 0}
     - target: {fileID: 7264380589721426145, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_fontSize
@@ -749,6 +769,10 @@ PrefabInstance:
     - target: {fileID: 2434612195494238227, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_Name
       value: BuildPanel (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -903,6 +927,10 @@ PrefabInstance:
     - target: {fileID: 2434612195494238227, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_Name
       value: BuildPanel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4997272719575493761, guid: 015896cd09874cd40b81293ea05a6943, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName

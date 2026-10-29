@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6359582898733035232}
+  - component: {fileID: -7785280450853531213}
   - component: {fileID: 7294124772991462495}
+  - component: {fileID: 5809889431132345514}
   m_Layer: 0
-  m_Name: BuildUIController
+  m_Name: UIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,6 +34,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7785280450853531213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092908509093194431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc8d3d721db3fc4b866cf714eb92340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIController
 --- !u!114 &7294124772991462495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,4 +67,16 @@ MonoBehaviour:
   productionCostText: {fileID: 0}
   assemblyProgress: {fileID: 0}
   unitAssembled: {fileID: 0}
-  SupplyUI: {fileID: 0}
+--- !u!114 &5809889431132345514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092908509093194431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442d6dd80204a4b4dad2bd2eb3334ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RequisitionUIController
+  requisitionText: {fileID: 0}
