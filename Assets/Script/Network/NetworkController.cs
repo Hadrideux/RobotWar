@@ -15,9 +15,7 @@ public class NetworkController : MonoBehaviour
     [SerializeField] private EFactionType controllerFaction = EFactionType.NONE;
     [Space(5)]
     [Header("Effect")]
-    [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();
-    [SerializeField] private float procInterval = 0.25f;
-   
+    [SerializeReference] private Dictionary<NetworkEffectData, float> effectInCooldown = new Dictionary<NetworkEffectData, float>();   
     #endregion ATTRIBUTS
 
     #region METHODES

@@ -22,18 +22,21 @@ public class Warehouse : ABuildClass
 
         playerInteraction = PlayerInteraction.Instance;
 
-        playerInteraction.OnConfirmPlacement += OnPlacemenConfirmed;
+        playerInteraction.OnConfirmPlacement += FindAndRegisterTower;
+
+        if(placeableComponent.IsPlaced)
+            FindAndRegisterTower();
+
     }
 
     private void OnApplicationQuit()
     {
-        playerInteraction.OnConfirmPlacement -= OnPlacemenConfirmed;
+        playerInteraction.OnConfirmPlacement -= FindAndRegisterTower;
     }
 
     private void OnDestroy()
     {
-        playerInteraction.OnConfirmPlacement -= OnPlacemenConfirmed;
-
+        playerInteraction.OnConfirmPlacement -= FindAndRegisterTower;
 
         if (registeredTower != null)
             registeredTower.RemoveWarehouseBonus(requisitionBonus);
@@ -55,12 +58,6 @@ public class Warehouse : ABuildClass
     }
     #endregion ABSTRACT
 
-    private void OnPlacemenConfirmed()
-    {
-        FindAndRegisterTower();
-        playerInteraction.OnConfirmPlacement -= FindAndRegisterTower;
-    }
-
     private void FindAndRegisterTower()
     {
         Collider[] zoneColliders = Physics.OverlapSphere(transform.position, 0.5f, layerMask);
@@ -68,15 +65,16 @@ public class Warehouse : ABuildClass
         foreach (Collider col in zoneColliders)
         {
             SupplyTower tower = col.GetComponent<SupplyTower>();
+
             if (tower != null)
             {
                 registeredTower = tower;
                 registeredTower.AddWarehouseBonus(requisitionBonus);
+
+                playerInteraction.OnConfirmPlacement -= FindAndRegisterTower;
                 return;
             }
         }
-
-        Debug.LogWarning("Warehouse : aucune SupplyTower trouvée");
     }
 
 

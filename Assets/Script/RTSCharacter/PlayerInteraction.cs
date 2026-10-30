@@ -12,6 +12,8 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     [SerializeField] private LayerMask interactionMask = new LayerMask();
     [SerializeField] private LayerMask orderMask = new LayerMask();
 
+    [SerializeField] private bool isStartInWorld = false;
+
     #endregion ATTRIBUTS
 
     #region PROPERTIES
@@ -154,42 +156,48 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
     }
 
     private void PlayerInput()
-    {
+    {       
         if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject())
+            {
+                isStartInWorld = false;
                 return;
+            }
 
             switch (currentState)
             {
                 case EPlayerState.COMMAND:
+                    isStartInWorld = true;
+
                     if (onDragStarted != null)
                     {
                         onDragStarted(Input.mousePosition);
                     }
 
                     SelectionInput();
-
                     break;
                 case EPlayerState.CONSTURCTION:
+                    currentState = EPlayerState.COMMAND;
+                    isStartInWorld = false;
+
                     if (onConfirmPlacement != null)
                     {
                         onConfirmPlacement();
                     }
-                    currentState = EPlayerState.COMMAND;
                     break;
                 default:
                     break;
             }
         }
-        else if (Input.GetMouseButton(0) && currentState == EPlayerState.COMMAND)
+        else if (Input.GetMouseButton(0) && currentState == EPlayerState.COMMAND && isStartInWorld)
         {
             if (onDragUpdate != null)
             {
                 onDragUpdate(Input.mousePosition);
             }
         }
-        else if (Input.GetMouseButtonUp(0) && currentState == EPlayerState.COMMAND)
+        else if (Input.GetMouseButtonUp(0) && currentState == EPlayerState.COMMAND && isStartInWorld)
         {
             if (onDragReleased != null)
             {
@@ -208,7 +216,9 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
         if (Input.GetMouseButtonDown(1) && currentState == EPlayerState.COMMAND)
         {
             if (EventSystem.current.IsPointerOverGameObject())
+            {
                 return;
+            }
 
             RaycastHit hit = GetMouseWorlPosition(orderMask);
 
@@ -254,10 +264,13 @@ public class PlayerInteraction : Singleton<PlayerInteraction>
 
     private void CancelPlayerAction()
     {
+        currentState = EPlayerState.COMMAND;
+
         if (onCancelAction != null)
         {
             onCancelAction();
         }
+
     }
     #endregion METHODE
 }

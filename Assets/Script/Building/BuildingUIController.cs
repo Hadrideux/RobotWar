@@ -86,9 +86,12 @@ public class BuildingUIController : MonoBehaviour
         foreach (ISelectable selectable in selectableManager.SelectableObj)
         {
             Assembly assembly = selectable as Assembly;
-
-            assembly.UnitAssembled = unit;
-            unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
+            
+            if(assembly != null)
+            {
+                assembly.UnitAssembled = unit;
+                unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
+            }
         }
 
     }

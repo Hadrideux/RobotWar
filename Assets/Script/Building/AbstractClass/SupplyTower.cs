@@ -61,14 +61,14 @@ public class SupplyTower : ABuildClass
         requisitionFaction.RequisitionStock += requisitionRate;
     }
 
-    public void AddWarehouseBonus(int bonus)
+    public void AddWarehouseBonus(int value)
     {
-        requisitionRate += bonus;
+        requisitionRate += value;
     }
 
-    public void RemoveWarehouseBonus(int bonus)
+    public void RemoveWarehouseBonus(int value)
     {
-        requisitionRate -= bonus;
+        requisitionRate -= value;
     }
 
     public void ScanForCapture()
