@@ -1,6 +1,5 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class BuildingUIController : MonoBehaviour
 {
@@ -10,14 +9,7 @@ public class BuildingUIController : MonoBehaviour
     [SerializeField] private SelectableManager selectableManager = null;
     [Space(5)]
     [Header("Factory UI")]
-    [SerializeField] private GameObject assemblyUI = null;
-    [SerializeField] private TMP_Text nameText = null;
-    [SerializeField] private TMP_Text durabilityText = null;
-    [SerializeField] private TMP_Text armorText = null;
-    [SerializeField] private TMP_Text productionTimeText = null;
-    [SerializeField] private TMP_Text productionCostText = null;
-    [SerializeField] private Image assemblyProgress = null;
-    [SerializeField] private Image unitAssembled = null;
+    [SerializeField] private UIDocument buildingControlUI = null;
     #endregion ATTRIBUTS
 
     #region MONO
@@ -29,11 +21,6 @@ public class BuildingUIController : MonoBehaviour
         selectableManager.OnBuildingSelected += OpenBuildingUI;
         selectableManager.OnSelectionCleared += CloseBuildingUI;
         selectableManager.OnUnitSelected += CloseBuildingUI;
-
-        assemblyUI.SetActive(false);
-    }
-    private void Update()
-    {
     }
 
     private void OnDestroy()
@@ -50,35 +37,24 @@ public class BuildingUIController : MonoBehaviour
     }
     #endregion MONO
 
-
     private void OpenBuildingUI(ABuildClass build)
-    {
+    { 
         switch (build.BuildType)
         {
             case EBuildType.ASSEMBLY:
-                Assembly assembly = build as Assembly;
-                assemblyUI.gameObject.SetActive(true);
-
-                nameText.text = assembly.BuildData.BuildName;
-                durabilityText.text = "Durability: " + assembly.CurrentDurability.ToString();
-                armorText.text = "Armor: " + assembly.BuildData.Armor.ToString();
-
-                if (assembly.UnitAssembled != null)
-                {
-                    unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
-                }
-
+                buildingControlUI.enabled = true;
+                DisplayFactoryUI(build);
                 break;
             case EBuildType.SUPPLY:
                 break;
             default:
                 break;
         }
+
     }
     private void CloseBuildingUI()
     {
-        unitAssembled.sprite = null;
-        assemblyUI.gameObject.SetActive(false);
+        buildingControlUI.enabled = false;
     }
 
     public void AssemblyProductionSelect(AUnitClass unit)
@@ -90,9 +66,26 @@ public class BuildingUIController : MonoBehaviour
             if(assembly != null)
             {
                 assembly.UnitAssembled = unit;
-                unitAssembled.sprite = assembly.UnitAssembled.UnitData.UnitIcon;
             }
         }
 
+    }
+
+    private void DisplayFactoryUI(ABuildClass build)
+    {
+        Assembly assembly = build as Assembly;
+        VisualElement root = buildingControlUI.rootVisualElement.Q<VisualElement>("ControlPanel");
+
+        root.Q<Label>("BuildName").text = assembly.BuildData.BuildName;
+        root.Q<Label>("BuildDurability").text = assembly.CurrentDurability.ToString();
+        root.Q<Label>("BuildArmor").text = assembly.BuildData.Armor.ToString();
+
+        if (assembly.UnitAssembled != null)
+        {
+            root.Q<Image>("UnitProduct").sprite = assembly.UnitAssembled.UnitData.UnitIcon;
+            root.Q<Label>("ProductTime").text = assembly.UnitAssembled.UnitData.ProductionTime.ToString();
+            root.Q<Label>("ProductCost").text = assembly.UnitAssembled.UnitData.RequisitionCost.ToString();
+        }
+        //root.Q<ProgressBar>("TimeRemaining");
     }
 }

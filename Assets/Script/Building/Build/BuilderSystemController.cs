@@ -111,6 +111,7 @@ public class BuilderSystemController : MonoBehaviour
 
         if (CanBePlaced(objectToPlace))
         {
+            Debug.Log("Placed");
             objectToPlace.Place();
 
             Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());

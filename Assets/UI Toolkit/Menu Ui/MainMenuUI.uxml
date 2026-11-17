@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; font-size: 20px; justify-content: center; align-items: center; align-self: center; padding-top: 0; padding-right: 0; flex-direction: column; width: 100%; height: 100%; aspect-ratio: 1.777778;">
+        <ui:Label text="ROBOT WAR" enabled="true" tabindex="1" triple-click-selects-line="false" emoji-fallback-support="false" enable-rich-text="true" display-tooltip-when-elided="false" double-click-selects-word="false" name="Title" style="position: relative; -unity-text-align: middle-center; font-size: 64px; width: auto; height: auto; aspect-ratio: auto; -unity-text-outline-width: 0; color: rgb(243, 235, 235);"/>
+        <ui:Button text="Play Game" name="Start" style="width: 300px;"/>
+        <ui:Button text="Quit Game" name="Quit" style="width: 300px;"/>
+    </ui:VisualElement>
+</ui:UXML>

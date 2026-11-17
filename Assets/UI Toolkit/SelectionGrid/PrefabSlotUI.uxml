@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/UI_Grid.uss?fileID=7433441132597879392&amp;guid=e4658a1ecee0d614884c2436b8ee2995&amp;type=3#UI_Grid"/>
+    <ui:Button text="" icon-image="" picking-mode="Position" enable-rich-text="true" name="PrefabButton" selectable="false" focusable="false" class="slot" style="justify-content: center; align-items: center; align-self: auto; align-content: center;">
+        <ui:Image name="PrefabIcon" source="" picking-mode="Ignore" class="slot-icon" style="justify-content: center; align-content: center; align-self: center;"/>
+        <ui:Label text="" name="PrefabName" picking-mode="Ignore" selectable="false" focusable="false" style="justify-content: center; align-self: auto; align-content: auto;"/>
+    </ui:Button>
+</ui:UXML>
