@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "BuildData", menuName = "Scriptable Objects/BuildData")]
 public class BuildData : ScriptableObject
@@ -7,6 +8,7 @@ public class BuildData : ScriptableObject
 
     [Header("Build glodal info")]
     [SerializeField] private string buildName = "";
+    [SerializeField] private Sprite buildIcon = null;
     [SerializeField] private EBuildType buildType = EBuildType.NONE;
 
     [Header("Build spec info")]
@@ -15,7 +17,7 @@ public class BuildData : ScriptableObject
 
     [Header("Build production info")]
     [SerializeField] private float buildingTime = 0;
-    [SerializeField] private int buildingCost = 0;
+    [SerializeField] private int buildCost = 0;
 
 
 
@@ -51,8 +53,13 @@ public class BuildData : ScriptableObject
     }
     public int BuildingCost
     {
-        get => buildingCost;
-        set => buildingCost = value;
+        get => buildCost;
+        set => buildCost = value;
+    }
+    public Sprite BuildingIcon
+    {
+        get => buildIcon;
+        set => buildIcon = value;
     }
 
     #endregion PROPERTIES

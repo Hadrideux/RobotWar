@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Vehicle_Factory_SO
   m_EditorClassIdentifier: Assembly-CSharp::BuildData
   buildName: Vehicle Factory
+  buildIcon: {fileID: 1467771301, guid: c11ee8f21771b6741927e3515229e7ee, type: 3}
   buildType: 2
   maxDurability: 100
   armor: 15
   buildingTime: 0
-  buildingCost: 0
+  buildCost: 0

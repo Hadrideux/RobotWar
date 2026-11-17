@@ -1,0 +1,15 @@
+.slot-grid .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.slot {
+    width: 96px;
+    height: 96px;
+    margin: 4px;
+}
+
+.slot-icon {
+    width: 64px;
+    height: 64px;
+}

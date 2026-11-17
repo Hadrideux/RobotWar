@@ -1,0 +1,24 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/UI_Grid.uss?fileID=7433441132597879392&amp;guid=e4658a1ecee0d614884c2436b8ee2995&amp;type=3#UI_Grid"/>
+    <ui:VisualElement name="ControlPanel" picking-mode="Position" style="flex-grow: 1; align-items: stretch; position: absolute; bottom: 0; top: 0; right: auto; left: auto; background-color: rgb(241, 233, 233); width: 320px; height: 240px;">
+        <ui:Label text="BuildName" name="BuildName" picking-mode="Ignore" style="align-items: auto; justify-content: center; align-self: auto; -unity-text-align: middle-center; color: rgb(245, 237, 237); background-color: rgba(0, 0, 0, 0.96); background-position-x: center;"/>
+        <ui:VisualElement name="BuildStat" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-around; background-color: rgba(17, 16, 16, 0.87); color: rgb(243, 237, 237);">
+            <ui:VisualElement name="Durability" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: center;">
+                <ui:Label text="BuildDurability" name="BuildDurability" picking-mode="Ignore" style="-unity-text-align: middle-center;"/>
+                <ui:Image source="project://database/Assets/Asset/Icon/A%20lot%20of%20useful%20icons_03/png/icon_white/151.png?fileID=2800000&amp;guid=1c4702207b77c754a95569ef3e31fb3c&amp;type=3#151" name="DurabilityIcon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Armor" style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: center;">
+                <ui:Label text="BuildArmor" name="BuildArmor" picking-mode="Ignore" style="-unity-text-align: middle-center; align-items: auto;"/>
+                <ui:Image source="project://database/Assets/Asset/Icon/A%20lot%20of%20useful%20icons_03/png/icon_white/128.png?fileID=2800000&amp;guid=b701796625493214eb69dfaf210d2d4d&amp;type=3#128" name="ArmorIcon"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ProductionPanel" picking-mode="Ignore" style="flex-direction: row; justify-content: space-around; align-items: center;">
+            <ui:Image name="UnitProduct" source="project://database/Assets/Asset/Icon/usine2.png?fileID=1467771301&amp;guid=c11ee8f21771b6741927e3515229e7ee&amp;type=3#usine2_0" picking-mode="Ignore" class="slot-icon" style="justify-content: center; background-color: rgba(19, 18, 18, 0.84); width: 128px; height: 128px;"/>
+            <ui:VisualElement name="ProductionStat" picking-mode="Ignore" style="flex-grow: 1; justify-content: space-between; align-items: center; flex-direction: column;">
+                <ui:Label text="ProductionTime" name="ProductTime" picking-mode="Ignore"/>
+                <ui:Label text="ProductionCost" name="ProductCost" picking-mode="Ignore"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:ProgressBar value="22" title="TimeRemaining" name="TimeRemaining" picking-mode="Ignore" style="justify-content: center;"/>
+    </ui:VisualElement>
+</ui:UXML>
