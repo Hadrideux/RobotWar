@@ -15,19 +15,26 @@ public class GameManager : Singleton<GameManager>
 
     #region EVENTS
 
+    private event Action<EGameState> onGameStateChange = null;
+    public event Action<EGameState> OnGameStateChanged
+    {
+        add
+        {
+            onGameStateChange -= value;
+            onGameStateChange += value;
+        }
+        remove
+        {
+            onGameStateChange -= value;
+        }
+    }
+
     #endregion EVENTS
     #region METHODES
     #region MONO
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentGameState = EGameState.INMENU;
     }
 
     #endregion MONO
@@ -40,13 +47,37 @@ public class GameManager : Singleton<GameManager>
         {
             case EGameState.INMENU:
                 break;
+
             case EGameState.PLAY:
                 break;
+
             case EGameState.PAUSE:
                 break;
+
+            case EGameState.QUIT: 
+                break;
+
+            case EGameState.VICTORY: 
+                break;
+
+            case EGameState.DEFEAT: 
+                break;
+            
             default:
                 break;
         }
+    }
+
+    public void OnGameState(EGameState state)
+    {
+        currentGameState = state;
+
+        if (onGameStateChange != null)
+        {
+            onGameStateChange(state);
+        }
+
+        HandleGameState(state);
     }
     #endregion METHODES
 }
@@ -57,5 +88,8 @@ public enum EGameState
     INMENU,
     PLAY,
     PAUSE,
+    QUIT,
+    VICTORY,
+    DEFEAT,
 
 }

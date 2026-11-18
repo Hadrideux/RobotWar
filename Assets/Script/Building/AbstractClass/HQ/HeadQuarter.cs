@@ -38,7 +38,7 @@ public class HeadQuarter : ABuildClass
     #region ASBTRACT
     protected override void BuildDestroyed()
     {
-
+        ObjectiveManager.Instance.HQDestroyed(buildFaction);
     }
     #endregion ABSTRACT
 
