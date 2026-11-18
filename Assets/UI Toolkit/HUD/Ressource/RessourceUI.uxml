@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement name="NetworkInfo" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.59); flex-direction: row; justify-content: space-around;">
+            <ui:Image source="project://database/Assets/Asset/Icon/A%20lot%20of%20useful%20icons_03/png/icon_white/88.png?fileID=2800000&amp;guid=a8a82349c75c06144ac35098e7de4f36&amp;type=3#88" name="NetworkIcon" picking-mode="Ignore"/>
+            <RadialProgress track-color="rgb(255, 255, 255)" progress="0.5" name="NetworkLoad" picking-mode="Ignore" style="height: 75px; width: 75px; align-items: center; align-self: center; align-content: center; justify-content: center;">
+                <ui:Label text="Label" name="NetworkPercent" picking-mode="Ignore"/>
+            </RadialProgress>
+        </ui:VisualElement>
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgb(14, 121, 236);"/>
+        <ui:VisualElement name="RequisitionInfo" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; align-self: auto; align-content: center; align-items: center; justify-content: space-around; background-color: rgba(0, 0, 0, 0.59);">
+            <ui:Image source="project://database/Assets/Asset/Icon/A%20lot%20of%20useful%20icons_03/png/icon_white/60.png?fileID=2800000&amp;guid=b1914234e55f76a47a75299d1c083b2f&amp;type=3#60" name="RequisitonIcon" picking-mode="Ignore"/>
+            <ui:Label text="Label" name="RequisitionQuantity" picking-mode="Ignore" style="color: rgb(238, 224, 224); -unity-text-align: middle-center;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=4456449167576933126&amp;guid=acba1faeea1aa6542a013faf41b590b7&amp;type=3#console.erroricon" name="NetworkDanger" picking-mode="Ignore" style="width: 32px; height: 32px; position: absolute; top: 48px; left: 168px;"/>
+    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8228938214290033325&amp;guid=acba1faeea1aa6542a013faf41b590b7&amp;type=3#console.warnicon" name="NetworkWarning" picking-mode="Ignore" style="width: 32px; height: 32px; position: absolute; top: 48px; left: 168px;"/>
+</ui:UXML>

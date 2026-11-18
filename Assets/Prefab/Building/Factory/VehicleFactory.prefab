@@ -344,6 +344,8 @@ MonoBehaviour:
   buildType: 2
   buildFaction: 1
   unitAssembled: {fileID: 0}
+  unitProductibleList:
+  - {fileID: 3321667494560252547, guid: 9057f96dec998ad44975611f85fee537, type: 3}
   productionTime: 0
   isProductionEnabled: 1
   isProductionStart: 0

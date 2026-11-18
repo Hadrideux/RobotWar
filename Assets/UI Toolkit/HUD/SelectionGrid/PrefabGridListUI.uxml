@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/USS/UI_Grid.uss?fileID=7433441132597879392&amp;guid=e4658a1ecee0d614884c2436b8ee2995&amp;type=3#UI_Grid"/>
-    <ui:VisualElement name="BackGround" style="flex-grow: 0; left: 0; bottom: 0;">
-        <ui:ScrollView name="BuildGrid" class="slot-grid"/>
+    <ui:VisualElement name="BackGround" style="flex-grow: 0; left: 0; bottom: 0; position: absolute; top: 0; right: 0; background-color: rgb(238, 226, 226);">
+        <ui:ScrollView name="BuildGrid" class="slot-grid" style="position: absolute; align-items: auto;"/>
     </ui:VisualElement>
 </ui:UXML>

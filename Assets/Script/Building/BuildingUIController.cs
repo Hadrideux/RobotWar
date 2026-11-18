@@ -8,8 +8,8 @@ public class BuildingUIController : MonoBehaviour
     [Header("Manager")]
     [SerializeField] private SelectableManager selectableManager = null;
     [Space(5)]
-    [Header("Factory UI")]
-    [SerializeField] private UIDocument buildingControlUI = null;
+    [Header("HUD")]
+    [SerializeField] private UIDocument HUDInterface = null;
     #endregion ATTRIBUTS
 
     #region MONO
@@ -17,6 +17,8 @@ public class BuildingUIController : MonoBehaviour
     void Start()
     {
         selectableManager = SelectableManager.Instance;
+
+        CloseBuildingUI();
 
         selectableManager.OnBuildingSelected += OpenBuildingUI;
         selectableManager.OnSelectionCleared += CloseBuildingUI;
@@ -42,19 +44,21 @@ public class BuildingUIController : MonoBehaviour
         switch (build.BuildType)
         {
             case EBuildType.ASSEMBLY:
-                buildingControlUI.enabled = true;
+                HUDInterface.rootVisualElement.Q("BuildingControlUI").style.display = DisplayStyle.Flex;
                 DisplayFactoryUI(build);
                 break;
             case EBuildType.SUPPLY:
+                CloseBuildingUI();
                 break;
             default:
+                CloseBuildingUI();
                 break;
         }
 
     }
     private void CloseBuildingUI()
     {
-        buildingControlUI.enabled = false;
+        HUDInterface.rootVisualElement.Q("BuildingControlUI").style.display = DisplayStyle.None;
     }
 
     public void AssemblyProductionSelect(AUnitClass unit)
@@ -66,25 +70,25 @@ public class BuildingUIController : MonoBehaviour
             if(assembly != null)
             {
                 assembly.UnitAssembled = unit;
+                DisplayFactoryUI(assembly);
             }
         }
-
     }
 
     private void DisplayFactoryUI(ABuildClass build)
     {
         Assembly assembly = build as Assembly;
-        VisualElement root = buildingControlUI.rootVisualElement.Q<VisualElement>("ControlPanel");
+        VisualElement root = HUDInterface.rootVisualElement.Q<VisualElement>("ControlPanel");
 
         root.Q<Label>("BuildName").text = assembly.BuildData.BuildName;
-        root.Q<Label>("BuildDurability").text = assembly.CurrentDurability.ToString();
-        root.Q<Label>("BuildArmor").text = assembly.BuildData.Armor.ToString();
+        root.Q<Label>("BuildDurability").text = "Durability" + assembly.CurrentDurability.ToString();
+        root.Q<Label>("BuildArmor").text = "Armor" + assembly.BuildData.Armor.ToString();
 
         if (assembly.UnitAssembled != null)
         {
-            root.Q<Image>("UnitProduct").sprite = assembly.UnitAssembled.UnitData.UnitIcon;
-            root.Q<Label>("ProductTime").text = assembly.UnitAssembled.UnitData.ProductionTime.ToString();
-            root.Q<Label>("ProductCost").text = assembly.UnitAssembled.UnitData.RequisitionCost.ToString();
+            root.Q<Image>("UnitProduct").sprite =assembly.UnitAssembled.UnitData.UnitIcon;
+            root.Q<Label>("ProductTime").text = "Duration" + assembly.UnitAssembled.UnitData.ProductionTime.ToString();
+            root.Q<Label>("ProductCost").text = "Cost" + assembly.UnitAssembled.UnitData.RequisitionCost.ToString();
         }
         //root.Q<ProgressBar>("TimeRemaining");
     }

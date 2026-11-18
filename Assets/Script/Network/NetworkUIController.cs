@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class NetworkUIController : MonoBehaviour
 {
+    [Header("Manager")]
     [SerializeField] private NetworkManager networkManager = null;
-
-    [Header("Network Load UI")]
-    [SerializeField] private Image loadImage = null;
+    [Space(5)]
+    [Header("HUD")]
+    [SerializeField] private UIDocument HUDInterface = null;
 
     #region MONO
     // Start is called before the first frame update
@@ -16,7 +17,7 @@ public class NetworkUIController : MonoBehaviour
         networkManager = NetworkManager.Instance;
         networkManager.GetNetworkData(EFactionType.ALLY).OnLoadChange += UpdateNetworkLoad;
 
-        loadImage.fillAmount = 0;
+        HUDInterface.rootVisualElement.Q<RadialProgress>("NetworkLoad").Progress = 0;
     }
 
     private void OnDestroy()
@@ -31,6 +32,6 @@ public class NetworkUIController : MonoBehaviour
     #endregion MONO
     public void UpdateNetworkLoad(float loadValue)
     {
-        loadImage.fillAmount = Mathf.Clamp(loadValue, 0, 1);
+        HUDInterface.rootVisualElement.Q<RadialProgress>("NetworkLoad").Progress = loadValue;
     }
 }

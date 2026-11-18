@@ -4,6 +4,7 @@ public class Assembly : ABuildClass
 #region ATTRIBUTS
 
     [SerializeField] protected AUnitClass unitAssembled = null;
+    [SerializeField] protected AUnitClass[] unitProductibleList = null;
 
     [SerializeField] protected float productionTime = 0f;
 
@@ -20,6 +21,8 @@ public class Assembly : ABuildClass
         get => unitAssembled;
         set => unitAssembled = value;
     }
+
+    public AUnitClass[] UnitProductibleList => unitProductibleList;
 #endregion
 
 #region METHODE
